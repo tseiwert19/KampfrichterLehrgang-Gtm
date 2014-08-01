@@ -3,6 +3,11 @@ package src.main;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Dies ist nur ein prototyp
+ * @author Thomas
+ *
+ */
 public class Prototyp implements WindowListener {
 
   private static final int VIDFRAMECOUNT = 6;
