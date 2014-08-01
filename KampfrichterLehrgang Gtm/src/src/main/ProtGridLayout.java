@@ -3,6 +3,12 @@ package src.main;
 import java.awt.GridLayout;
 
 
+/**
+ * Layout des Prototypen
+ * 
+ * @author Thomas
+ *
+ */
 public class ProtGridLayout extends GridLayout {
 
 private static final int COLUMNCOUNT = 3;
