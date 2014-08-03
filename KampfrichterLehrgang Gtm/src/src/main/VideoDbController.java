@@ -53,7 +53,7 @@ public class VideoDbController
             connectToDb();
             try {
             Statement statement = connection.createStatement();
-            //statement.executeUpdate("DROP TABLE IF EXISTS videos;"); //TODO später entfernen!
+            statement.executeUpdate("DROP TABLE IF EXISTS videos;"); //TODO später entfernen!
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS videos (id INT PRIMARY KEY, "
 				        + "name VARCHAR(50) NOT NULL,"
 				        + "pfad VARCHAR(50) NOT NULL, "
