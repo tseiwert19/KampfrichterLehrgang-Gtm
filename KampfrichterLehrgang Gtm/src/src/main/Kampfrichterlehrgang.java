@@ -8,7 +8,7 @@ public class Kampfrichterlehrgang extends JFrame {
 
   private JFrame mainFrame;
 
-  private JPanel navigationPanel;
+  private NavigationPanel navigationPanel;
   private JPanel impressumPanel;
   private JPanel welcomePanel;
 
@@ -25,13 +25,14 @@ public class Kampfrichterlehrgang extends JFrame {
     mainFrame.setLayout(new BorderLayout());
 
     // insert navigationPanel to top
-    mainFrame.add(buildNavigationPanel(), BorderLayout.NORTH);
+    add(buildNavigationPanel(), BorderLayout.NORTH);
 
     // insert welcomePanel to center
-    mainFrame.add(buildWelcomePanel(), BorderLayout.CENTER);
+    add(buildWelcomePanel(), BorderLayout.CENTER);
 
     // insert impressumPanel to bottom
-    mainFrame.add(buildImpressumPanel(), BorderLayout.SOUTH);
+    add(buildImpressumPanel(), BorderLayout.SOUTH);
+
     setVisible(true);
   }
 
@@ -46,11 +47,12 @@ public class Kampfrichterlehrgang extends JFrame {
   private void changeToResult() {}
 
   /**
-   * Baut ein Navigations JPanel nach Vorlage einer noch anzufertigen Klasse
-   * und gibt dieses zurueck.
+   * Baut ein Navigations JPanel.
+   * Das Panel enthaelt ein Logo sowie einen Zurueck Button dessen Funktion
+   * mit dem in dieser Klasse definierten Stack implementiert wird.
    */
-  private JPanel buildNavigationPanel() {
-    navigationPanel = new JPanel();
+  private NavigationPanel buildNavigationPanel() {
+    navigationPanel = new NavigationPanel();
     return navigationPanel;
   }
 
