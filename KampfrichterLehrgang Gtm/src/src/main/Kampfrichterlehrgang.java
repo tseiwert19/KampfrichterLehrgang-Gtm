@@ -25,13 +25,14 @@ public class Kampfrichterlehrgang extends JFrame {
     mainFrame.setLayout(new BorderLayout());
 
     // insert navigationPanel to top
-    mainFrame.add(buildNavigationPanel(), BorderLayout.NORTH);
+    add(buildNavigationPanel(), BorderLayout.NORTH);
 
     // insert welcomePanel to center
-    mainFrame.add(buildWelcomePanel(), BorderLayout.CENTER);
+    add(buildWelcomePanel(), BorderLayout.CENTER);
 
     // insert impressumPanel to bottom
-    mainFrame.add(buildImpressumPanel(), BorderLayout.SOUTH);
+    add(buildImpressumPanel(), BorderLayout.SOUTH);
+
     setVisible(true);
   }
 
