@@ -10,7 +10,7 @@ public class Kampfrichterlehrgang extends JFrame {
 
   private NavigationPanel navigationPanel;
   private JPanel impressumPanel;
-  private JPanel welcomePanel;
+  private WelcomePanel welcomePanel;
 
   // Fuer die "Zurueck" Button funktionalitaet ist eine Stackloesung angedacht.
   private Stack<JPanel> backStack;
@@ -37,7 +37,7 @@ public class Kampfrichterlehrgang extends JFrame {
   }
 
   /**
-   * Wurzelfunktion zum wechseln des CenterPanels.
+   * Wurzelfunktion zum wechseln des CenterPanels
    * Beachte changeToVideo(), changeToWelcome() und changeToResult().
    */
   public void changeCenterPanel(String changeArg) {}
@@ -47,7 +47,7 @@ public class Kampfrichterlehrgang extends JFrame {
   private void changeToResult() {}
 
   /**
-   * Baut ein Navigations JPanel.
+   * Baut ein Navigations JPanel
    * Das Panel enthaelt ein Logo sowie einen Zurueck Button dessen Funktion
    * mit dem in dieser Klasse definierten Stack implementiert wird.
    */
@@ -66,11 +66,10 @@ public class Kampfrichterlehrgang extends JFrame {
   }
 
   /**
-   * Baut das Welcome JPanel nach Vorlage einer noch anzufertigen Klasse
-   * und gibt dieses zurueck.
+   * Baut das Welcome JPanel mit den 6 Geraete Buttons
    */
-  private JPanel buildWelcomePanel() {
-    welcomePanel = new JPanel();
+  private WelcomePanel buildWelcomePanel() {
+    welcomePanel = new WelcomePanel();
     return welcomePanel;
   }
 
