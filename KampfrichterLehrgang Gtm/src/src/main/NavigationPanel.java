@@ -13,15 +13,10 @@ public class NavigationPanel extends JPanel {
   private JPanel navigationP;
 
   public NavigationPanel () {
-    navigationP = new JPanel();
 
-    /* Alter...ich kann machen was ich will. Es werden keine Alignments
-     * beruecksichtigt. Genauso wird glaub ich das Layout Management
-     * voellig uebergangen. INVESTIGATE !
-     */
+    setLayout(new BorderLayout());
+
     JButton tempBackButton = new JButton("Back");
-    tempBackButton.setAlignmentX(JButton.LEFT_ALIGNMENT);
-    tempBackButton.setHorizontalAlignment(JLabel.LEFT);
     add(tempBackButton, BorderLayout.WEST);
 
     /* Bin ganz ehrlich hier, die Loesung is von Stackoverflow und ist
