@@ -1,7 +1,9 @@
 package src.main;
 
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.util.*;
 
 public class Kampfrichterlehrgang extends JFrame {
@@ -66,9 +68,14 @@ public class Kampfrichterlehrgang extends JFrame {
    */
   private JPanel buildImpressumPanel() {
     impressumPanel = new JPanel();
-    impressumPanel.setSize(300,200);
+	impressumPanel.setPreferredSize(new Dimension(80,50) );
+
+	JLabel cdptext = new JLabel("cdp");
+	cdptext.setForeground(Color.white);
+	impressumPanel.add(cdptext);
 
     impressumPanel.setBackground(Color.RED);
+    
     return impressumPanel;
   }
 

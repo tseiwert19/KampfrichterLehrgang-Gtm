@@ -27,7 +27,7 @@ public class NavigationPanel extends JPanel {
 					ZURUECK_LOGO));
 			JButton tempBackButton = new JButton(new ImageIcon(zurueck));
 			tempBackButton.setBackground(Color.WHITE);
-			tempBackButton.setPreferredSize(new Dimension(120, 90) );
+			tempBackButton.setPreferredSize(new Dimension(100, 70) );
 					add(tempBackButton, BorderLayout.WEST);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
