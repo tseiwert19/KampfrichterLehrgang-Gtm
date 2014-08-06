@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Kampfrichterlehrgang extends JFrame {
 
-  private static final String NAME = "Kampfrichter Lehrgang";
+  private static final String NAME = "KampfrichterLehrgang Gtm";
 
   private JFrame mainFrame;
 
@@ -19,13 +19,15 @@ public class Kampfrichterlehrgang extends JFrame {
 
   public Kampfrichterlehrgang () {
     backStack = new Stack<JPanel>();
-
+    
     // Weil mainFrame der TopLevel Container ist werden die methoden hier
     // weitergeleitet an das contentPane.
     // Steht im Oracle Java turorial zu Top-Level Containers
     mainFrame = new JFrame(NAME);
-    mainFrame.setLayout(new BorderLayout());
+    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    mainFrame.setSize(300,200);
+    mainFrame.setLocation(50,50);
     // insert navigationPanel to top
     add(buildNavigationPanel(), BorderLayout.NORTH);
 
@@ -64,6 +66,9 @@ public class Kampfrichterlehrgang extends JFrame {
    */
   private JPanel buildImpressumPanel() {
     impressumPanel = new JPanel();
+    impressumPanel.setSize(300,200);
+
+    impressumPanel.setBackground(Color.RED);
     return impressumPanel;
   }
 
