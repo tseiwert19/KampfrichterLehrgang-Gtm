@@ -55,9 +55,19 @@ public class Kampfrichterlehrgang extends JFrame {
 		getContentPane().add(buildWelcomePanel(), BorderLayout.CENTER);
 
 		// insert impressumPanel to bottom
-		getContentPane().add(buildImpressumPanel(), BorderLayout.SOUTH);
-		impressumPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel k = new JPanel();
 
+		k.add(buildImpressumPanel(), BorderLayout.NORTH);
+		
+	
+
+		JPanel l = new JPanel();
+		l.setForeground(Color.WHITE);
+		l.setPreferredSize(new Dimension(200,30));
+		k.add(l, BorderLayout.SOUTH);
+		
+		add(k, BorderLayout.SOUTH);
+		
 		setVisible(true);
 	}
 
@@ -92,8 +102,18 @@ public class Kampfrichterlehrgang extends JFrame {
 	 * und gibt dieses zurueck.
 	 */
 	private JPanel buildImpressumPanel() {
+		
+		JPanel m = new JPanel();
+		m.setBackground(Color.WHITE);
+		JLabel l = new JLabel();
+		m.add(l, BorderLayout.WEST);
+
 		impressumPanel = new ImpressumPanel();
-		return impressumPanel;
+
+		m.add(impressumPanel, BorderLayout.CENTER);
+		
+		add(m, BorderLayout.SOUTH);
+		return m;
 	}
 
 	/**

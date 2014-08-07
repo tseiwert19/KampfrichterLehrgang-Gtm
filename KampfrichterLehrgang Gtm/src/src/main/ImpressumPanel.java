@@ -13,14 +13,11 @@ public class ImpressumPanel extends JPanel {
 	private static final long serialVersionUID = -9115669597556271814L;
 
 	public ImpressumPanel() {
-		setPreferredSize(new Dimension(80, 50));
+		setPreferredSize(new Dimension(700, 50));
 
 		Color myRot = Color.decode("#b92d2e");
-		
-		
 		setBackground(myRot);
 
-		
 		JButton cdptext = new JButton(
 				"<html><a style='text-decoration:underline'>Code de Pointage</a></html>");
 		cdptext.setFont(new Font("Arial", Font.BOLD, 33));
