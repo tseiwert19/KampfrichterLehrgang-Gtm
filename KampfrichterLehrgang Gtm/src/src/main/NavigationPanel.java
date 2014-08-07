@@ -24,7 +24,7 @@ public class NavigationPanel extends JPanel {
 	private JPanel navigationPanel;
 
 	public NavigationPanel() {
-
+			    
 		setBackground(Color.WHITE);
 
 		setLayout(new BorderLayout());
@@ -59,10 +59,16 @@ public class NavigationPanel extends JPanel {
 			System.out.print(e);
 		}
 
+		JPanel m = new JPanel();
+		m.setBackground(Color.WHITE);
+		JLabel l = new JLabel();
+		m.add(l, BorderLayout.WEST);
+
 		JTextField sucheFeld = new SucheTextfeld();
-
-
-		add(sucheFeld, BorderLayout.SOUTH);
+		m.add(sucheFeld, BorderLayout.CENTER);
+		
+		add(m, BorderLayout.SOUTH);
+		
 		setVisible(true);
 	}
 }

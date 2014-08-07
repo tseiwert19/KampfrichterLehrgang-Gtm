@@ -23,10 +23,16 @@ public class Kampfrichterlehrgang extends JFrame {
 	private Stack<JPanel> backStack;
 
 	public Kampfrichterlehrgang() {
+		setBackground(Color.WHITE);
 		backStack = new Stack<JPanel>();
 
 		try {
 			UIManager.setLookAndFeel(curLF);
+
+			SwingUtilities.updateComponentTreeUI(this);
+
+			pack();
+			
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
@@ -43,13 +49,14 @@ public class Kampfrichterlehrgang extends JFrame {
 		setSize(900, 700);
 		setLocation(300, 100);
 		// insert navigationPanel to top
-		add(buildNavigationPanel(), BorderLayout.NORTH);
+		getContentPane().add(buildNavigationPanel(), BorderLayout.NORTH);
 
 		// insert welcomePanel to center
-		add(buildWelcomePanel(), BorderLayout.CENTER);
+		getContentPane().add(buildWelcomePanel(), BorderLayout.CENTER);
 
 		// insert impressumPanel to bottom
-		add(buildImpressumPanel(), BorderLayout.SOUTH);
+		getContentPane().add(buildImpressumPanel(), BorderLayout.SOUTH);
+		impressumPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		setVisible(true);
 	}
