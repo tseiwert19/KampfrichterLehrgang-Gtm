@@ -32,7 +32,7 @@ public class Kampfrichterlehrgang extends JFrame {
 			SwingUtilities.updateComponentTreeUI(this);
 
 			pack();
-			
+
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
@@ -56,18 +56,16 @@ public class Kampfrichterlehrgang extends JFrame {
 
 		// insert impressumPanel to bottom
 		JPanel k = new JPanel();
-
+		k.setBackground(Color.WHITE);
 		k.add(buildImpressumPanel(), BorderLayout.NORTH);
-		
-	
 
 		JPanel l = new JPanel();
-		l.setForeground(Color.WHITE);
-		l.setPreferredSize(new Dimension(200,30));
+		l.setBackground(Color.WHITE);
+		l.setPreferredSize(new Dimension(200, 30));
 		k.add(l, BorderLayout.SOUTH);
-		
+
 		add(k, BorderLayout.SOUTH);
-		
+
 		setVisible(true);
 	}
 
@@ -102,7 +100,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	 * und gibt dieses zurueck.
 	 */
 	private JPanel buildImpressumPanel() {
-		
+
 		JPanel m = new JPanel();
 		m.setBackground(Color.WHITE);
 		JLabel l = new JLabel();
@@ -111,7 +109,7 @@ public class Kampfrichterlehrgang extends JFrame {
 		impressumPanel = new ImpressumPanel();
 
 		m.add(impressumPanel, BorderLayout.CENTER);
-		
+
 		add(m, BorderLayout.SOUTH);
 		return m;
 	}

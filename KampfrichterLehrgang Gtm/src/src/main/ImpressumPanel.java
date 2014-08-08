@@ -18,12 +18,12 @@ public class ImpressumPanel extends JPanel {
 		Color myRot = Color.decode("#b92d2e");
 		setBackground(myRot);
 
-		JButton cdptext = new JButton(
-				"<html><a style='text-decoration:underline'>Code de Pointage</a></html>");
+		JButton cdptext = new KariButton();
+		cdptext.setText("<html><a style='text-decoration:underline'>Code de Pointage</a></html>");
 		cdptext.setFont(new Font("Arial", Font.BOLD, 33));
 		cdptext.setBorder(null);
 		cdptext.setForeground(Color.white);
-		
+
 		cdptext.setBackground(myRot);
 		cdptext.setBorderPainted(false);
 		cdptext.setOpaque(true);

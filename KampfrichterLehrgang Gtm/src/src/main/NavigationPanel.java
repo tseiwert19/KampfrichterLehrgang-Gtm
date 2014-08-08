@@ -32,9 +32,8 @@ public class NavigationPanel extends JPanel {
 		try {
 			BufferedImage zurueck = ImageIO.read(getClass().getResource(
 					ZURUECK_LOGO));
-			JButton tempBackButton = new JButton(new ImageIcon(zurueck));
-			tempBackButton.setBackground(Color.WHITE);
-			tempBackButton.setContentAreaFilled(false);
+			JButton tempBackButton = new KariButton();
+			tempBackButton.setIcon(new ImageIcon(zurueck));
             tempBackButton.setFocusPainted(false);
             tempBackButton.setBorder(BorderFactory.createEmptyBorder());
 			tempBackButton.setOpaque(false);

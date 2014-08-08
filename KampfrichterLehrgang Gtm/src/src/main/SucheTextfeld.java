@@ -1,9 +1,13 @@
 package src.main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Shape;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
@@ -12,10 +16,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class SucheTextfeld extends JTextField implements MouseListener {
+public class SucheTextfeld extends JTextField implements MouseListener,
+		KeyListener {
 
 	private static final long serialVersionUID = -575653543070324305L;
 
@@ -33,14 +39,18 @@ public class SucheTextfeld extends JTextField implements MouseListener {
 			BufferedImage lupe = ImageIO
 					.read(getClass().getResource(LUPE_LOGO));
 
-			JLabel label = new JLabel(new ImageIcon(lupe));
-			add(label, BorderLayout.EAST);
+			JButton lupeButton = new KariButton();
+			lupeButton.setIcon(new ImageIcon(lupe));
+			lupeButton.setPreferredSize(new Dimension(50, 40));
+
+			add(lupeButton, BorderLayout.EAST);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		addMouseListener(this);
+		addKeyListener(this);
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -70,6 +80,7 @@ public class SucheTextfeld extends JTextField implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		setToolTipText("<html>Geben sie hier bitte den Begriff ein nach, nach dem sie suchen wollen <br /><br /> Mit Enter startet die Suche </html>");
 	}
 
 	@Override
@@ -78,9 +89,30 @@ public class SucheTextfeld extends JTextField implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		if (getText().equals(STARTTEXT)) {
+			setText("");
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if (getText().equals(STARTTEXT)) {
+			setText("");
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent keyEvent) {
+		if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
+			System.out.println("ENTER key pressed");
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent keyEvent) {
+	}
+
+	@Override
+	public void keyTyped(KeyEvent keyEvent) {
 	}
 }
