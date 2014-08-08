@@ -22,8 +22,8 @@ public class WelcomePanel extends JPanel {
 	private static final String RINGE = "Ringe.png";
 	private static final String SPRUNG = "Sprung.png";
 
-	private static final String IMAGES[] = new String[] { BARREN, BODEN,
-			PAUSCHENPFERD, RECK, RINGE, SPRUNG };
+	private static final String IMAGES[] = new String[] { BODEN, PAUSCHENPFERD,
+			RINGE, SPRUNG, BARREN, RECK };
 
 	public WelcomePanel() {
 		GridLayout gridLayout = new GridLayout(2, 3);
@@ -46,9 +46,15 @@ public class WelcomePanel extends JPanel {
 				buttonImage = ImageIO.read(getClass().getResource(
 						RESOURCEPATH + IMAGES[indexIMAGES]));
 				buttonIcon = new ImageIcon(buttonImage);
-				geraeteButton[indexIMAGES] = new JButton("  "
+
+				BorderLayout borderLayout = new BorderLayout();
+				geraeteButton[indexIMAGES] = new JButton();
+				geraeteButton[indexIMAGES].setText("  "
 						+ IMAGES[indexIMAGES].substring(0,
-								IMAGES[indexIMAGES].length() - 4), buttonIcon);
+								IMAGES[indexIMAGES].length() - 4));
+				geraeteButton[indexIMAGES].setIcon(buttonIcon);
+				geraeteButton[indexIMAGES].setVerticalTextPosition(SwingConstants.BOTTOM);
+				geraeteButton[indexIMAGES].setHorizontalTextPosition(SwingConstants.CENTER);
 				geraeteButton[indexIMAGES].setFont(new Font("Arial",
 						Font.ITALIC, 25));
 
