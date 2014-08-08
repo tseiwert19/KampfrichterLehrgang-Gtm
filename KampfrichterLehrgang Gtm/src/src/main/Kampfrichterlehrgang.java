@@ -14,7 +14,7 @@ public class Kampfrichterlehrgang extends JFrame {
 
 	private NavigationPanel navigationPanel;
 	private JPanel impressumPanel;
-	private JPanel welcomePanel;
+	private WelcomePanel welcomePanel;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
 
@@ -39,15 +39,12 @@ public class Kampfrichterlehrgang extends JFrame {
 			e.printStackTrace();
 		}
 
-		// Weil mainFrame der TopLevel Container ist werden die methoden hier
-		// weitergeleitet an das contentPane.
-		// Steht im Oracle Java turorial zu Top-Level Containers
-
 		setTitle(NAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setSize(900, 700);
 		setLocation(300, 100);
+
 		// insert navigationPanel to top
 		getContentPane().add(buildNavigationPanel(), BorderLayout.NORTH);
 
@@ -118,8 +115,8 @@ public class Kampfrichterlehrgang extends JFrame {
 	 * Baut das Welcome JPanel nach Vorlage einer noch anzufertigen Klasse und
 	 * gibt dieses zurueck.
 	 */
-	private JPanel buildWelcomePanel() {
-		welcomePanel = new JPanel();
+	private WelcomePanel buildWelcomePanel() {
+		welcomePanel = new WelcomePanel();
 		return welcomePanel;
 	}
 
