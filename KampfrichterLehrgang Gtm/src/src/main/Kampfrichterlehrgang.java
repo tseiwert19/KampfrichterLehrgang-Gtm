@@ -14,7 +14,7 @@ public class Kampfrichterlehrgang extends JFrame {
 
 	private NavigationPanel navigationPanel;
 	private JPanel impressumPanel;
-	private JPanel welcomePanel;
+	private WelcomePanel welcomePanel;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
 
