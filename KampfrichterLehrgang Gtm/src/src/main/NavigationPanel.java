@@ -19,7 +19,7 @@ public class NavigationPanel extends JPanel {
 	// konvention
 	private static final String DTB_LOGO = "../../img/Logo/dtb-logo.jpg";
 //	private static final String ZURUECK_LOGO = "../../img/Logo/zurueck_button.png";
-	private static final String ZURUECK_LOGO = "../../img/Logo/rot_zurück.jpg";
+	private static final String ZURUECK_LOGO = "../../img/Logo/rot_zurueck.jpg";
 
 	private JPanel navigationPanel;
 

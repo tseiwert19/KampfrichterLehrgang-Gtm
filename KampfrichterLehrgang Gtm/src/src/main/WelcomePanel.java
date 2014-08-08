@@ -1,3 +1,5 @@
+package src.main;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.image.*;
