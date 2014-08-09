@@ -101,7 +101,7 @@ public class Kampfrichterlehrgang extends JFrame {
 		JPanel m = new JPanel();
 		m.setBackground(Color.WHITE);
 		JLabel l = new JLabel();
-		m.add(l, BorderLayout.WEST);
+		m.add(l, BorderLayout.EAST);
 
 		impressumPanel = new ImpressumPanel();
 

@@ -48,7 +48,7 @@ public class WelcomePanel extends JPanel {
 				buttonIcon = new ImageIcon(buttonImage);
 
 				BorderLayout borderLayout = new BorderLayout();
-				geraeteButton[indexIMAGES] = new JButton();
+				geraeteButton[indexIMAGES] = new KariButton();
 				geraeteButton[indexIMAGES].setText("  "
 						+ IMAGES[indexIMAGES].substring(0,
 								IMAGES[indexIMAGES].length() - 4));
