@@ -15,11 +15,11 @@ public class VideoParser {
 		public VideoParser(){
 			dbController = new DatenbankController();
 //dient nur zum Testen des ResultPanels
-//			dbController.addVideo(1, "Salto", "/videos/salto", "boden" ,"salto", 3, "Boden");
-//			dbController.addVideo(2, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
-//			dbController.addVideo(3, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
-//			dbController.addVideo(4, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
-//			dbController.addVideo(5, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
+			dbController.addVideo(1, "Salto", "/videos/salto", "boden" ,"salto", 3, "Boden");
+			dbController.addVideo(2, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
+			dbController.addVideo(3, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
+			dbController.addVideo(4, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
+			dbController.addVideo(5, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
 		}
 		
 		public ArrayList<Video> mappeVideosVonGeraet(String geraet){
@@ -51,11 +51,11 @@ public class VideoParser {
 				e.printStackTrace();
 			}
 //Dient nur zum Testen des ResultPanels
-//			dbController.deleteVideo(1);
-//			dbController.deleteVideo(2);
-//			dbController.deleteVideo(3);
-//			dbController.deleteVideo(4);
-//			dbController.deleteVideo(5);
+			dbController.deleteVideo(1);
+			dbController.deleteVideo(2);
+			dbController.deleteVideo(3);
+			dbController.deleteVideo(4);
+			dbController.deleteVideo(5);
 			
 			return videos;
 		}

@@ -1,11 +1,13 @@
 package src.main;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ImpressumPanel extends JPanel {
@@ -28,6 +30,14 @@ public class ImpressumPanel extends JPanel {
 		cdptext.setBorderPainted(false);
 		cdptext.setOpaque(true);
 
+		JPanel m = new JPanel();
+		m.setBackground(Color.WHITE);
+		JLabel l = new JLabel();
+		m.add(l, BorderLayout.WEST);
+		m.add(this);
+		
+		
+		
 		add(cdptext);
 	}
 }
