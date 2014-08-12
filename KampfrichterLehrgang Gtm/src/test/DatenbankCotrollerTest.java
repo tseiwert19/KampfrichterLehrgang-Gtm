@@ -10,23 +10,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import src.main.VideoDbController;
+import src.main.DatenbankController;
 
 /**
  * Testklasse fuer VideoDbController
  * @author michael
  *
  */
-public class VideoDbControllerTest {
-	private VideoDbController controller;
+public class DatenbankCotrollerTest {
+	private DatenbankController controller;
 	/**
 	 *Vor jedem Test wird ein Controller erstellt und es werden 2 Datensaetze in die Datenbank eingefuegt
 	 */
 	@Before
 	public void init(){
-		controller = new VideoDbController();
-		controller.addVideo(1, "Salto", "/videos/salto", "salto", 3, "Boden");
-		controller.addVideo(2, "Rolle", "/videos/rolle", "rolle", 1, "Boden");
+		controller = new DatenbankController();
+		controller.addVideo(1, "Salto", "/videos/salto", "boden" ,"salto", 3, "Boden");
+		controller.addVideo(2, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
 		
 	}
 	/**
