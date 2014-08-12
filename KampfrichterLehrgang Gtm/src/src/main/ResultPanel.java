@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Panel praesentiert die Videoergebnisse
@@ -29,6 +30,7 @@ public class ResultPanel extends JPanel {
 		setBackground(Color.WHITE);
 		GridLayout layout = new GridLayout(0, 3, 20, 20);
 		setLayout(layout);
+		setBorder(new EmptyBorder(20, 20, 20, 20));
 		createButtons(geraet);
 	}
 

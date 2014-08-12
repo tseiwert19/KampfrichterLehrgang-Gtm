@@ -99,8 +99,6 @@ public class Kampfrichterlehrgang extends JFrame {
 	private JPanel buildImpressumPanel() {
 
 		impressumPanel = new ImpressumPanel();
-
-
 		add(impressumPanel, BorderLayout.SOUTH);
 		return impressumPanel;
 	}
