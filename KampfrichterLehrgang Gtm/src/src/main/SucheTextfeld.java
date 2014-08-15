@@ -25,8 +25,6 @@ public class SucheTextfeld extends JTextField implements MouseListener,
 
 	private static final long serialVersionUID = -575653543070324305L;
 
-	private Shape shape;
-
 	private static final String STARTTEXT = "Nach Element suchen ... ";
 	private static final String LUPE_LOGO = "../../img/Logo/lupe.jpg";
 

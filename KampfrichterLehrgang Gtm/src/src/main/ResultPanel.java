@@ -58,7 +58,7 @@ public class ResultPanel extends JPanel {
 
 			newButton.setForeground(white);
 			newButton.setBackground(myRot);
-			newButton.setMinimumSize(minimumSize);
+			newButton.setPreferredSize(minimumSize);
 
 			add(newButton);
 
