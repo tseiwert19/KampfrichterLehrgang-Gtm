@@ -10,6 +10,8 @@ import java.util.*;
 
 public class Kampfrichterlehrgang extends JFrame {
 
+        // Das wird nicht immer in der Mitte sein
+        // dynamische Loesung suchen oder einigen
 	private static final String NAME = "                                                              "
 			+ "                                   "
 			+ "      KampfrichterLehrgang Gtm";
@@ -58,6 +60,7 @@ public class Kampfrichterlehrgang extends JFrame {
 
 		
 
+                Controller.setKampfrichterlehrgang(this);
 		setVisible(true);
 	}
 
@@ -84,6 +87,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	 */
 	private NavigationPanel buildNavigationPanel() {
 		navigationPanel = new NavigationPanel();
+                Controller.setNavigationPanel(navigationPanel);
 		return navigationPanel;
 	}
 
@@ -93,6 +97,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	 */
 	private JPanel buildImpressumPanel() {
                 impressumPanel = new ImpressumPanel();
+                Controller.setImpressumPanel(impressumPanel);
 		add(impressumPanel, BorderLayout.SOUTH);
 
                 JPanel k = new JPanel();
@@ -113,6 +118,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	 */
 	private WelcomePanel buildWelcomePanel() {
 		welcomePanel = new WelcomePanel();
+                Controller.setWelcomePanel(welcomePanel);
 		return welcomePanel;
 	}
 

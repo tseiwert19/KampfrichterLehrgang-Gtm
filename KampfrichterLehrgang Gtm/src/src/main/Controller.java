@@ -1,5 +1,10 @@
 package src.main;
 
+import src.main.panel.*;
+import src.main.videoplayer.*;
+import src.main.pdfviewer.*;
+
+// Bei getern Null ueberpruefung machen
 public class Controller {
 
   private static Kampfrichterlehrgang main;
@@ -21,6 +26,7 @@ public class Controller {
 
   public static void setKampfrichterlehrgang(Kampfrichterlehrgang k) {
     main = k;
+    System.out.println("wootwoot");
   }
 
   public static Kampfrichterlehrgang getKampfrichterlehrgang() {

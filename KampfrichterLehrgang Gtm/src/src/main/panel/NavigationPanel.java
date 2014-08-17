@@ -1,5 +1,7 @@
 package src.main.panel;
 
+import src.main.*;
+
 import java.awt.*;
 import java.awt.image.*;
 

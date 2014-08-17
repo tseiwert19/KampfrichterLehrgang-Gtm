@@ -1,4 +1,6 @@
-package src.main;
+package src.main.panel;
+
+import src.main.videoplayer.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
