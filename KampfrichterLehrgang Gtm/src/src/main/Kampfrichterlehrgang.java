@@ -1,5 +1,7 @@
 package src.main;
 
+import src.main.panel.*;
+
 import java.awt.*;
 
 import javax.swing.*;
@@ -13,7 +15,7 @@ public class Kampfrichterlehrgang extends JFrame {
 			+ "      KampfrichterLehrgang Gtm";
 
 	private NavigationPanel navigationPanel;
-	private JPanel impressumPanel;
+	private ImpressumPanel impressumPanel;
 	private WelcomePanel welcomePanel;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
@@ -52,16 +54,9 @@ public class Kampfrichterlehrgang extends JFrame {
 		getContentPane().add(buildWelcomePanel(), BorderLayout.CENTER);
 
 		// insert impressumPanel to bottom
-		JPanel k = new JPanel();
-		k.setBackground(Color.WHITE);
-		k.add(buildImpressumPanel(), BorderLayout.NORTH);
+                getContentPane().add(buildImpressumPanel(), BorderLayout.SOUTH);
 
-		JPanel l = new JPanel();
-		l.setBackground(Color.WHITE);
-		l.setPreferredSize(new Dimension(200, 30));
-		k.add(l, BorderLayout.SOUTH);
-
-		add(k, BorderLayout.SOUTH);
+		
 
 		setVisible(true);
 	}
@@ -97,10 +92,19 @@ public class Kampfrichterlehrgang extends JFrame {
 	 * und gibt dieses zurueck.
 	 */
 	private JPanel buildImpressumPanel() {
-
-		impressumPanel = new ImpressumPanel();
+                impressumPanel = new ImpressumPanel();
 		add(impressumPanel, BorderLayout.SOUTH);
-		return impressumPanel;
+
+                JPanel k = new JPanel();
+		k.setBackground(Color.WHITE);
+		k.add(impressumPanel, BorderLayout.NORTH);
+
+		JPanel l = new JPanel();
+		l.setBackground(Color.WHITE);
+		l.setPreferredSize(new Dimension(200, 30));
+		k.add(l, BorderLayout.SOUTH);
+
+                return k;
 	}
 
 	/**

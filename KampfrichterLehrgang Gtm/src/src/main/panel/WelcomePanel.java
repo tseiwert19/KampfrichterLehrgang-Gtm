@@ -1,4 +1,4 @@
-package src.main;
+package src.main.panel;
 
 import java.awt.*;
 
@@ -14,7 +14,7 @@ import java.io.*;
 public class WelcomePanel extends JPanel {
 
 	// getClass().getResource() beachten !!!
-	private static final String RESOURCEPATH = "../../img/GeraeteLogos/";
+	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
 	private static final String BARREN = "Barren.png";
 	private static final String BODEN = "Boden.png";
 	private static final String PAUSCHENPFERD = "Pauschenpferd.png";

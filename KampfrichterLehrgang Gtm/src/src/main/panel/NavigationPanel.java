@@ -1,4 +1,4 @@
-package src.main;
+package src.main.panel;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -17,9 +17,9 @@ public class NavigationPanel extends JPanel {
 	// Der RESOURCEPATH sollte noch geaendert werden nach noch zu
 	// beschliessender
 	// konvention
-	private static final String DTB_LOGO = "../../img/Logo/dtb-logo.jpg";
+	private static final String DTB_LOGO = "../../../img/Logo/dtb-logo.jpg";
 //	private static final String ZURUECK_LOGO = "../../img/Logo/zurueck_button.png";
-	private static final String ZURUECK_LOGO = "../../img/Logo/rot_zurueck.jpg";
+	private static final String ZURUECK_LOGO = "../../../img/Logo/rot_zurueck.jpg";
 
 	private JPanel navigationPanel;
 
