@@ -15,12 +15,13 @@ public class WelcomePanel extends JPanel {
 
 	// getClass().getResource() beachten !!!
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
-	private static final String BARREN = "Barren.png";
-	private static final String BODEN = "Boden.png";
-	private static final String PAUSCHENPFERD = "Pauschenpferd.png";
-	private static final String RECK = "Reck.png";
-	private static final String RINGE = "Ringe.png";
-	private static final String SPRUNG = "Sprung.png";
+	private static final String BARREN = "Barren";
+	private static final String BODEN = "Boden";
+	private static final String PAUSCHENPFERD = "Pauschenpferd";
+	private static final String RECK = "Reck";
+	private static final String RINGE = "Ringe";
+	private static final String SPRUNG = "Sprung";
+        private static final String FILESUFFIX = ".png";
 
 	private static final String IMAGES[] = new String[] { BODEN, PAUSCHENPFERD,
 			RINGE, SPRUNG, BARREN, RECK };
@@ -44,14 +45,12 @@ public class WelcomePanel extends JPanel {
 			while (indexIMAGES <= (IMAGES.length - 1)) {
 				System.out.println(indexIMAGES);
 				buttonImage = ImageIO.read(getClass().getResource(
-						RESOURCEPATH + IMAGES[indexIMAGES]));
+						RESOURCEPATH + IMAGES[indexIMAGES] + FILESUFFIX));
 				buttonIcon = new ImageIcon(buttonImage);
 
 				BorderLayout borderLayout = new BorderLayout();
 				geraeteButton[indexIMAGES] = new KariButton();
-				geraeteButton[indexIMAGES].setText("  "
-						+ IMAGES[indexIMAGES].substring(0,
-								IMAGES[indexIMAGES].length() - 4));
+				geraeteButton[indexIMAGES].setText(IMAGES[indexIMAGES]);
 				geraeteButton[indexIMAGES].setIcon(buttonIcon);
 				geraeteButton[indexIMAGES].setVerticalTextPosition(SwingConstants.BOTTOM);
 				geraeteButton[indexIMAGES].setHorizontalTextPosition(SwingConstants.CENTER);
@@ -62,6 +61,9 @@ public class WelcomePanel extends JPanel {
 
 				geraeteButton[indexIMAGES].setBackground(myRot);
 				geraeteButton[indexIMAGES].setForeground(Color.WHITE);
+
+                                geraeteButton[indexIMAGES].setActionCommand(IMAGES[indexIMAGES]);
+                                System.out.println(geraeteButton[indexIMAGES].getActionCommand());
 
 				add(geraeteButton[indexIMAGES]);
 				indexIMAGES++;

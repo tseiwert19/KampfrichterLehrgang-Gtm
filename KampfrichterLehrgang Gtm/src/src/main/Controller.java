@@ -15,6 +15,8 @@ public class Controller {
   private static WelcomePanel welcpan;
   private static NavigationPanel navpan;
 
+  private static WelcomeActionListener welcAction;
+
   private static MediaPlayer player;
   private static Video video;
   private static VideoParser vidparser;
@@ -26,7 +28,6 @@ public class Controller {
 
   public static void setKampfrichterlehrgang(Kampfrichterlehrgang k) {
     main = k;
-    System.out.println("wootwoot");
   }
 
   public static Kampfrichterlehrgang getKampfrichterlehrgang() {
@@ -87,5 +88,13 @@ public class Controller {
 
   public static PDFViewer getPDFViewer () {
     return pdfviewer;
+  }
+
+  public static void setWelcomeActionListener (WelcomeActionListener wal) {
+    welcAction = wal;
+  }
+
+  public static WelcomeActionListener getWelcomeActionListener () {
+    return welcAction;
   }
 }
