@@ -1,5 +1,7 @@
 
-package src.main;
+package src.main.videoplayer;
+
+import src.main.*;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

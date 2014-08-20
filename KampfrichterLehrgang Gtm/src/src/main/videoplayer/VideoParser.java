@@ -1,4 +1,6 @@
-package src.main;
+package src.main.videoplayer;
+
+import src.main.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
