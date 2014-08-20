@@ -1,32 +1,18 @@
-/*
- * file:///tmp/vlcj-3.0.1/javadoc/uk/co/caprica/vlcj/discovery/NativeDiscovery.html
- * oder
- * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/quickstart/Example2.java
- * http://www.capricasoftware.co.uk/projects/vlcj/faq.html
- * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/discovery/NativeDiscoveryTest.java
- */
-
-
 
 package src.main;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
 
-import com.sun.jna.NativeLibrary;
-import uk.co.caprica.vlcj.binding.LibVlcConst;
-//import uk.co.caprica.vlcj.filter.swing.SwingFileFilterFactory;
-//import uk.co.caprica.vlcj.player.MediaPlayer;
-//import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
-//import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+
+import com.sun.jna.NativeLibrary;
 
 public class MediaPlayer
 {

@@ -1,12 +1,16 @@
 package src.main;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Stack;
 
-import javax.swing.*;
-
-import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Kampfrichterlehrgang extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final String NAME = "                                                              "
 			+ "                                   "
@@ -20,6 +24,7 @@ public class Kampfrichterlehrgang extends JFrame {
 
 	// Fuer die "Zurueck" Button funktionalitaet ist eine Stackloesung
 	// angedacht.
+	@SuppressWarnings("unused")
 	private Stack<JPanel> backStack;
 
 	public Kampfrichterlehrgang() {
@@ -60,12 +65,15 @@ public class Kampfrichterlehrgang extends JFrame {
 	public void changeCenterPanel(String changeArg) {
 	}
 
+	@SuppressWarnings("unused")
 	private void changeToVideo() {
 	}
 
+	@SuppressWarnings("unused")
 	private void changeToWelcome() {
 	}
 
+	@SuppressWarnings("unused")
 	private void changeToResult() {
 	}
 
@@ -100,6 +108,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
 	public static void main(String args[]) {
+		@SuppressWarnings("unused")
 		Kampfrichterlehrgang k = new Kampfrichterlehrgang();
 	}
 }
