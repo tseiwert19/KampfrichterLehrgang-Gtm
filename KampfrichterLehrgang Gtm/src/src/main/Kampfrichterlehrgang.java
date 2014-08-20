@@ -26,23 +26,11 @@ public class Kampfrichterlehrgang extends JFrame {
 		setBackground(Color.WHITE);
 		backStack = new Stack<JPanel>();
 
-		try {
-			UIManager.setLookAndFeel(curLF);
-
-			SwingUtilities.updateComponentTreeUI(this);
-
-			pack();
-
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		setTitle(NAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setSize(900, 700);
+		setMinimumSize(new Dimension(900,700));
 		setLocation(300, 100);
 
 		// insert navigationPanel to top

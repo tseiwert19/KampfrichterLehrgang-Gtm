@@ -34,25 +34,24 @@ public class ImpressumPanel extends JPanel implements ActionListener {
 		cdptext.setBackground(myRot);
 		cdptext.setBorderPainted(false);
 		cdptext.setOpaque(true);
-cdptext.addActionListener(this);
+		cdptext.addActionListener(this);
 		JPanel m = new JPanel();
 		m.setBackground(Color.WHITE);
 		JLabel l = new JLabel();
 		m.add(l, BorderLayout.WEST);
 		m.add(this);
-		
-		
-		
+
 		add(cdptext);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-try {
-	Desktop.getDesktop().open(new File("src/pdf/CDP_2013_GER_ENG_RUS_v2.pdf"));
-} catch (IOException e1) {
-	// TODO Auto-generated catch block
-	e1.printStackTrace();
-}		
+		try {
+			Desktop.getDesktop().open(
+					new File("src/pdf/CDP_2013_GER_ENG_RUS_v2.pdf"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

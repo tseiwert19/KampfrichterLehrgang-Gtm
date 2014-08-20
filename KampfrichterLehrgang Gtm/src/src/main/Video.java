@@ -54,6 +54,22 @@ public class Video {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((beschreibung == null) ? 0 : beschreibung.hashCode());
+		result = prime * result
+				+ ((elementgruppe == null) ? 0 : elementgruppe.hashCode());
+		result = prime * result + ((geraet == null) ? 0 : geraet.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((pfad == null) ? 0 : pfad.hashCode());
+		result = prime * result + schwierigkeitsgrad;
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -62,11 +78,39 @@ public class Video {
 		if (getClass() != obj.getClass())
 			return false;
 		Video other = (Video) obj;
+		if (beschreibung == null) {
+			if (other.beschreibung != null)
+				return false;
+		} else if (!beschreibung.equals(other.beschreibung))
+			return false;
+		if (elementgruppe == null) {
+			if (other.elementgruppe != null)
+				return false;
+		} else if (!elementgruppe.equals(other.elementgruppe))
+			return false;
+		if (geraet == null) {
+			if (other.geraet != null)
+				return false;
+		} else if (!geraet.equals(other.geraet))
+			return false;
 		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (pfad == null) {
+			if (other.pfad != null)
+				return false;
+		} else if (!pfad.equals(other.pfad))
+			return false;
+		if (schwierigkeitsgrad != other.schwierigkeitsgrad)
 			return false;
 		return true;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Video [id=" + id + ", name=" + name + ", pfad=" + pfad
