@@ -46,7 +46,6 @@ public class Kampfrichterlehrgang extends JFrame {
 
 		JPanel l = new JPanel();
 		l.setBackground(Color.WHITE);
-		l.setPreferredSize(new Dimension(200, 30));
 		k.add(l, BorderLayout.SOUTH);
 
 		add(k, BorderLayout.SOUTH);
