@@ -29,6 +29,10 @@ public class ResultPanel extends JPanel {
 	 *            Videos von diesem Geraetetyp werden dargestellt
 	 */
 	public ResultPanel(String geraet) {
+                // Reimsbach, ueberpruef mal ob dieser cast zum lowerCase notwendig ist
+                geraet = geraet.toLowerCase();
+                //Debug
+                System.out.println("Create ResultPanel with command: " + geraet);
 		setBackground(Color.WHITE);
 		GridLayout layout = new GridLayout(0, 3, 20, 20);
 		setLayout(layout);

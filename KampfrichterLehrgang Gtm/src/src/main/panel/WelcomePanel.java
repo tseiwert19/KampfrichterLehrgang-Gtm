@@ -1,5 +1,7 @@
 package src.main.panel;
 
+import src.main.*;
+
 import java.awt.*;
 
 import javax.swing.*;
@@ -39,7 +41,7 @@ public class WelcomePanel extends JPanel {
 		try {
 			BufferedImage buttonImage;
 			Icon buttonIcon;
-			JButton[] geraeteButton = new JButton[IMAGES.length];
+                        KariButton newGeraeteButton;
 			int indexIMAGES = 0;
 
 			while (indexIMAGES <= (IMAGES.length - 1)) {
@@ -49,23 +51,23 @@ public class WelcomePanel extends JPanel {
 				buttonIcon = new ImageIcon(buttonImage);
 
 				BorderLayout borderLayout = new BorderLayout();
-				geraeteButton[indexIMAGES] = new KariButton();
-				geraeteButton[indexIMAGES].setText(IMAGES[indexIMAGES]);
-				geraeteButton[indexIMAGES].setIcon(buttonIcon);
-				geraeteButton[indexIMAGES].setVerticalTextPosition(SwingConstants.BOTTOM);
-				geraeteButton[indexIMAGES].setHorizontalTextPosition(SwingConstants.CENTER);
-				geraeteButton[indexIMAGES].setFont(new Font("Arial",
+
+				newGeraeteButton = Controller.getWelcomeActionListener().getButton();
+				newGeraeteButton.setText(IMAGES[indexIMAGES]);
+				newGeraeteButton.setIcon(buttonIcon);
+				newGeraeteButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+				newGeraeteButton.setHorizontalTextPosition(SwingConstants.CENTER);
+				newGeraeteButton.setFont(new Font("Arial",
 						Font.ITALIC, 25));
 
 				Color myRot = Color.decode("#b92d2e");
 
-				geraeteButton[indexIMAGES].setBackground(myRot);
-				geraeteButton[indexIMAGES].setForeground(Color.WHITE);
+				newGeraeteButton.setBackground(myRot);
+				newGeraeteButton.setForeground(Color.WHITE);
 
-                                geraeteButton[indexIMAGES].setActionCommand(IMAGES[indexIMAGES]);
-                                System.out.println(geraeteButton[indexIMAGES].getActionCommand());
+                                newGeraeteButton.setActionCommand(IMAGES[indexIMAGES]);
 
-				add(geraeteButton[indexIMAGES]);
+				add(newGeraeteButton);
 				indexIMAGES++;
 			}
 		} catch (Exception e) {

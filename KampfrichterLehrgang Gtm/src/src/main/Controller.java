@@ -4,7 +4,13 @@ import src.main.panel.*;
 import src.main.videoplayer.*;
 import src.main.pdfviewer.*;
 
-// Bei getern Null ueberpruefung machen
+//TODO Alles auf NULL ueberpruefen
+/**
+ * Dieser Controller beinhaltet alle Laufenden Objekte der 
+ * Kampfrichterlehrgangssoftware im Betrieb. Jedes Objekt muss sich bei dem
+ * Controller anmelden damit darauf zugegriffen werden kann. Dient der 
+ * vereinfachung der Kommunikation unter den Objekten.
+ */
 public class Controller {
 
   private static Kampfrichterlehrgang main;

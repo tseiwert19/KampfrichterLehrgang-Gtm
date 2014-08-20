@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Kampfrichterlehrgang extends JFrame {
 
-        // Das wird nicht immer in der Mitte sein
+        // TODO Das wird nicht immer in der Mitte sein
         // dynamische Loesung suchen oder einigen
 	private static final String NAME = "                                                              "
 			+ "                                   "
@@ -19,6 +19,9 @@ public class Kampfrichterlehrgang extends JFrame {
 	private NavigationPanel navigationPanel;
 	private ImpressumPanel impressumPanel;
 	private WelcomePanel welcomePanel;
+        private ResultPanel resultPanel;
+
+        private WelcomeActionListener welcomeActionListener;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
 
@@ -64,21 +67,40 @@ public class Kampfrichterlehrgang extends JFrame {
 		setVisible(true);
 	}
 
-	/**
-	 * Wurzelfunktion zum wechseln des CenterPanels. Beachte changeToVideo(),
-	 * changeToWelcome() und changeToResult().
-	 */
-	public void changeCenterPanel(String changeArg) {
+        // Angedacht fall noch ein Home Button eingebaut wird
+	public void changeToWelcome() {
 	}
 
-	private void changeToVideo() {
+        /**
+         * Wechselt auf das ein uebergebenes, vorher erzeugtes ResultPanel.
+         */
+	public void changeToResult(String search) {
+          // Debug
+          System.out.println("Start creating ResultPanel: " + search);
+          resultPanel = new ResultPanel(search);
+          Controller.setResultPanel(resultPanel);
+          changeCenterPanel(resultPanel);
 	}
 
-	private void changeToWelcome() {
-	}
+        /**
+         * TODO Diese Methode funktioniert bisher NUR mit dem resultpanel.
+         * um die Funktion zu erweitern muss man irgendwie nen generic
+         * uebergeben und es dann nach einem kriterium casten.
+         * Alternativ muss man mehrfach den gleichen code mit verschiedenem
+         * uebergabeparameter schreiben.
+         * Beachte dass dann auch das zu entfernende Panel dynamisch
+         * gefunden werden muss.
+         */
+        private void changeCenterPanel(ResultPanel resultPanel) {
+          //Debug
+          System.out.println("Changing center panel.");
+          this.getContentPane().remove(welcomePanel);
+          this.getContentPane().add(resultPanel, BorderLayout.CENTER);
+          this.getContentPane().validate();
+          this.getContentPane().repaint();
+        }
 
-	private void changeToResult() {
-	}
+          
 
 	/**
 	 * Baut ein Navigations JPanel. Das Panel enthaelt ein Logo sowie einen
@@ -92,7 +114,8 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
 	/**
-	 * Baut eine Impressums JPanel nach VOrlage einer noch anzufertigen Klasse
+	 * TODO Text aktualisieren
+         * Baut eine Impressums JPanel nach VOrlage einer noch anzufertigen Klasse
 	 * und gibt dieses zurueck.
 	 */
 	private JPanel buildImpressumPanel() {
@@ -113,12 +136,17 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
 	/**
+         * TODO Text Aktualisieren
 	 * Baut das Welcome JPanel nach Vorlage einer noch anzufertigen Klasse und
 	 * gibt dieses zurueck.
 	 */
 	private WelcomePanel buildWelcomePanel() {
+                welcomeActionListener = new WelcomeActionListener();
+                Controller.setWelcomeActionListener(welcomeActionListener);
+
 		welcomePanel = new WelcomePanel();
                 Controller.setWelcomePanel(welcomePanel);
+
 		return welcomePanel;
 	}
 
