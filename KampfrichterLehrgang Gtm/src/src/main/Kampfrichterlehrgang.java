@@ -61,7 +61,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
         // Angedacht fall noch ein Home Button eingebaut wird
-        @SupressWarnings("unused")
+        @SuppressWarnings("unused")
 	public void changeToWelcome() {
 	}
 

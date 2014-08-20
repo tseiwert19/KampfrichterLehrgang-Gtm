@@ -27,8 +27,6 @@ public class WelcomeActionListener implements ActionListener {
    */
   public void actionPerformed (ActionEvent e) {
     String command = e.getActionCommand();
-    // System.out ist fuer DebugZwecke
-    System.out.println(command);
 
     switch (command) {
       case "Barren":

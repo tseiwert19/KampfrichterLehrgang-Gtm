@@ -32,7 +32,7 @@ public class ResultPanel extends JPanel {
                 // Reimsbach, ueberpruef mal ob dieser cast zum lowerCase notwendig ist
                 geraet = geraet.toLowerCase();
                 //Debug
-                System.out.println("Create ResultPanel with command: " + geraet);
+                System.out.println("Create ResultPanel with database search word: " + geraet);
 		setBackground(Color.WHITE);
 		GridLayout layout = new GridLayout(0, 3, 20, 20);
 		setLayout(layout);

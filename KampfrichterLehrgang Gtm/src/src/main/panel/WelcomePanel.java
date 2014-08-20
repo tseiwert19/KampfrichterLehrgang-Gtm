@@ -1,21 +1,23 @@
 package src.main.panel;
 
 import src.main.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.awt.BorderLayout;
 
-import java.awt.*;
-
-import javax.swing.*;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
-import java.awt.image.*;
-
-import javax.imageio.*;
-
-import java.io.*;
 
 public class WelcomePanel extends JPanel {
 
-	// getClass().getResource() beachten !!!
+        private static final long serialVersionUID = -1882830821523886193L;
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
 	private static final String BARREN = "Barren";
 	private static final String BODEN = "Boden";
@@ -45,7 +47,6 @@ public class WelcomePanel extends JPanel {
 			int indexIMAGES = 0;
 
 			while (indexIMAGES <= (IMAGES.length - 1)) {
-				System.out.println(indexIMAGES);
 				buttonImage = ImageIO.read(getClass().getResource(
 						RESOURCEPATH + IMAGES[indexIMAGES] + FILESUFFIX));
 				buttonIcon = new ImageIcon(buttonImage);
