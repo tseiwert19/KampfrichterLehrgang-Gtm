@@ -20,22 +20,23 @@ public class ExampleVideos
         controller.addVideo(1, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
         controller.addVideo(2, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
         controller.addVideo(3, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
-        controller.addVideo(4, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
-        controller.addVideo(5, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
-        controller.addVideo(6, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
-        controller.addVideo(7, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
-        controller.addVideo(8, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
-        controller.addVideo(9, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
-        controller.addVideo(10, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
-        controller.addVideo(12, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
-        controller.addVideo(13, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
-        controller.addVideo(14, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
-        controller.addVideo(15, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
-        controller.addVideo(11, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
-        controller.addVideo(16, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
-        controller.addVideo(17, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
-        controller.addVideo(18, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
-        
+//Noch mehr Videos von Thomas
+//        controller.addVideo(4, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
+//        controller.addVideo(5, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
+//        controller.addVideo(6, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
+//        controller.addVideo(7, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
+//        controller.addVideo(8, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
+//        controller.addVideo(9, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
+//        controller.addVideo(10, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
+//        controller.addVideo(12, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
+//        controller.addVideo(13, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
+//        controller.addVideo(14, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
+//        controller.addVideo(15, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
+//        controller.addVideo(11, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
+//        controller.addVideo(16, "Manna heben", "videos/1 Boden/10 Manna heben i. s. Hdst.wmv", "Boden", "-", "A", "C");
+//        controller.addVideo(17, "Morandi", "videos/1 Boden/10 Morandi.wmv", "Boden", "-", "B", "C");
+//        controller.addVideo(18, "Twist", "/videos/1 Boden/10 Twist m. Dosa. geh.wmv", "Boden", "-", "C", "C");
+//        
         //Pauschenpferd
         controller.addVideo(4, "Wandern", "/videos/2 Pauschenpferd/01 1-3 Wandern Seitst.wmv", "Pauschenpferd", "-", "A", "C");
         controller.addVideo(5, "Kreis", "/videos/2 Pauschenpferd/1 Alle Kreisfl. im Seitst.wmv", "Pauschenpferd", "-", "B", "C");
