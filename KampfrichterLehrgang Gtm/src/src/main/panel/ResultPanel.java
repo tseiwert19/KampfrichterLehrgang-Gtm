@@ -30,7 +30,7 @@ public class ResultPanel extends JPanel {
 	 */
 	public ResultPanel(String geraet) {
                 // Reimsbach, ueberpruef mal ob dieser cast zum lowerCase notwendig ist
-                geraet = geraet.toLowerCase();
+               // geraet = geraet.toLowerCase();
                 //Debug
                 System.out.println("Create ResultPanel with database search word: " + geraet);
 		setBackground(Color.WHITE);
@@ -92,7 +92,7 @@ public class ResultPanel extends JPanel {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(800, 800);
-		ResultPanel panel = new ResultPanel("boden");
+		ResultPanel panel = new ResultPanel("Reck");
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 
