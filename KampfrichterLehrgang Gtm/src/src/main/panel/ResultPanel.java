@@ -2,6 +2,7 @@ package src.main.panel;
 
 import src.main.videoplayer.*;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -16,6 +17,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +32,7 @@ public class ResultPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private String iconPfad;
+	private JPanel results;
 	
 	   private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
 	    private static final String BARREN = "Barren";
@@ -38,10 +41,9 @@ public class ResultPanel extends JPanel {
 	    private static final String RECK = "Reck";
 	    private static final String RINGE = "Ringe";
 	    private static final String SPRUNG = "Sprung";
-	        private static final String FILESUFFIX = ".png";
+	    private static final String FILESUFFIX = ".png";
 
-	    private static final String IMAGES[] = new String[] { BODEN, PAUSCHENPFERD,
-	            RINGE, SPRUNG, BARREN, RECK };
+
 
 	/**
 	 * Konstruktor
@@ -54,14 +56,26 @@ public class ResultPanel extends JPanel {
                // geraet = geraet.toLowerCase();
                 //Debug
                 System.out.println("Create ResultPanel with database search word: " + geraet);
-                JScrollPane scrollPane = new JScrollPane(this);
         
 		setBackground(Color.WHITE);
-		GridLayout layout = new GridLayout(0, 3, 20, 20);
-		setLayout(layout);
-		setBorder(new EmptyBorder(20, 20, 20, 20));
+		
+		JPanel header = new JPanel();
+		JLabel geraeteTyp = new JLabel(geraet);
+		header.add(geraeteTyp);
+		
+		BorderLayout borderLayout = new BorderLayout();
+		setLayout(borderLayout);
+		add(header, BorderLayout.NORTH);
+		
+		
+		
+		results = new JPanel();
+		GridLayout gridlayout = new GridLayout(0, 3, 20, 20);
+		results.setLayout(gridlayout);
+		results.setBorder(new EmptyBorder(20, 20, 20, 20));
 		selectIconPath(geraet);
 		createButtons(geraet);
+		add(results, BorderLayout.CENTER);
 	}
 
 	/**
@@ -80,8 +94,6 @@ public class ResultPanel extends JPanel {
 		Color white = Color.decode("#FFFFFF");
 
 		String htmlString;
-		Dimension minimumSize = new Dimension(50, 25);
-		Dimension maximumSize = new Dimension(75, 50);
 		
 		BufferedImage buttonImage = null;
         Icon buttonIcon;
@@ -94,7 +106,8 @@ public class ResultPanel extends JPanel {
             System.err.println("Fehler beim Lesen der GeraeteLogos!");
             e.printStackTrace();
         }
-        buttonIcon = new ImageIcon(buttonImage);
+        Image scaledImage = buttonImage.getScaledInstance(25, 25, Image.SCALE_FAST);
+        buttonIcon = new ImageIcon(scaledImage);
         
 		for (Video video : videos) {
 			htmlString = createHtmlString(video);
@@ -103,11 +116,8 @@ public class ResultPanel extends JPanel {
 		    newButton.setIcon(buttonIcon);
 			newButton.setForeground(white);
 			newButton.setBackground(myRot);
-			newButton.setMinimumSize(minimumSize);
-			newButton.setMaximumSize(maximumSize);
 
-			add(newButton);
-
+			results.add(newButton);
 		}
 
 	}
