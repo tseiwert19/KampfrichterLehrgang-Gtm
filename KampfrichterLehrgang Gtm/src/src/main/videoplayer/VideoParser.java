@@ -16,12 +16,6 @@ public class VideoParser {
 		
 		public VideoParser(){
 			dbController = new DatenbankController();
-//dient nur zum Testen des ResultPanels
-			dbController.addVideo(1, "Salto", "/videos/salto", "boden" ,"salto", 3, "Boden");
-			dbController.addVideo(2, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
-			dbController.addVideo(3, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
-			dbController.addVideo(4, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
-			dbController.addVideo(5, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
 		}
 		
 		public ArrayList<Video> mappeVideosVonGeraet(String geraet){
@@ -31,7 +25,7 @@ public class VideoParser {
 			String name;
 			String pfad;
 			String beschreibung;
-			int schwierigkeitsgrad;
+			String schwierigkeitsgrad;
 			String elementgruppe;
 			Video video;
 			
@@ -41,7 +35,7 @@ public class VideoParser {
 					name = ergebnis.getString("name");
 					pfad = ergebnis.getString("pfad");
 					beschreibung = ergebnis.getString("beschreibung");
-					schwierigkeitsgrad = ergebnis.getInt("schwierigkeitsgrad");
+					schwierigkeitsgrad = ergebnis.getString("schwierigkeitsgrad");
 					elementgruppe = ergebnis.getString("elementgruppe");
 					
 					video = new Video(id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe);
@@ -52,13 +46,6 @@ public class VideoParser {
 				System.err.println("Fehler bei Datenbankabfrage!");
 				e.printStackTrace();
 			}
-//Dient nur zum Testen des ResultPanels
-			dbController.deleteVideo(1);
-			dbController.deleteVideo(2);
-			dbController.deleteVideo(3);
-			dbController.deleteVideo(4);
-			dbController.deleteVideo(5);
-			
 			return videos;
 		}
 }

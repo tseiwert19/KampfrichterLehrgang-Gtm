@@ -1,6 +1,4 @@
 package src.main.videoplayer;
-
-import src.main.*;
 /**
  * Klasse Video
  * Repraesentiert einen Datensatz aus der Datenbank.
@@ -15,10 +13,10 @@ public class Video {
 	private String pfad;
 	private String geraet;
 	private String beschreibung;
-	private int schwierigkeitsgrad;
+	private String schwierigkeitsgrad;
 	private String elementgruppe;
 	
-	public Video (int id, String name, String pfad, String geraet, String beschreibung, int schwierigkeitsgrad, String elementgruppe){
+	public Video (int id, String name, String pfad, String geraet, String beschreibung, String schwierigkeitsgrad, String elementgruppe){
 		this.id = id;
 		this.name = name;
 		this.pfad = pfad;
@@ -47,7 +45,7 @@ public class Video {
 		return beschreibung;
 	}
 
-	public int getSchwierigkeitsgrad() {
+	public String getSchwierigkeitsgrad() {
 		return schwierigkeitsgrad;
 	}
 
@@ -67,7 +65,6 @@ public class Video {
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((pfad == null) ? 0 : pfad.hashCode());
-		result = prime * result + schwierigkeitsgrad;
 		return result;
 	}
 
