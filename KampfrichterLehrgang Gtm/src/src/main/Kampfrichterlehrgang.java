@@ -9,6 +9,7 @@ import src.main.panel.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class Kampfrichterlehrgang extends JFrame {
 
@@ -89,7 +90,7 @@ public class Kampfrichterlehrgang extends JFrame {
           //Debug
           System.out.println("Changing center panel.");
           this.getContentPane().remove(welcomePanel);
-          this.getContentPane().add(resultPanel, BorderLayout.CENTER);
+          this.getContentPane().add(new JScrollPane(resultPanel), BorderLayout.CENTER);
           this.getContentPane().validate();
           this.getContentPane().repaint();
         }
