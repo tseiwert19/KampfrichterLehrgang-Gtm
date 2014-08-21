@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,17 +34,15 @@ public class ResultPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String iconPfad;
 	private JPanel results;
-	
-	   private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
-	    private static final String BARREN = "Barren";
-	    private static final String BODEN = "Boden";
-	    private static final String PAUSCHENPFERD = "Pauschenpferd";
-	    private static final String RECK = "Reck";
-	    private static final String RINGE = "Ringe";
-	    private static final String SPRUNG = "Sprung";
-	    private static final String FILESUFFIX = ".png";
 
-
+	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
+	private static final String BARREN = "Barren";
+	private static final String BODEN = "Boden";
+	private static final String PAUSCHENPFERD = "Pauschenpferd";
+	private static final String RECK = "Reck";
+	private static final String RINGE = "Ringe";
+	private static final String SPRUNG = "Sprung";
+	private static final String FILESUFFIX = ".png";
 
 	/**
 	 * Konstruktor
@@ -52,27 +51,29 @@ public class ResultPanel extends JPanel {
 	 *            Videos von diesem Geraetetyp werden dargestellt
 	 */
 	public ResultPanel(String geraet) {
-                // Reimsbach, ueberpruef mal ob dieser cast zum lowerCase notwendig ist
-               // geraet = geraet.toLowerCase();
-                //Debug
-                System.out.println("Create ResultPanel with database search word: " + geraet);
-        
+		// Reimsbach, ueberpruef mal ob dieser cast zum lowerCase notwendig ist
+		// geraet = geraet.toLowerCase();
+		// Debug
+		System.out.println("Create ResultPanel with database search word: "
+				+ geraet);
+
 		setBackground(Color.WHITE);
-		
+		setBorder(BorderFactory.createEmptyBorder());
+
 		JPanel header = new JPanel();
-		JLabel geraeteTyp = new JLabel(geraet);
+		JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>"+ geraet+ "</b></i></font>");
 		header.add(geraeteTyp);
+		header.setBackground(Color.WHITE);
 		
 		BorderLayout borderLayout = new BorderLayout();
 		setLayout(borderLayout);
 		add(header, BorderLayout.NORTH);
-		
-		
-		
+
 		results = new JPanel();
 		GridLayout gridlayout = new GridLayout(0, 3, 20, 20);
 		results.setLayout(gridlayout);
 		results.setBorder(new EmptyBorder(20, 20, 20, 20));
+		results.setBackground(Color.WHITE);
 		selectIconPath(geraet);
 		createButtons(geraet);
 		add(results, BorderLayout.CENTER);
@@ -93,27 +94,8 @@ public class ResultPanel extends JPanel {
 		Color myRot = Color.decode("#b92d2e");
 		Color white = Color.decode("#FFFFFF");
 
-		String htmlString;
-		
-		BufferedImage buttonImage = null;
-        Icon buttonIcon;
-        try
-        {
-            buttonImage = ImageIO.read(getClass().getResource(iconPfad));
-        }
-        catch (IOException e)
-        {
-            System.err.println("Fehler beim Lesen der GeraeteLogos!");
-            e.printStackTrace();
-        }
-        Image scaledImage = buttonImage.getScaledInstance(25, 25, Image.SCALE_FAST);
-        buttonIcon = new ImageIcon(scaledImage);
-        
 		for (Video video : videos) {
-			htmlString = createHtmlString(video);
-			JButton newButton = new JButton(htmlString);
-			
-		    newButton.setIcon(buttonIcon);
+			JButton newButton = new JButton(createHtmlString(video));
 			newButton.setForeground(white);
 			newButton.setBackground(myRot);
 
@@ -130,32 +112,32 @@ public class ResultPanel extends JPanel {
 	 * @return Text in HTML
 	 */
 	private String createHtmlString(Video video) {
-		String htmlString;
-		htmlString = "<html> Name: " + video.getName() 
-		        + " <br> Schwierigkeitsgrad: "
+		return "<html><font size='6'><b><i>" + video.getName()
+				+ " </b></i></font><br> Schwierigkeitsgrad: "
 				+ video.getSchwierigkeitsgrad() + "<br> Elementgruppe: "
-				+ video.getElementgruppe() + "</html>";
-		return htmlString;
+				+ video.getElementgruppe() + "  </html>";
 	}
+
 	/**
 	 * Setzt den Pfad fuer das Geraetelogo
-	 * @param geraet 
+	 * 
+	 * @param geraet
 	 */
-		private void selectIconPath(String geraet){
-	    geraet = geraet.toLowerCase();
-	    if(geraet.equals(BARREN.toLowerCase())){
-	        iconPfad = RESOURCEPATH + BARREN + FILESUFFIX; 
-	    }else if(geraet.equals(BODEN.toLowerCase())){
-	        iconPfad = RESOURCEPATH + BODEN + FILESUFFIX;
-	    }else if(geraet.equals(PAUSCHENPFERD.toLowerCase())){
-	        iconPfad = RESOURCEPATH + PAUSCHENPFERD + FILESUFFIX;
-	    }else if(geraet.equals(RECK.toLowerCase())){
-	        iconPfad = RESOURCEPATH + RECK + FILESUFFIX;
-	    }else if(geraet.equals(RINGE.toLowerCase())){
-	        iconPfad = RESOURCEPATH + RINGE + FILESUFFIX;
-	    }else if(geraet.equals(SPRUNG.toLowerCase())){
-	        iconPfad = RESOURCEPATH + SPRUNG + FILESUFFIX;
-	    }
+	private void selectIconPath(String geraet) {
+		geraet = geraet.toLowerCase();
+		if (geraet.equals(BARREN.toLowerCase())) {
+			iconPfad = RESOURCEPATH + BARREN + FILESUFFIX;
+		} else if (geraet.equals(BODEN.toLowerCase())) {
+			iconPfad = RESOURCEPATH + BODEN + FILESUFFIX;
+		} else if (geraet.equals(PAUSCHENPFERD.toLowerCase())) {
+			iconPfad = RESOURCEPATH + PAUSCHENPFERD + FILESUFFIX;
+		} else if (geraet.equals(RECK.toLowerCase())) {
+			iconPfad = RESOURCEPATH + RECK + FILESUFFIX;
+		} else if (geraet.equals(RINGE.toLowerCase())) {
+			iconPfad = RESOURCEPATH + RINGE + FILESUFFIX;
+		} else if (geraet.equals(SPRUNG.toLowerCase())) {
+			iconPfad = RESOURCEPATH + SPRUNG + FILESUFFIX;
+		}
 	}
 
 	// Dient zum Testen
