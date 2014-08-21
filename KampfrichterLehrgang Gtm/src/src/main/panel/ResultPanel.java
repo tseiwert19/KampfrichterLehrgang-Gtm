@@ -34,6 +34,7 @@ public class ResultPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String iconPfad;
 	private JPanel results;
+	private JPanel header;
 
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
 	private static final String BARREN = "Barren";
@@ -56,27 +57,41 @@ public class ResultPanel extends JPanel {
 		// Debug
 		System.out.println("Create ResultPanel with database search word: "
 				+ geraet);
-
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createEmptyBorder());
 
-		JPanel header = new JPanel();
-		JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>"+ geraet+ "</b></i></font>");
-		header.add(geraeteTyp);
-		header.setBackground(Color.WHITE);
-		
 		BorderLayout borderLayout = new BorderLayout();
 		setLayout(borderLayout);
+		
+		createHeaderPanel(geraet);
 		add(header, BorderLayout.NORTH);
-
-		results = new JPanel();
-		GridLayout gridlayout = new GridLayout(0, 3, 20, 20);
-		results.setLayout(gridlayout);
-		results.setBorder(new EmptyBorder(20, 20, 20, 20));
-		results.setBackground(Color.WHITE);
+		
+		createResultPanel();
+		
 		selectIconPath(geraet);
 		createButtons(geraet);
 		add(results, BorderLayout.CENTER);
+	}
+	/**
+	 * Erstellt Panel mit Geraetenamen
+	 * @param geraet
+	 */
+	private void createHeaderPanel(String geraet){
+	        header = new JPanel();
+	        JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>"+ geraet+ "</b></i></font>");
+	        header.add(geraeteTyp);
+	        header.setBackground(Color.WHITE);
+
+	}
+	/**
+	 * Erstellt Panel mit Ergebnissen
+	 */
+	private void createResultPanel(){
+	    results = new JPanel();
+        GridLayout gridlayout = new GridLayout(0, 3, 20, 20);
+        results.setLayout(gridlayout);
+        results.setBorder(new EmptyBorder(20, 20, 20, 20));
+        results.setBackground(Color.WHITE);
 	}
 
 	/**
