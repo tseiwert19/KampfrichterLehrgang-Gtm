@@ -1,4 +1,4 @@
-package src.main;
+package src.main.prototypFiles;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

@@ -1,11 +1,5 @@
-/*
- * file:///tmp/vlcj-3.0.1/javadoc/uk/co/caprica/vlcj/discovery/NativeDiscovery.html
- * oder
- * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/quickstart/Example2.java
- * http://www.capricasoftware.co.uk/projects/vlcj/faq.html
- * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/discovery/NativeDiscoveryTest.java
- */
 
+package src.main.videoplayer;
 
 //TODO:
 // - Kommunikation zwischen Player und repeat/pause-Buttons (listener im
@@ -16,13 +10,12 @@
 // vlcj-jars ins jar
 // wofür ist surface da?
 
-package src.main;
+import src.main.*;
 
 import java.util.*;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GraphicsEnvironment;

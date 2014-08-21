@@ -1,4 +1,4 @@
-package src.main;
+package src.main.panel;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 public class KariButton extends JButton implements MouseListener{
+
+	private static final long serialVersionUID = 1L;
 
 	public KariButton() {
 		setBackground(Color.WHITE);

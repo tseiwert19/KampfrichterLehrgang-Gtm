@@ -62,7 +62,7 @@ public class DatenbankController
 							+ "pfad VARCHAR(50) NOT NULL, "
 							+ "geraet VARCHAR(20) NOT NULL, "
 							+ "beschreibung VARCHAR(200), "
-							+ "schwierigkeitsgrad TINYINT,"
+							+ "schwierigkeitsgrad VARCHAR(10),"
 							+ "elementgruppe VARCHAR(5));");
 		} catch (SQLException e) {
 			System.err.println("Fehler beim Erstellen der Datenbank!");
@@ -87,7 +87,7 @@ public class DatenbankController
 	 *            = elementgruppe des Videos
 	 */
 	public void addVideo(int id, String name, String pfad,String geraet, String beschreibung,
-			int schwierigkeitsgrad, String elementgruppe) {
+			String schwierigkeitsgrad, String elementgruppe) {
 
 		connectToDb();
 		PreparedStatement prepStatement;
@@ -100,7 +100,7 @@ public class DatenbankController
 			prepStatement.setString(3, pfad);
 			prepStatement.setString(4, geraet);
 			prepStatement.setString(5, beschreibung);
-			prepStatement.setInt(6, schwierigkeitsgrad);
+			prepStatement.setString(6, schwierigkeitsgrad);
 			prepStatement.setString(7, elementgruppe);
 			prepStatement.addBatch();
 
@@ -149,7 +149,7 @@ public class DatenbankController
 	}
 
 	public void deleteVideo(int id) {
-		PreparedStatement statement;
+		PreparedStatement statement = null;
 		try {
 			connectToDb();
 			statement = connection

@@ -1,0 +1,1 @@
+javac -Djava.ext.dirs=src/main/libs src/main/Kampfrichterlehrgang.java

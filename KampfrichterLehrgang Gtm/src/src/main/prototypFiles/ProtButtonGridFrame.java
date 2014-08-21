@@ -1,14 +1,14 @@
-package src.main;
+package src.main.prototypFiles;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 import javax.swing.JTextField;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import javax.swing.SwingUtilities;
 
 public class ProtButtonGridFrame extends JFrame {

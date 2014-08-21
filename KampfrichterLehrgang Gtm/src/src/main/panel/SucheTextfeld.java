@@ -1,23 +1,18 @@
-package src.main;
+package src.main.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Shape;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class SucheTextfeld extends JTextField implements MouseListener,
@@ -26,7 +21,7 @@ public class SucheTextfeld extends JTextField implements MouseListener,
 	private static final long serialVersionUID = -575653543070324305L;
 
 	private static final String STARTTEXT = "Nach Element suchen ... ";
-	private static final String LUPE_LOGO = "../../img/Logo/lupe.jpg";
+	private static final String LUPE_LOGO = "../../../img/Logo/lupe.jpg";
 
 	public SucheTextfeld() {
 		setText(STARTTEXT);

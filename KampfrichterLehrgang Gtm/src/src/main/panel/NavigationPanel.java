@@ -1,13 +1,20 @@
-package src.main;
+package src.main.panel;
 
-import java.awt.*;
-import java.awt.image.*;
+import src.main.*;
 
-import javax.swing.*;
-import javax.imageio.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import java.io.*;
-import java.util.jar.JarInputStream;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class NavigationPanel extends JPanel {
 
@@ -17,11 +24,9 @@ public class NavigationPanel extends JPanel {
 	// Der RESOURCEPATH sollte noch geaendert werden nach noch zu
 	// beschliessender
 	// konvention
-	private static final String DTB_LOGO = "../../img/Logo/dtb-logo.jpg";
+	private static final String DTB_LOGO = "../../../img/Logo/dtb-logo.jpg";
 //	private static final String ZURUECK_LOGO = "../../img/Logo/zurueck_button.png";
-	private static final String ZURUECK_LOGO = "../../img/Logo/rot_zurueck.jpg";
-
-	private JPanel navigationPanel;
+	private static final String ZURUECK_LOGO = "../../../img/Logo/rot_zurueck.jpg";
 
 	public NavigationPanel() {
 			    
@@ -41,7 +46,6 @@ public class NavigationPanel extends JPanel {
 
 			add(tempBackButton, BorderLayout.WEST);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		/*

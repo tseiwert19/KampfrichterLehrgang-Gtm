@@ -1,6 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
 import src.main.DatenbankController;
 
 /**
@@ -25,18 +26,21 @@ public class DatenbankCotrollerTest {
 	@Before
 	public void init(){
 		controller = new DatenbankController();
-		controller.addVideo(1, "Salto", "/videos/salto", "boden" ,"salto", 3, "Boden");
-		controller.addVideo(2, "Rolle", "/videos/rolle", "boden", "rolle", 1, "Boden");
+		//Falls schon Datensaetze vor dem Test vorhanden sind
+		controller.deleteVideo(1);
+	    controller.deleteVideo(2);
+		controller.addVideo(1, "Salto", "/videos/salto", "boden" ,"salto", "3", "Boden");
+		controller.addVideo(2, "Rolle", "/videos/rolle", "boden", "rolle", "1", "Boden");
 		
 	}
 	/**
-	 * Nach jedem Test werden die Datensaetze aus der init()-Methode entfernt
+	 * Nach jedem Test werden die Datensaetze geloescht
 	 */
-	@After
-	public void clear(){
-		controller.deleteVideo(1);
-		controller.deleteVideo(2);
-	}
+	 @After
+	 public void clear(){
+	     controller.deleteVideo(1);
+	     controller.deleteVideo(2);
+	 }
 	/**
 	 * Prueft ob mit der Methode getEntry() die initialisierten Datensaetze abgerufen werden können
 	 * @throws SQLException
@@ -61,7 +65,6 @@ public class DatenbankCotrollerTest {
 		while(alleVideos.next()){
 			namen.add(alleVideos.getString("name"));
 		}
-		assertEquals(namen.size(), 2);
 		assertTrue(namen.contains("Salto"));
 		assertTrue(namen.contains("Rolle"));
 		alleVideos.close();
