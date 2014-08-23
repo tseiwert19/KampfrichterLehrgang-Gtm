@@ -48,4 +48,36 @@ public class VideoParser {
 			}
 			return videos;
 		}
+		
+		public ArrayList<Video> mappeVideosVonName(String name){
+		    ArrayList<Video> videos = new ArrayList<Video>();
+            ResultSet ergebnis = dbController.getAllByName(name);
+            int id;
+            String geraet;
+            String pfad;
+            String beschreibung;
+            String schwierigkeitsgrad;
+            String elementgruppe;
+            Video video;
+            
+            try {
+                while(ergebnis.next()){
+                    id = ergebnis.getInt("id");
+                    name = ergebnis.getString("name");
+                    geraet = ergebnis.getString("geraet");
+                    pfad = ergebnis.getString("pfad");
+                    beschreibung = ergebnis.getString("beschreibung");
+                    schwierigkeitsgrad = ergebnis.getString("schwierigkeitsgrad");
+                    elementgruppe = ergebnis.getString("elementgruppe");
+                    
+                    video = new Video(id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe);
+                    videos.add(video);
+                    
+                }
+            } catch (SQLException e) {
+                System.err.println("Fehler bei Datenbankabfrage!");
+                e.printStackTrace();
+            }
+            return videos;
+		}
 }
