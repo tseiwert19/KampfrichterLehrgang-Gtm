@@ -5,6 +5,7 @@ import src.main.videoplayer.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,14 +15,19 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /**
  * Panel praesentiert die Videoergebnisse
@@ -35,6 +41,11 @@ public class ResultPanel extends JPanel {
 	private String iconPfad;
 	private JPanel results;
 	private JPanel header;
+	private JPanel comboBoxPanel;
+	private String geraeteName;
+	private JComboBox<String> schwierigkeitsgradCb;
+	private JComboBox<String> elementgruppeCb;
+
 
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
 	private static final String BARREN = "Barren";
@@ -52,11 +63,10 @@ public class ResultPanel extends JPanel {
 	 *            Videos von diesem Geraetetyp werden dargestellt
 	 */
 	public ResultPanel(String geraet) {
-		// Reimsbach, ueberpruef mal ob dieser cast zum lowerCase notwendig ist
-		// geraet = geraet.toLowerCase();
 		// Debug
 		System.out.println("Create ResultPanel with database search word: "
 				+ geraet);
+		this.geraeteName = geraet;
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createEmptyBorder());
 
@@ -67,9 +77,6 @@ public class ResultPanel extends JPanel {
 		add(header, BorderLayout.NORTH);
 		
 		createResultPanel();
-		
-		selectIconPath(geraet);
-		createButtons(geraet);
 		add(results, BorderLayout.CENTER);
 	}
 	/**
@@ -78,10 +85,37 @@ public class ResultPanel extends JPanel {
 	 */
 	private void createHeaderPanel(String geraet){
 	        header = new JPanel();
+	        header.setLayout(new BoxLayout(header, BoxLayout.PAGE_AXIS));
 	        JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>"+ geraet+ "</b></i></font>");
 	        header.add(geraeteTyp);
 	        header.setBackground(Color.WHITE);
+	        
+	        createComboBoxPanel();
+	        header.add(comboBoxPanel);
 
+	}
+	
+	private void createComboBoxPanel(){
+	    comboBoxPanel = new JPanel();
+	    comboBoxPanel.setBackground(Color.WHITE);
+	    FlowLayout flowLayout = new FlowLayout();
+	    comboBoxPanel.setLayout(flowLayout);
+	    
+	    String[] schwierigkeitsgrade = {"Alle Schwierigkeitsgrade anzeigen", "A", "B", "C", "D", "E", "F"};
+	    String[] elementgruppen = {"Alle Elementgruppen anzeigen", "I", "II", "III", "IV", "V"};
+	    
+	    schwierigkeitsgradCb = new JComboBox<String>(schwierigkeitsgrade);
+	    elementgruppeCb = new JComboBox<String>(elementgruppen);
+	    
+	    schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
+	    elementgruppeCb.setName("Elementgruppe");
+	    
+	    ComboBoxActionListener listener = new ComboBoxActionListener();
+	    schwierigkeitsgradCb.addActionListener(listener);
+	    elementgruppeCb.addActionListener(listener);
+
+	    comboBoxPanel.add(schwierigkeitsgradCb);
+	    comboBoxPanel.add(elementgruppeCb);   
 	}
 	/**
 	 * Erstellt Panel mit Ergebnissen
@@ -92,6 +126,12 @@ public class ResultPanel extends JPanel {
         results.setLayout(gridlayout);
         results.setBorder(new EmptyBorder(20, 20, 20, 20));
         results.setBackground(Color.WHITE);
+        
+        VideoParser parser = new VideoParser();
+        ArrayList<Video> videos = new ArrayList<Video>();
+
+        videos = parser.mappeVideosVonGeraet(geraeteName);
+        createButtons(videos);
 	}
 
 	/**
@@ -100,15 +140,12 @@ public class ResultPanel extends JPanel {
 	 * @param geraet
 	 *            Videos von diesem Geraet werden dargestellt
 	 */
-	private void createButtons(String geraet) {
-		VideoParser parser = new VideoParser();
-		ArrayList<Video> videos = new ArrayList<Video>();
-
-		videos = parser.mappeVideosVonGeraet(geraet);
-
+	private void createButtons(ArrayList<Video> videos) {
 		Color myRot = Color.decode("#b92d2e");
 		Color white = Color.decode("#FFFFFF");
-
+		
+		results.removeAll();
+		if(videos.size() != 0){
 		for (Video video : videos) {
 			JButton newButton = new JButton(createHtmlString(video));
 			newButton.setForeground(white);
@@ -116,8 +153,31 @@ public class ResultPanel extends JPanel {
 
 			results.add(newButton);
 		}
+		}else{
+		    JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
+		    JPanel platzhalter = new JPanel();
+		    JPanel platzhalter2 = new JPanel();
+		    //Platzhalter werden benoetigt damit Label in der Mitte erscheint!
+		    platzhalter.setBackground(Color.WHITE);
+		    platzhalter2.setBackground(Color.WHITE);
+		    results.add(platzhalter);
+		    results.add(keineTreffer);
+		    results.add(platzhalter2);
+		}
+		
+		 validate();
+         repaint();
 
 	}
+	
+	public void filterVideos(String schwierigkeitsgrad, String elementgruppe){
+	    VideoParser parser = new VideoParser();
+        ArrayList<Video> videos = new ArrayList<Video>();
+
+        videos = parser.mappeGefilterteVideos(geraeteName, schwierigkeitsgrad, elementgruppe);
+        createButtons(videos);
+	}
+	
 
 	/**
 	 * Formatiert den Text, der auf dem Button steht (in HTML)
@@ -131,6 +191,14 @@ public class ResultPanel extends JPanel {
 				+ " </b></i></font><br> Schwierigkeitsgrad: "
 				+ video.getSchwierigkeitsgrad() + "<br> Elementgruppe: "
 				+ video.getElementgruppe() + "  </html>";
+	}
+	
+	public JComboBox<String> getSchwierigkeitsgradCb(){
+	    return schwierigkeitsgradCb;
+	}
+	
+	public JComboBox<String> getElementgruppeCb(){
+	    return elementgruppeCb;
 	}
 
 	/**
