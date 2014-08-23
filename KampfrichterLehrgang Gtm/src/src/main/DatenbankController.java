@@ -134,7 +134,11 @@ public class DatenbankController
 		}
 		return alleVideos;
 	}
-	
+	/**
+	 * Liefert alle Eintraege aus der Datenbank die dem uebergebenen geraet entsprechen
+	 * @param geraet 
+	 * @return Passende Eintraege
+	 */
 	public ResultSet getAllByGeraet(String geraet){
 		ResultSet alleVideos = null;
 		connectToDb();
@@ -147,7 +151,28 @@ public class DatenbankController
 		}
 		return alleVideos;
 	}
-
+	/**
+	 * Sucht alle Videos die den uebergebenen Teilstring enthalten.
+	 * Die Ergebnisse werden nach Geraet sortiert.
+	 * @param name Nach diesem Teilstring wird gesucht
+	 * @return Liste der gefunden Videos
+	 */
+	public ResultSet getAllByName(String name){
+	    ResultSet alleVideos = null;
+        connectToDb();
+        try {
+            alleVideos = connection.createStatement().executeQuery(
+                    "SELECT * FROM videos WHERE name LIKE '%" + name + "%' ORDER BY geraet");
+        } catch (SQLException e) {
+            System.err.println("Fehler bei Datenbankabfrage!");
+            e.printStackTrace();
+        }
+        return alleVideos;
+	}
+	/**
+	 * Loescht ein Video aus der Datenbank
+	 * @param id Video mit dieser Id wird geloescht
+	 */
 	public void deleteVideo(int id) {
 		PreparedStatement statement = null;
 		try {
