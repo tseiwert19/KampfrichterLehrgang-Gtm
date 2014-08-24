@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -20,6 +22,8 @@ import javax.swing.JPanel;
  */
 public class RoundCorneredComboBox extends JComboBox
 {
+    private JLabel itemLabel;
+    
     @SuppressWarnings("unchecked")
     public RoundCorneredComboBox(String[] items)
     {
@@ -46,12 +50,18 @@ public class RoundCorneredComboBox extends JComboBox
         ImagePanel leftPanel = new ImagePanel(leftImage, false);
         ImagePanel rightPanel = new ImagePanel(rightImage, false);
         ImagePanel centerPanel = new ImagePanel(centerImage, true);
+        itemLabel = new JLabel();
+        itemLabel.setText(items[0]);
+        
 
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.EAST);
         add(centerPanel, BorderLayout.CENTER);
+        
+        centerPanel.setLayout(new BorderLayout());
+        centerPanel.add(itemLabel, BorderLayout.CENTER);
         
         Dimension minSize = new Dimension (100, 31);
         Dimension maxSize = new Dimension(2000, 31);
@@ -62,15 +72,33 @@ public class RoundCorneredComboBox extends JComboBox
         setMaximumSize(maxSize);
         setPreferredSize(prefSize);
     }
+    
+    /**
+     * Aktualisiert das JLabel, damit das momentane Item angezeigt wird
+     * @param newText
+     */
+    public void refreshItemLabel(String newText){
+        itemLabel.setText(newText);
+        validate();
+        repaint();
+    }
 
 }
-
+/**
+ * Ein Panel das ein Bild als Hintergrund hat
+ * @author michael
+ *
+ */
 class ImagePanel extends JPanel
 {
 
     private Image img;
     private boolean repeat;
-
+    /**
+     * Konstruktor
+     * @param img wird als Hintergrund gesetzt
+     * @param repeat ob Bild endlos wiederholt werden soll
+     */
     public ImagePanel(Image img, boolean repeat)
     {
         this.img = img;
@@ -82,7 +110,10 @@ class ImagePanel extends JPanel
         setSize(size);
         setLayout(null);
     }
-
+    /**
+     * Zeichnet Komponente
+     * Wenn repeat = true --> Image wiederholt sich 
+     */
     public void paintComponent(Graphics g)
     {
         if (repeat) {
