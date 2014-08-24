@@ -64,6 +64,7 @@ public class DatenbankController
 							+ "beschreibung VARCHAR(200), "
 							+ "schwierigkeitsgrad VARCHAR(10),"
 							+ "elementgruppe VARCHAR(5));");
+			statement.close();
 		} catch (SQLException e) {
 			System.err.println("Fehler beim Erstellen der Datenbank!");
 			e.printStackTrace();
@@ -194,6 +195,7 @@ public class DatenbankController
 			statement = connection
 					.prepareStatement("DELETE FROM videos WHERE id = " + id);
 			statement.executeUpdate();
+			statement.close();
 		} catch (SQLException e) {
 			System.err.println("Fehler beim Loeschen!");
 			e.printStackTrace();
