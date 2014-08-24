@@ -107,14 +107,15 @@ public class ResultPanel extends JPanel {
 	    schwierigkeitsgradCb = new RoundCorneredComboBox(schwierigkeitsgrade);
 	    elementgruppeCb = new RoundCorneredComboBox(elementgruppen);
 	    
-
-	    
 	    schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
 	    elementgruppeCb.setName("Elementgruppe");
 	    
-	    ComboBoxActionListener listener = new ComboBoxActionListener();
-	    schwierigkeitsgradCb.addActionListener(listener);
-	    elementgruppeCb.addActionListener(listener);
+	    ComboBoxActionListener actionListener = new ComboBoxActionListener();
+	    ItemChangeListener itemListener = new ItemChangeListener();
+	    schwierigkeitsgradCb.addActionListener(actionListener);
+	    schwierigkeitsgradCb.addItemListener(itemListener);
+	    elementgruppeCb.addActionListener(actionListener);
+	    elementgruppeCb.addItemListener(itemListener);
 
 	    comboBoxPanel.add(schwierigkeitsgradCb);
 	    comboBoxPanel.add(elementgruppeCb);   
