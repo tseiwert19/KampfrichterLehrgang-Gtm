@@ -19,8 +19,8 @@ public class ComboBoxActionListener implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         ResultPanel panel = Controller.getResultpanel();
-        JComboBox<String> schwierigkeitsgradCb = panel.getSchwierigkeitsgradCb();
-        JComboBox<String> elementgruppeCb = panel.getElementgruppeCb();
+        RoundCorneredComboBox schwierigkeitsgradCb = panel.getSchwierigkeitsgradCb();
+        RoundCorneredComboBox elementgruppeCb = panel.getElementgruppeCb();
         
         String schwierigkeit = (String) schwierigkeitsgradCb.getSelectedItem();
         String elementgruppe = (String) elementgruppeCb.getSelectedItem();
