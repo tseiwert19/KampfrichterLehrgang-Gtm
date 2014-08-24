@@ -43,8 +43,8 @@ public class ResultPanel extends JPanel {
 	private JPanel header;
 	private JPanel comboBoxPanel;
 	private String geraeteName;
-	private JComboBox<String> schwierigkeitsgradCb;
-	private JComboBox<String> elementgruppeCb;
+	private RoundCorneredComboBox schwierigkeitsgradCb;
+	private RoundCorneredComboBox elementgruppeCb;
 
 
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
@@ -104,8 +104,10 @@ public class ResultPanel extends JPanel {
 	    String[] schwierigkeitsgrade = {"Alle Schwierigkeitsgrade anzeigen", "A", "B", "C", "D", "E", "F"};
 	    String[] elementgruppen = {"Alle Elementgruppen anzeigen", "I", "II", "III", "IV", "V"};
 	    
-	    schwierigkeitsgradCb = new JComboBox<String>(schwierigkeitsgrade);
-	    elementgruppeCb = new JComboBox<String>(elementgruppen);
+	    schwierigkeitsgradCb = new RoundCorneredComboBox(schwierigkeitsgrade);
+	    elementgruppeCb = new RoundCorneredComboBox(elementgruppen);
+	    
+
 	    
 	    schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
 	    elementgruppeCb.setName("Elementgruppe");
@@ -193,11 +195,11 @@ public class ResultPanel extends JPanel {
 				+ video.getElementgruppe() + "  </html>";
 	}
 	
-	public JComboBox<String> getSchwierigkeitsgradCb(){
+	public RoundCorneredComboBox getSchwierigkeitsgradCb(){
 	    return schwierigkeitsgradCb;
 	}
 	
-	public JComboBox<String> getElementgruppeCb(){
+	public RoundCorneredComboBox getElementgruppeCb(){
 	    return elementgruppeCb;
 	}
 
