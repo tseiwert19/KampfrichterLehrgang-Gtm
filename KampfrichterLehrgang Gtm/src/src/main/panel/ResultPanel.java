@@ -48,8 +48,12 @@ public class ResultPanel extends JPanel {
 	private String geraeteName;
 	private RoundCorneredComboBox schwierigkeitsgradCb;
 	private RoundCorneredComboBox elementgruppeCb;
-
-
+	
+	private static final String[] SCHWIERIGKEITSGRADE = {"Alle Schwierigkeitsgrade anzeigen", "A", "B", "C", "D", "E", "F"};
+    private static final String[] ELEMENTGRUPPEN = {"Alle Elementgruppen anzeigen", "I", "II", "III", "IV", "V"};
+    
+    private static final Color MYRED = Color.decode("#b92d2e");
+    
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
 	private static final String BARREN = "Barren";
 	private static final String BODEN = "Boden";
@@ -97,31 +101,37 @@ public class ResultPanel extends JPanel {
 	        header.add(comboBoxPanel);
 
 	}
-	
+	/**
+	 * Erstellt Panel fuer die Anzeige der ComboBoxen
+	 */
 	private void createComboBoxPanel(){
 	    comboBoxPanel = new JPanel();
 	    comboBoxPanel.setBackground(Color.WHITE);
 	    FlowLayout flowLayout = new FlowLayout();
 	    comboBoxPanel.setLayout(flowLayout);
 	    
-	    String[] schwierigkeitsgrade = {"Alle Schwierigkeitsgrade anzeigen", "A", "B", "C", "D", "E", "F"};
-	    String[] elementgruppen = {"Alle Elementgruppen anzeigen", "I", "II", "III", "IV", "V"};
+	    createComboBoxes();
 	    
-	    schwierigkeitsgradCb = new RoundCorneredComboBox(schwierigkeitsgrade);
-	    elementgruppeCb = new RoundCorneredComboBox(elementgruppen);
-	    
-	    schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
-	    elementgruppeCb.setName("Elementgruppe");
-	    
-	    ComboBoxActionListener actionListener = new ComboBoxActionListener();
-	    ItemChangeListener itemListener = new ItemChangeListener();
-	    schwierigkeitsgradCb.addActionListener(actionListener);
-	    schwierigkeitsgradCb.addItemListener(itemListener);
-	    elementgruppeCb.addActionListener(actionListener);
-	    elementgruppeCb.addItemListener(itemListener);
-
 	    comboBoxPanel.add(schwierigkeitsgradCb);
 	    comboBoxPanel.add(elementgruppeCb);   
+	}
+	/**
+	 * Erstellt beide ComboBoxen 
+	 */
+	private void createComboBoxes(){
+	    schwierigkeitsgradCb = new RoundCorneredComboBox(SCHWIERIGKEITSGRADE);
+        elementgruppeCb = new RoundCorneredComboBox(ELEMENTGRUPPEN);
+        
+        schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
+        elementgruppeCb.setName("Elementgruppe");
+        
+        ComboBoxActionListener actionListener = new ComboBoxActionListener();
+        ItemChangeListener itemListener = new ItemChangeListener();
+        
+        schwierigkeitsgradCb.addActionListener(actionListener);
+        schwierigkeitsgradCb.addItemListener(itemListener);
+        elementgruppeCb.addActionListener(actionListener);
+        elementgruppeCb.addItemListener(itemListener);
 	}
 	/**
 	 * Erstellt Panel mit Ergebnissen
@@ -147,33 +157,37 @@ public class ResultPanel extends JPanel {
 	 *            Videos von diesem Geraet werden dargestellt
 	 */
 	private void createButtons(ArrayList<Video> videos) {
-		Color myRot = Color.decode("#b92d2e");
-		Color white = Color.decode("#FFFFFF");
 		
 		results.removeAll();
 		if(videos.size() != 0){
 		for (Video video : videos) {
 			JButton newButton = new JButton(createHtmlString(video));
-			newButton.setForeground(white);
-			newButton.setBackground(myRot);
+			newButton.setForeground(Color.WHITE);
+			newButton.setBackground(MYRED);
 
 			results.add(newButton);
 		}
 		}else{
-		    JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
-		    JPanel platzhalter = new JPanel();
-		    JPanel platzhalter2 = new JPanel();
-		    //Platzhalter werden benoetigt damit Label in der Mitte erscheint!
-		    platzhalter.setBackground(Color.WHITE);
-		    platzhalter2.setBackground(Color.WHITE);
-		    results.add(platzhalter);
-		    results.add(keineTreffer);
-		    results.add(platzhalter2);
+		    createNoResults();
 		}
 		
 		 validate();
          repaint();
 
+	}
+	/**
+	 * Werden keine Ergebnisse gefunden, dann wird der Text "Keine Treffer!" angezeigt
+	 */
+	private void createNoResults(){
+        JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
+        JPanel platzhalter = new JPanel();
+        JPanel platzhalter2 = new JPanel();
+        //Platzhalter werden benoetigt damit Label in der Mitte erscheint!
+        platzhalter.setBackground(Color.WHITE);
+        platzhalter2.setBackground(Color.WHITE);
+        results.add(platzhalter);
+        results.add(keineTreffer);
+        results.add(platzhalter2);
 	}
 	
 	public void filterVideos(String schwierigkeitsgrad, String elementgruppe){
@@ -234,7 +248,7 @@ public class ResultPanel extends JPanel {
 		JFrame frame = new JFrame();
 		frame.setSize(800, 800);
 		ResultPanel panel = new ResultPanel("Reck");
-		frame.getContentPane().add(panel);
+		frame.getContentPane().add(new JScrollPane(panel));
 		frame.setVisible(true);
 
 	}
