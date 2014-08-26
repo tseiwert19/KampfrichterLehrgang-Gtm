@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import src.main.components.KariButton;
+
 public class ImpressumPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = -9115669597556271814L;

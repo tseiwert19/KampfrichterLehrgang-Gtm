@@ -1,4 +1,4 @@
-package src.main.panel;
+package src.main.components;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

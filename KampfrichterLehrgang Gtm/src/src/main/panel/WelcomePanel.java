@@ -1,6 +1,8 @@
 package src.main.panel;
 
 import src.main.*;
+import src.main.components.KariButton;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;

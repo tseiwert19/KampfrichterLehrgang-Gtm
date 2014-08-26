@@ -1,6 +1,8 @@
 package src.main.panel;
 
 import src.main.*;
+import src.main.components.KariButton;
+import src.main.components.SucheTextfeld;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

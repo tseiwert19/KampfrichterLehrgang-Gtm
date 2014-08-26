@@ -1,7 +1,9 @@
-package src.main.panel;
+package src.main.listener;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+
+import src.main.components.RoundCorneredComboBox;
 
 public class ItemChangeListener implements ItemListener {
     

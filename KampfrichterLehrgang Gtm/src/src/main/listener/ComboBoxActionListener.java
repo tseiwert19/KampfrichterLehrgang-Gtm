@@ -1,4 +1,4 @@
-package src.main.panel;
+package src.main.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import src.main.Controller;
+import src.main.components.RoundCorneredComboBox;
+import src.main.panel.ResultPanel;
 /**
  * ActionListener fuer die Comboboxen im ResultPanel
  * Uebernehmen das Filtern der Ergebnisse
