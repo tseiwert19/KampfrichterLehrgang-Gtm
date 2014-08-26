@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 /**
  * Erstellt eine ComboBox mit abgerundeten Ecken
  * @author michael
@@ -23,67 +24,97 @@ import javax.swing.JPanel;
 public class RoundCorneredComboBox extends JComboBox
 {
     private JLabel itemLabel;
-    
+    private BufferedImage leftImage = null;
+    private BufferedImage rightImage = null;
+    private BufferedImage centerImage = null;
+
+    //Konstanten fuer die Imagepfade
+    private static final String LEFT_IMAGE = "../../../img/ComboBox/leftComboBox.png";
+    private static final String RIGHT_IMAGE = "../../../img/ComboBox/rightComboBox.png";
+    private static final String CENTER_IMAGE = "../../../img/ComboBox/centerComboBox.png";
+    //Konstanten fuer Sizes
+    private static final int MIN_WIDTH = 100;
+    private static final int MAX_WIDTH = 2000;
+    private static final int MIN_HEIGHT = 31;
+    private static final int MAX_HEIGHT = 31;
+    private static final int PREF_WIDTH = 400;
+    private static final int PREF_HEIGHT = 31;
+
     @SuppressWarnings("unchecked")
     public RoundCorneredComboBox(String[] items)
     {
         super(items);
-        
-        BufferedImage leftImage = null;
-        BufferedImage rightImage = null;
-        BufferedImage centerImage = null;
-        
-        try
-        {
-            leftImage = ImageIO
-                    .read(getClass().getResource("../../../img/ComboBox/leftComboBox.png"));
-            rightImage = ImageIO.read(getClass().getResource(
-                    "../../../img/ComboBox/rightComboBox.png"));
-            centerImage = ImageIO.read(getClass().getResource(
-                    "../../../img/ComboBox/centerComboBox.png"));
-        }
-        catch (IOException e)
-        {
-            System.err.println("Fehler beim Einlesen der ComboBoxBilder!");
-            e.printStackTrace();
-        }
+        itemLabel = new JLabel();
+        itemLabel.setText(items[0]);
+        loadImages();
+        createLayoutAndPanels();
+        createSizes();
+    }
+
+    /**
+     * Erstellt die ImagePanels und positioniert diese
+     */
+    private void createLayoutAndPanels()
+    {
         ImagePanel leftPanel = new ImagePanel(leftImage, false);
         ImagePanel rightPanel = new ImagePanel(rightImage, false);
         ImagePanel centerPanel = new ImagePanel(centerImage, true);
-        itemLabel = new JLabel();
-        itemLabel.setText(items[0]);
-        
 
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.EAST);
         add(centerPanel, BorderLayout.CENTER);
-        
+
         centerPanel.setLayout(new BorderLayout());
         centerPanel.add(itemLabel, BorderLayout.CENTER);
-        
-        Dimension minSize = new Dimension (100, 31);
-        Dimension maxSize = new Dimension(2000, 31);
-        Dimension prefSize = new Dimension(400, 31);
- 
-        
+    }
+
+    /**
+     * Legt die Groessen fest
+     */
+    private void createSizes()
+    {
+        Dimension minSize = new Dimension(MIN_WIDTH, MIN_HEIGHT);
+        Dimension maxSize = new Dimension(MAX_WIDTH, MAX_HEIGHT);
+        Dimension prefSize = new Dimension(PREF_WIDTH, PREF_HEIGHT);
+
         setMinimumSize(minSize);
         setMaximumSize(maxSize);
         setPreferredSize(prefSize);
     }
-    
+
+    /**
+     * Laedt die Bilder
+     */
+    private void loadImages()
+    {
+        try
+        {
+            leftImage = ImageIO.read(getClass().getResource(LEFT_IMAGE));
+            rightImage = ImageIO.read(getClass().getResource(RIGHT_IMAGE));
+            centerImage = ImageIO.read(getClass().getResource(CENTER_IMAGE));
+        }
+        catch (IOException e)
+        {
+            System.err.println("Fehler beim Einlesen der ComboBoxBilder!");
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Aktualisiert das JLabel, damit das momentane Item angezeigt wird
      * @param newText
      */
-    public void refreshItemLabel(String newText){
+    public void refreshItemLabel(String newText)
+    {
         itemLabel.setText(newText);
         validate();
         repaint();
     }
 
 }
+
 /**
  * Ein Panel das ein Bild als Hintergrund hat
  * @author michael
@@ -94,6 +125,7 @@ class ImagePanel extends JPanel
 
     private Image img;
     private boolean repeat;
+
     /**
      * Konstruktor
      * @param img wird als Hintergrund gesetzt
@@ -110,26 +142,32 @@ class ImagePanel extends JPanel
         setSize(size);
         setLayout(null);
     }
+
     /**
      * Zeichnet Komponente
      * Wenn repeat = true --> Image wiederholt sich 
      */
     public void paintComponent(Graphics g)
     {
-        if (repeat) {
+        if (repeat)
+        {
             int iw = img.getWidth(this);
             int ih = img.getHeight(this);
-            if (iw > 0 && ih > 0) {
-                for (int x = 0; x < getWidth(); x += iw) {
-                    for (int y = 0; y < getHeight(); y += ih) {
+            if (iw > 0 && ih > 0)
+            {
+                for (int x = 0; x < getWidth(); x += iw)
+                {
+                    for (int y = 0; y < getHeight(); y += ih)
+                    {
                         g.drawImage(img, x, y, iw, ih, this);
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
         }
     }
 
 }
-
