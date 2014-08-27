@@ -1,36 +1,25 @@
 package src.main.panel;
 
-import src.main.components.RoundCorneredComboBox;
-import src.main.listener.ComboBoxActionListener;
-import src.main.listener.ItemChangeListener;
-import src.main.videoplayer.*;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.metal.MetalLookAndFeel;
+
+import src.main.components.RoundCorneredComboBox;
+import src.main.listener.ComboBoxActionListener;
+import src.main.listener.ItemChangeListener;
+import src.main.videoplayer.Video;
+import src.main.videoplayer.VideoParser;
 
 /**
  * Panel praesentiert die Videoergebnisse
@@ -253,4 +242,5 @@ public class ResultPanel extends JPanel {
 
 	}
 
+	
 }

@@ -1,21 +1,19 @@
 package src.main.panel;
 
-import src.main.*;
-import src.main.components.KariButton;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import src.main.Controller;
+import src.main.components.KariButton;
 
 public class WelcomePanel extends JPanel {
 
@@ -52,8 +50,6 @@ public class WelcomePanel extends JPanel {
 				buttonImage = ImageIO.read(getClass().getResource(
 						RESOURCEPATH + IMAGES[indexIMAGES] + FILESUFFIX));
 				buttonIcon = new ImageIcon(buttonImage);
-
-				BorderLayout borderLayout = new BorderLayout();
 
 				newGeraeteButton = Controller.getWelcomeActionListener().getButton();
 				newGeraeteButton.setText(IMAGES[indexIMAGES]);

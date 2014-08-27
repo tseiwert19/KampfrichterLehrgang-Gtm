@@ -1,9 +1,5 @@
 package src.main.panel;
 
-import src.main.*;
-import src.main.components.KariButton;
-import src.main.components.SucheTextfeld;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import src.main.components.KariButton;
+import src.main.components.SucheTextfeld;
 
 public class NavigationPanel extends JPanel {
 

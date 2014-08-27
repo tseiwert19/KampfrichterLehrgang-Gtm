@@ -1,10 +1,10 @@
 package src.main.listener;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import src.main.Controller;
 import src.main.components.KariButton;
-import src.main.panel.*;
-
-import java.awt.event.*;
 
 /**
  * Dieser Actionlistener ist speziel fuer die Buttons im WelcomePanel

@@ -4,15 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -21,9 +17,12 @@ import javax.swing.JPanel;
  * @author michael
  *
  */
+@SuppressWarnings("rawtypes")
 public class RoundCorneredComboBox extends JComboBox
 {
-    private JLabel itemLabel;
+
+	private static final long serialVersionUID = -4566456127419518856L;
+	private JLabel itemLabel;
     private BufferedImage leftImage = null;
     private BufferedImage rightImage = null;
     private BufferedImage centerImage = null;
@@ -123,7 +122,8 @@ public class RoundCorneredComboBox extends JComboBox
 class ImagePanel extends JPanel
 {
 
-    private Image img;
+	private static final long serialVersionUID = -8895117283536671123L;
+	private Image img;
     private boolean repeat;
 
     /**
