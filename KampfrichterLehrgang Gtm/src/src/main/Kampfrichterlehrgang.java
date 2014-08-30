@@ -51,7 +51,8 @@ public class Kampfrichterlehrgang extends JFrame {
 		getContentPane().add(buildNavigationPanel(), BorderLayout.NORTH);
 
 		// insert welcomePanel to center
-		getContentPane().add(buildWelcomePanel(), BorderLayout.CENTER);
+                Controller.setCurrentCenterPanel(buildWelcomePanel());
+		getContentPane().add(Controller.getCurrentCenterPanel(), BorderLayout.CENTER);
 
 		// insert impressumPanel to bottom
                 getContentPane().add(buildImpressumPanel(), BorderLayout.SOUTH);
@@ -90,10 +91,11 @@ public class Kampfrichterlehrgang extends JFrame {
         private void changeCenterPanel(CenterPanel newCenterPanel) {
           //Debug
           System.out.println("Changing center panel.");
-          this.getContentPane().remove(welcomePanel);
+          this.getContentPane().remove(Controller.getCurrentCenterPanel());
           // Hier war mal das ScrollPane, raugeschmissen weils noch nicht richtig
           // implementiert war >.> Reimsi
           this.getContentPane().add(newCenterPanel, BorderLayout.CENTER);
+          Controller.setCurrentCenterPanel(newCenterPanel);
           this.getContentPane().validate();
           this.getContentPane().repaint();
         }

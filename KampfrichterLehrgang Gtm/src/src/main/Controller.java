@@ -24,6 +24,8 @@ public class Controller {
   private static WelcomePanel welcpan;
   private static NavigationPanel navpan;
 
+  private static CenterPanel currentCenterPanel;
+
   private static WelcomeActionListener welcAction;
 
   private static MediaPlayer player;
@@ -105,5 +107,13 @@ public class Controller {
 
   public static WelcomeActionListener getWelcomeActionListener () {
     return welcAction;
+  }
+
+  public static void setCurrentCenterPanel(CenterPanel newCurrentCenterPanel) {
+    currentCenterPanel = newCurrentCenterPanel;
+  }
+
+  public static CenterPanel getCurrentCenterPanel() {
+    return currentCenterPanel;
   }
 }
