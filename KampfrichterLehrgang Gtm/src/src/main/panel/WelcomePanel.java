@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 import src.main.Controller;
 import src.main.components.KariButton;
 
-public class WelcomePanel extends JPanel {
+public class WelcomePanel extends JPanel implements ICenterPanel {
 
         private static final long serialVersionUID = -1882830821523886193L;
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";

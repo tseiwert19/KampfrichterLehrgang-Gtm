@@ -1,23 +1,28 @@
 package src.main;
 
+<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Stack;
-
-import src.main.listener.WelcomeActionListener;
+=======
 import src.main.panel.*;
+
+import java.awt.*;
+>>>>>>> ordnung
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class Kampfrichterlehrgang extends JFrame {
 
+<<<<<<< HEAD
 	private static final long serialVersionUID = 1L;
 
+=======
         // TODO Das wird nicht immer in der Mitte sein
         // dynamische Loesung suchen oder einigen
+>>>>>>> ordnung
 	private static final String NAME = "                                                              "
 			+ "                                   "
 			+ "      KampfrichterLehrgang Gtm";
@@ -54,7 +59,17 @@ public class Kampfrichterlehrgang extends JFrame {
 		getContentPane().add(buildWelcomePanel(), BorderLayout.CENTER);
 
 		// insert impressumPanel to bottom
+<<<<<<< HEAD
+		JPanel k = new JPanel();
+		k.setBackground(Color.WHITE);
+		k.add(buildImpressumPanel(), BorderLayout.NORTH);
+
+		JPanel l = new JPanel();
+		l.setBackground(Color.WHITE);
+		k.add(l, BorderLayout.SOUTH);
+=======
                 getContentPane().add(buildImpressumPanel(), BorderLayout.SOUTH);
+>>>>>>> ordnung
 
 		
 
@@ -62,8 +77,27 @@ public class Kampfrichterlehrgang extends JFrame {
 		setVisible(true);
 	}
 
+<<<<<<< HEAD
+	/**
+	 * Wurzelfunktion zum wechseln des CenterPanels. Beachte changeToVideo(),
+	 * changeToWelcome() und changeToResult().
+	 */
+	public void changeCenterPanel(String changeArg) {
+	}
+
+	@SuppressWarnings("unused")
+	private void changeToVideo() {
+	}
+
+	@SuppressWarnings("unused")
+	private void changeToWelcome() {
+	}
+
+	@SuppressWarnings("unused")
+	private void changeToResult() {
+	}
+=======
         // Angedacht fall noch ein Home Button eingebaut wird
-        @SuppressWarnings("unused")
 	public void changeToWelcome() {
 	}
 
@@ -87,17 +121,17 @@ public class Kampfrichterlehrgang extends JFrame {
          * Beachte dass dann auch das zu entfernende Panel dynamisch
          * gefunden werden muss.
          */
-        private void changeCenterPanel(ICenterPanel newCenterPanel) {
+        private void changeCenterPanel(ResultPanel resultPanel) {
           //Debug
           System.out.println("Changing center panel.");
           this.getContentPane().remove(welcomePanel);
-          // Hier war mal das ScrollPane, raugeschmissen weils noch nicht richtig
-          // implementiert war >.> Reimsi
-          this.getContentPane().add(newCenterPanel, BorderLayout.CENTER);
+          this.getContentPane().add(resultPanel, BorderLayout.CENTER);
           this.getContentPane().validate();
           this.getContentPane().repaint();
         }
 
+          
+>>>>>>> ordnung
 
 	/**
 	 * Baut ein Navigations JPanel. Das Panel enthaelt ein Logo sowie einen
@@ -148,7 +182,6 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
 	public static void main(String args[]) {
-                // Wieso schmeisst eclipse da ne unused warning? Oo
 		@SuppressWarnings("unused")
 		Kampfrichterlehrgang k = new Kampfrichterlehrgang();
 	}
