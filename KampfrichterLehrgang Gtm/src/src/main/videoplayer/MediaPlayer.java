@@ -259,11 +259,6 @@ public class MediaPlayer extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// ourMediaPlayer.getMediaPlayer().toggleFullScreen();
-				GraphicsEnvironment
-						.getLocalGraphicsEnvironment()
-						.getDefaultScreenDevice()
-						.setFullScreenWindow(
-								(JFrame) SwingUtilities.getWindowAncestor(this));
 			}
 		});
 		controlsPanel.add(fullScreenButton);
