@@ -87,7 +87,7 @@ public class Kampfrichterlehrgang extends JFrame {
          * Beachte dass dann auch das zu entfernende Panel dynamisch
          * gefunden werden muss.
          */
-        private void changeCenterPanel(ICenterPanel newCenterPanel) {
+        private void changeCenterPanel(CenterPanel newCenterPanel) {
           //Debug
           System.out.println("Changing center panel.");
           this.getContentPane().remove(welcomePanel);

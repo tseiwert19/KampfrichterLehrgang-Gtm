@@ -27,7 +27,7 @@ import src.main.videoplayer.VideoParser;
  * @author michael
  *
  */
-public class ResultPanel extends JPanel implements ICenterPanel {
+public class ResultPanel extends CenterPanel { 
 
 	private static final long serialVersionUID = 1L;
 	private String iconPfad;

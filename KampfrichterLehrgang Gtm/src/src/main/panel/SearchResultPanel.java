@@ -21,7 +21,7 @@ import src.main.videoplayer.VideoParser;
  * @author michael
  *
  */
-public class SearchResultPanel extends JPanel implements ICenterPanel {
+public class SearchResultPanel extends CenterPanel {
 
 
     /**
