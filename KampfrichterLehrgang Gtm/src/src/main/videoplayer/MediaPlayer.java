@@ -195,67 +195,15 @@ class RepeatIcon implements Icon{
 
 }
 
-class MissingIcon implements Icon{
-
-	private int width = 32;
-	private int height = 32;
-
-	private BasicStroke stroke = new BasicStroke(4);
-
-	public void paintIcon(Component c, Graphics g, int x, int y) {
-		Graphics2D g2d = (Graphics2D) g.create();
-
-		/*
-		g2d.setColor(Color.black);
-		g2d.setStroke(stroke);
-		g2d.drawLine(3, 3, 3, 11);
-		g2d.drawLine(8, 3, 8, 11);
-		*/
-
-		g2d.setColor(Color.BLACK);
-		//g2d.drawRect(x+1,y+1,width-1,height-1);
-		GeneralPath path=new GeneralPath(); path.moveTo(x+2, y+2);
-		path.lineTo(x+width-2 , y+height/2);
-		path.lineTo(x+2, y+height-2);
-		path.lineTo(x+2, y+2);
-		g2d.fill(path);
-
-/*
-		g2d.setColor(Color.WHITE);
-		g2d.fillRect(x +1 ,y + 1,width -2 ,height -2);
-
-		g2d.setColor(Color.BLACK);
-		g2d.drawRect(x +1 ,y + 1,width -2 ,height -2);
-
-		g2d.setColor(Color.RED);
-
-		g2d.setStroke(stroke);
-		g2d.drawLine(x +10, y + 10, x + width -10, y + height -10);
-		g2d.drawLine(x +10, y + height -10, x + width -10, y + 10);
-*/
-
-		g2d.dispose();
-	}
-
-	public int getIconWidth() {
-		return width;
-	}
-
-	public int getIconHeight() {
-		return height;
-	}
-
-}
 
 public class MediaPlayer extends JPanel
 {
 	//TODO: exception
 	//http://docs.oracle.com/javase/tutorial/i18n/resbundle/concept.html
 	private ResourceBundle localeBundle=ResourceBundle.getBundle("src.main.videoplayer.localization.MediaPlayer");
-	//private JPanel videoPlayerPanel=new JPanel();
-	private JPanel controlsPanel=new JPanel();
+	private JPanel controlsPanel;
 
-    private JButton pauseButton;
+    private JButton playPauseButton;
     private JToggleButton repeatButton;
 	private JButton fullScreenButton;
 
@@ -263,10 +211,12 @@ public class MediaPlayer extends JPanel
 	private PauseIcon pauseIcon;
 	private FullScreenIcon fullScreenIcon;
 	private RepeatIcon repeatIcon;
-	private String pauseButtonLabel, playButtonLabel, fullscreenButtonLabel, repeatButtonLabel;
+	private String pauseLabel, playLabel, fullscreenButtonLabel, repeatButtonLabel;
 
 	private EmbeddedMediaPlayerComponent embeddedMediaPlayerComponent;
 	private String mediaPath="";
+
+	private boolean isPlaying;
 
 	private JFrame topFrame;
 	private MediaPlayer mediaPlayer;
@@ -276,6 +226,8 @@ public class MediaPlayer extends JPanel
 	{
 		mediaPlayer=this;
 		this.mediaPath=mediaURL;
+
+		this.isPlaying=false;
 
 		//http://stackoverflow.com/questions/9650874/java-swing-obtain-window-jframe-from-inside-a-jpanel
 		topFrame=(JFrame)SwingUtilities.getWindowAncestor(this);
@@ -291,20 +243,20 @@ public class MediaPlayer extends JPanel
 				return new XFullScreenStrategy(topFrame);
 			}
 			public void playing(MediaPlayer mediaPlayer) {
-				pauseButton.setText(pauseButtonLabel);
-				pauseButton.setIcon(pauseIcon);
+				playPauseButton.setText(pauseLabel);
+				playPauseButton.setIcon(pauseIcon);
 				System.out.println("playing()");
 			}
 
 			public void paused(MediaPlayer mediaPlayer) {
-				pauseButton.setText(pauseButtonLabel);
-				pauseButton.setIcon(pauseIcon);
+				playPauseButton.setText(pauseLabel);
+				playPauseButton.setIcon(pauseIcon);
 				System.out.println("paused()");
 			}
 
             public void finished(MediaPlayer mediaPlayer) {
-				pauseButton.setText(playButtonLabel);
-				pauseButton.setIcon(playIcon);
+				playPauseButton.setText(playLabel);
+				playPauseButton.setIcon(playIcon);
 				System.out.println("finished()");
 				embeddedMediaPlayerComponent.release();
 				System.exit(0);
@@ -319,14 +271,14 @@ public class MediaPlayer extends JPanel
 			/*
         embeddedMediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
 			public void playing(MediaPlayer mediaPlayer) {
-				pauseButton.setText(pauseButtonLabel);
-				pauseButton.setIcon(pauseIcon);
+				playPauseButton.setText(pauseLabel);
+				playPauseButton.setIcon(pauseIcon);
 				System.out.println("playing()");
 			}
 
 			public void paused(MediaPlayer mediaPlayer) {
-				pauseButton.setText(pauseButtonLabel);
-				pauseButton.setIcon(pauseIcon);
+				playPauseButton.setText(pauseLabel);
+				playPauseButton.setIcon(pauseIcon);
 				System.out.println("paused()");
 			}
             public void finished(MediaPlayer mediaPlayer) {
@@ -341,12 +293,13 @@ public class MediaPlayer extends JPanel
 
 		embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
 
+		controlsPanel=new JPanel(new FlowLayout());
 
 
 
 		setLayout(new BorderLayout());
 		embeddedMediaPlayerComponent.setPreferredSize(new Dimension(768, 576));
-		controlsPanel.setLayout(new FlowLayout());
+		embeddedMediaPlayerComponent.setMinimumSize(new Dimension(320, 240));
 
 		//http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
 		playIcon=new PlayIcon(32,32);
@@ -354,43 +307,42 @@ public class MediaPlayer extends JPanel
 		fullScreenIcon=new FullScreenIcon(32,32);
 		repeatIcon=new RepeatIcon(32,32);
 
-		pauseButtonLabel=localeBundle.getString("pauseButtonLabel");
-		playButtonLabel=localeBundle.getString("playButtonLabel");
+		pauseLabel=localeBundle.getString("pauseButtonLabel");
+		playLabel=localeBundle.getString("playButtonLabel");
 		fullscreenButtonLabel=localeBundle.getString("fullscreenButtonLabel");
 		repeatButtonLabel=localeBundle.getString("repeatButtonLabel");
 
-		pauseButton=new JButton();
-		//if (embeddedMediaPlayerComponent.getMediaPlayer().getMediaPlayerState() == libvlc_state_t.libvlc_Playing )
-		if (embeddedMediaPlayerComponent.getMediaPlayer().isPlaying())
+		playPauseButton=new JButton();
+		if (this.isPlaying)
 		{
-			pauseButton.setText(pauseButtonLabel);
-			pauseButton.setIcon(pauseIcon);
+			playPauseButton.setText(pauseLabel);
+			playPauseButton.setIcon(pauseIcon);
 		}
 		else
 		{
-			pauseButton.setText(playButtonLabel);
-			pauseButton.setIcon(playIcon);
+			playPauseButton.setText(playLabel);
+			playPauseButton.setIcon(playIcon);
 		}
-		pauseButton.addActionListener(new ActionListener() {
+		playPauseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				embeddedMediaPlayerComponent.getMediaPlayer().pause();
-				//if (embeddedMediaPlayerComponent.getMediaPlayer().getMediaPlayerState() == libvlc_state_t.libvlc_Paused )
-				if (embeddedMediaPlayerComponent.getMediaPlayer().isPlaying())
+				mediaPlayer.isPlaying=!mediaPlayer.isPlaying;
+				if (mediaPlayer.isPlaying)
 				{
 					System.out.println("Playing");
-					pauseButton.setText(pauseButtonLabel);
-					pauseButton.setIcon(pauseIcon);
+					playPauseButton.setText(pauseLabel);
+					playPauseButton.setIcon(pauseIcon);
 				}
 				else
 				{
 					System.out.println("Not playing");
-					pauseButton.setText(playButtonLabel);
-					pauseButton.setIcon(playIcon);
+					playPauseButton.setText(playLabel);
+					playPauseButton.setIcon(playIcon);
 				}
 			}
 		});
-		controlsPanel.add(pauseButton);
+		controlsPanel.add(playPauseButton);
 
 		repeatButton=new JToggleButton(repeatButtonLabel, embeddedMediaPlayerComponent.getMediaPlayer().getRepeat());
 		repeatButton.setIcon(repeatIcon);
@@ -460,7 +412,6 @@ public class MediaPlayer extends JPanel
 		//repeat-state mitteilen, ebenso wie dem pause-button
 		//repeatButton.setSelected(false);
 
-		//setMinimumSize();
 	}
 
     protected DisplayMode getDisplayMode(DisplayMode[] displayModes) {
@@ -473,6 +424,19 @@ public class MediaPlayer extends JPanel
 	{
 		System.out.println("Media path: " + mediaPath);
 		embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
+		this.isPlaying=true;
+		if (this.isPlaying)
+		{
+			System.out.println("Playing");
+			playPauseButton.setText(pauseLabel);
+			playPauseButton.setIcon(pauseIcon);
+		}
+		else
+		{
+			System.out.println("Not playing");
+			playPauseButton.setText(playLabel);
+			playPauseButton.setIcon(playIcon);
+		}
 	}
 
 

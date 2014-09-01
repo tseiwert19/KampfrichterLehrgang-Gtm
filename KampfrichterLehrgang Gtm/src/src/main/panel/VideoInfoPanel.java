@@ -64,7 +64,7 @@ public class VideoInfoPanel extends JPanel
 		VideoInfoPanel videoInfoPanel=new VideoInfoPanel(new Video(
 					666,
 					"Name",
-					"/tmp/ATARI SOUNDDESIGN #01 - rE7aNqOS1L8.webm",
+					"/tmp/out.mkv",
 					"Gerät",
 					"Beschreibung",
 					"Schwierigkeitsgrad",
