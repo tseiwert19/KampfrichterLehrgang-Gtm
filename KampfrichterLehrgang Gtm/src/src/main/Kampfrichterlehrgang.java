@@ -25,9 +25,12 @@ public class Kampfrichterlehrgang extends JFrame {
 	private NavigationPanel navigationPanel;
 	private ImpressumPanel impressumPanel;
 	private WelcomePanel welcomePanel;
-        private ResultPanel resultPanel;
+    private ResultPanel resultPanel;
+    private SearchResultPanel searchResultPanel;
+  
+        
 
-        private WelcomeActionListener welcomeActionListener;
+   private WelcomeActionListener welcomeActionListener;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
 
@@ -78,6 +81,16 @@ public class Kampfrichterlehrgang extends JFrame {
           Controller.setResultPanel(resultPanel);
           changeCenterPanel(resultPanel);
 	}
+	/**
+	 * Wechselt zu einem SearchResultPanel (Fuer die Suchfunktion)
+	 * @param search Suchwort
+	 */
+	public void changeToSearchResult(String search){
+	    System.out.println("Start creating SearchResultPanel: " + search);
+	    searchResultPanel = new SearchResultPanel(search);
+	    Controller.setSearchResultPanel(searchResultPanel);
+	    changeCenterPanel(searchResultPanel); 
+	}
 
         /**
          * TODO Diese Methode funktioniert bisher NUR mit dem resultpanel.
@@ -92,9 +105,7 @@ public class Kampfrichterlehrgang extends JFrame {
           //Debug
           System.out.println("Changing center panel.");
           this.getContentPane().remove(Controller.getCurrentCenterPanel());
-          // Hier war mal das ScrollPane, raugeschmissen weils noch nicht richtig
-          // implementiert war >.> Reimsi
-          this.getContentPane().add(newCenterPanel, BorderLayout.CENTER);
+          this.getContentPane().add(new JScrollPane(newCenterPanel), BorderLayout.CENTER);
           Controller.setCurrentCenterPanel(newCenterPanel);
           this.getContentPane().validate();
           this.getContentPane().repaint();

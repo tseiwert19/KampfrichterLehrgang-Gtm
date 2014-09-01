@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
+import src.main.listener.SearchActionListener;
 
 public class NavigationPanel extends JPanel {
 
@@ -28,13 +29,16 @@ public class NavigationPanel extends JPanel {
 	private static final String DTB_LOGO = "../../../img/Logo/dtb-logo.jpg";
 //	private static final String ZURUECK_LOGO = "../../img/Logo/zurueck_button.png";
 	private static final String ZURUECK_LOGO = "../../../img/Logo/rot_zurueck.jpg";
+	
+	private SucheTextfeld sucheFeld;
 
 	public NavigationPanel() {
 			    
 		setBackground(Color.WHITE);
-
+		
 		setLayout(new BorderLayout());
-
+		
+		SearchActionListener searchListener = new SearchActionListener();
 		try {
 			BufferedImage zurueck = ImageIO.read(getClass().getResource(
 					ZURUECK_LOGO));
@@ -68,11 +72,17 @@ public class NavigationPanel extends JPanel {
 		JLabel l = new JLabel();
 		m.add(l, BorderLayout.WEST);
 
-		JTextField sucheFeld = new SucheTextfeld();
+		sucheFeld = new SucheTextfeld();
+	    sucheFeld.addActionListener(searchListener);
+	    sucheFeld.getLupeButton().addActionListener(searchListener);
 		m.add(sucheFeld, BorderLayout.CENTER);
 		
 		add(m, BorderLayout.SOUTH);
 		
 		setVisible(true);
+	}
+	
+	public SucheTextfeld getSucheFeld(){
+	    return sucheFeld;
 	}
 }

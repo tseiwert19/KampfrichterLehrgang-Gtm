@@ -1,6 +1,7 @@
 package src.main.panel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -76,7 +77,9 @@ public class SearchResultPanel extends CenterPanel {
      * @param geraeteName
      */
     private void createGeraetePanel(String geraeteName){
+        Dimension maxSize = new Dimension(200, 50);
         JPanel geraetePanel = new JPanel();
+        geraetePanel.setMaximumSize(maxSize);
         geraetePanel.setBackground(Color.WHITE);
         JLabel label = new JLabel(geraeteName);
         geraetePanel.add(label);
@@ -127,7 +130,7 @@ public class SearchResultPanel extends CenterPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setSize(800, 800);
-        SearchResultPanel panel = new SearchResultPanel("a");
+        SearchResultPanel panel = new SearchResultPanel("Manna");
         frame.getContentPane().add(new JScrollPane(panel));
         frame.setVisible(true);
 
