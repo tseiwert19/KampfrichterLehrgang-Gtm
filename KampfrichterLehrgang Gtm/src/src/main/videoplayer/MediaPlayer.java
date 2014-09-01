@@ -12,9 +12,6 @@
 //TODO:
 // - Kommunikation zwischen Player und repeat/pause-Buttons (listener im
 // mediaplayer)
-// - fullscreenstrategy später festlegen
-// => vlcj-quellcode
-// beim Fullscreen muss das JPanel vergrößert werden
 // vlc-libraries ins jar
 // vlcj-jars ins jar
 // wofür ist surface da?
@@ -274,7 +271,7 @@ public class MediaPlayer extends JPanel
 	private MediaPlayer mediaPlayer;
 
 	//MediaPlayer(String mediaURL, JFrame f)
-	MediaPlayer(String mediaURL)
+	public MediaPlayer(String mediaURL)
 	{
 		mediaPlayer=this;
 		this.mediaPath=mediaURL;
@@ -491,6 +488,7 @@ public class MediaPlayer extends JPanel
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		mainFrame.pack();
 		mainFrame.setVisible(true);
 
 		myMediaPlayer.run();

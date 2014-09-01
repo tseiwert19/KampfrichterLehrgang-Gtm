@@ -10,7 +10,7 @@ import java.awt.*;
 import javax.swing.*;
 
 
-class VideoInfoPanel extends JPanel
+public class VideoInfoPanel extends JPanel
 {
 	private MediaPlayer mediaPlayer;
 	private JScrollPane scrollPane;
@@ -18,7 +18,9 @@ class VideoInfoPanel extends JPanel
 	private String formattedText;
 	private Video video;
 
-	VideoInfoPanel(Video v)
+    private static final Color MYRED = Color.decode("#b92d2e");
+
+	public VideoInfoPanel(Video v)
 	{
 		video=v;
 		setLayout(new BorderLayout());
