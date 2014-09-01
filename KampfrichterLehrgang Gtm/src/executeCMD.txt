@@ -1,1 +1,1 @@
-java -cp .:src/main/libs/sqlite-jdbc-3.7.15-M1.jar src.main.Kampfrichterlehrgang
+java -cp ./src/main/libs/*:. src.main.Kampfrichterlehrgang
