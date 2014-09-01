@@ -13,7 +13,7 @@ import javax.swing.*;
 public class VideoInfoPanel extends JPanel
 {
 	private MediaPlayer mediaPlayer;
-	private JScrollPane scrollPane;
+	//private JScrollPane scrollPane;
 	private JTextPane jTextPane;
 	private String formattedText;
 	private Video video;
@@ -25,24 +25,24 @@ public class VideoInfoPanel extends JPanel
 		video=v;
 		setLayout(new BorderLayout());
 		mediaPlayer=new MediaPlayer(video.getPfad());
-		formattedText="<html>\n" +
-			"<b>ID: </b>" + video.getId() + "<br/>\n" +
+		formattedText="<html><font color='white'>\n" +
 			"<b>Name: </b>" + video.getName() + "<br/>\n" +
-			"<b>Pfad: </b>" + video.getPfad() + "<br/>\n" +
 			"<b>Gerät: </b>" + video.getGeraet() + "<br/>\n" +
 			"<b>Beschreibung: </b>" + video.getBeschreibung() + "<br/>\n" +
 			"<b>Schwierigkeitsgrad: </b>" + video.getSchwierigkeitsgrad() + "<br/>\n" +
 			"<b>Elementgruppe: </b>" + video.getElementgruppe() + "<br/>\n" +
-			"</html>";
+			"</font></html>";
 		jTextPane=new JTextPane();
+		jTextPane.setForeground(Color.WHITE);
+		jTextPane.setBackground(MYRED);
 		jTextPane.setContentType("text/html");
 		jTextPane.setText(formattedText);
 
-		scrollPane=new JScrollPane(jTextPane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setPreferredSize(new Dimension(600, 300));
-		scrollPane.setMinimumSize(new Dimension(10, 10));
+		//scrollPane=new JScrollPane(jTextPane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		//scrollPane.setPreferredSize(new Dimension(600, 300));
+		//scrollPane.setMinimumSize(new Dimension(10, 10));
 		add(mediaPlayer, BorderLayout.WEST);
-		add(scrollPane, BorderLayout.CENTER);
+		add(jTextPane, BorderLayout.CENTER);
 
 		//mediaPlayer.run();
 	}

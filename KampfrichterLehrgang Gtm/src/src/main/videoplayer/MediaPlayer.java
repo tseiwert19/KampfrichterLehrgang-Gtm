@@ -29,6 +29,7 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.DisplayMode;
@@ -344,6 +345,7 @@ public class MediaPlayer extends JPanel
 
 
 		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(768, 576));
 		controlsPanel.setLayout(new FlowLayout());
 
 		//http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
