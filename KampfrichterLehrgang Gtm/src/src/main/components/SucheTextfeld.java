@@ -22,7 +22,8 @@ public class SucheTextfeld extends JTextField implements MouseListener,
 
 	private static final String STARTTEXT = "Nach Element suchen ... ";
 	private static final String LUPE_LOGO = "../../../img/Logo/lupe.jpg";
-
+	private JButton lupeButton;
+	
 	public SucheTextfeld() {
 		setText(STARTTEXT);
 		setPreferredSize(new Dimension(700, 40));
@@ -32,10 +33,10 @@ public class SucheTextfeld extends JTextField implements MouseListener,
 			BufferedImage lupe = ImageIO
 					.read(getClass().getResource(LUPE_LOGO));
 
-			JButton lupeButton = new KariButton();
+			lupeButton = new KariButton();
 			lupeButton.setIcon(new ImageIcon(lupe));
 			lupeButton.setPreferredSize(new Dimension(50, 40));
-
+			
 			add(lupeButton, BorderLayout.EAST);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -44,6 +45,10 @@ public class SucheTextfeld extends JTextField implements MouseListener,
 
 		addMouseListener(this);
 		addKeyListener(this);
+	}
+	
+	public JButton getLupeButton(){
+	    return lupeButton;
 	}
 
 	protected void paintComponent(Graphics g) {
