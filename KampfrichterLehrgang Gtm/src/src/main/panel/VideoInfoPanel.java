@@ -13,7 +13,6 @@ import javax.swing.*;
 public class VideoInfoPanel extends JPanel
 {
 	private MediaPlayer mediaPlayer;
-	//private JScrollPane scrollPane;
 	private JTextPane jTextPane;
 	private String formattedText;
 	private Video video;
@@ -38,13 +37,23 @@ public class VideoInfoPanel extends JPanel
 		jTextPane.setContentType("text/html");
 		jTextPane.setText(formattedText);
 
-		//scrollPane=new JScrollPane(jTextPane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		//scrollPane.setPreferredSize(new Dimension(600, 300));
-		//scrollPane.setMinimumSize(new Dimension(10, 10));
 		add(mediaPlayer, BorderLayout.WEST);
 		add(jTextPane, BorderLayout.CENTER);
+	}
 
-		//mediaPlayer.run();
+	public void enterFullScreen()
+	{
+		jTextPane.setVisible(false);
+	}
+
+	public void leaveFullScreen()
+	{
+		jTextPane.setVisible(true);
+	}
+
+	public void run()
+	{
+		mediaPlayer.run();
 	}
 
 	public static void main(String[] args)
@@ -66,6 +75,7 @@ public class VideoInfoPanel extends JPanel
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
+		videoInfoPanel.run();
 	}
 }
 

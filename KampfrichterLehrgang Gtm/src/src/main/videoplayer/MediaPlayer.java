@@ -345,7 +345,7 @@ public class MediaPlayer extends JPanel
 
 
 		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(768, 576));
+		embeddedMediaPlayerComponent.setPreferredSize(new Dimension(768, 576));
 		controlsPanel.setLayout(new FlowLayout());
 
 		//http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
@@ -471,6 +471,7 @@ public class MediaPlayer extends JPanel
 
 	public void run()
 	{
+		System.out.println("Media path: " + mediaPath);
 		embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
 	}
 
