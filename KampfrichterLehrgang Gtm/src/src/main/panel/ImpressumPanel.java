@@ -45,6 +45,16 @@ public class ImpressumPanel extends JPanel implements ActionListener {
 		add(cdptext);
 	}
 
+	public void enterFullScreen()
+	{
+		this.setVisible(false);
+	}
+
+	public void leaveFullScreen()
+	{
+		this.setVisible(true);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {

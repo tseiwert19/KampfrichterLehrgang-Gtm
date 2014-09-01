@@ -39,6 +39,8 @@ public class VideoInfoPanel extends JPanel
 
 		add(mediaPlayer, BorderLayout.WEST);
 		add(jTextPane, BorderLayout.CENTER);
+
+		//Controller.setVideoInfoPanel(this);
 	}
 
 	public void enterFullScreen()

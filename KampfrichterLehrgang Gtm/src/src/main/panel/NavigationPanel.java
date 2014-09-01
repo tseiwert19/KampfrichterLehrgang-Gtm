@@ -85,4 +85,14 @@ public class NavigationPanel extends JPanel {
 	public SucheTextfeld getSucheFeld(){
 	    return sucheFeld;
 	}
+
+	public void enterFullScreen()
+	{
+		this.setVisible(false);
+	}
+
+	public void leaveFullScreen()
+	{
+		this.setVisible(true);
+	}
 }

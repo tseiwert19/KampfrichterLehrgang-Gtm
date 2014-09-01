@@ -31,6 +31,7 @@ public class Controller
     private static WelcomeActionListener welcAction;
 
     private static MediaPlayer player;
+    private static VideoInfoPanel videoInfoPanel;
     private static Video video;
     private static VideoParser vidparser;
 
@@ -109,6 +110,16 @@ public class Controller
         return player;
     }
 
+	public static void setVideoInfoPanel(VideoInfoPanel v)
+	{
+		videoInfoPanel=v;
+	}
+
+	public static VideoInfoPanel getVideoInfoPanel()
+	{
+		return videoInfoPanel;
+	}
+
     public static void setPDFViewer(PDFViewer p)
     {
         pdfviewer = p;
@@ -148,4 +159,18 @@ public class Controller
     {
         return searchResultPanel;
     }
+
+	public static void setFullScreen()
+	{
+		navpan.enterFullScreen();
+		imppan.enterFullScreen();
+		videoInfoPanel.enterFullScreen();
+	}
+
+	public static void unsetFullScreen()
+	{
+		navpan.leaveFullScreen();
+		imppan.leaveFullScreen();
+		videoInfoPanel.leaveFullScreen();
+	}
 }

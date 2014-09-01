@@ -379,6 +379,8 @@ public class MediaPlayer extends JPanel
 					}
 					SwingUtilities.getWindowAncestor(mediaPlayer).invalidate();
 					SwingUtilities.getWindowAncestor(mediaPlayer).validate();
+
+					//Controller.setFullScreen();
 				}
 				else
 				{
@@ -392,6 +394,8 @@ public class MediaPlayer extends JPanel
                         // f.setBounds(0, 0, 1920, 1080);
                         //f.toFront();
                         //f.setVisible(true);
+
+					//Controller.unsetFullScreen();
 				}
 				boolean vollMoeglich=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().isFullScreenSupported();
 				if (vollMoeglich==true)
