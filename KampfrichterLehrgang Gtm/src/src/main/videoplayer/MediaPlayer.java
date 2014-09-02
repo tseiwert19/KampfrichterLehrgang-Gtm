@@ -38,6 +38,8 @@ import java.awt.Graphics2D;
 import java.awt.Component;
 import java.awt.BasicStroke;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
+import java.awt.RenderingHints;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -103,7 +105,8 @@ class PlayIcon implements Icon{
 		Graphics2D g2d = (Graphics2D) g.create();
 
 		g2d.setColor(Color.black);
-		GeneralPath path=new GeneralPath(); path.moveTo(x+2, y+2);
+		GeneralPath path=new GeneralPath();
+		path.moveTo(x+2, y+2);
 		path.lineTo(x+width-2 , y+height/2);
 		path.lineTo(x+2, y+height-2);
 		path.lineTo(x+2, y+2);
@@ -148,8 +151,6 @@ class FullScreenIcon implements Icon{
 		g2d.drawLine(x+width, y+height, x+width, y+height-height/5);
 		g2d.drawLine(x, y+height, x+width/5, y+height);
 		g2d.drawLine(x, y+height, x, y+height-height/5);
-		//g2d.drawLine(x +10, y + 10, x + width -10, y + height -10);
-		//g2d.drawLine(x +10, y + height -10, x + width -10, y + 10);
 		g2d.dispose();
 	}
 
@@ -173,15 +174,39 @@ class RepeatIcon implements Icon{
 	{
 		width=w;
 		height=h;
-		stroke=new BasicStroke(width/20);
+		stroke=new BasicStroke(width/11);
 	}
 
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
 
-		g2d.setColor(Color.black);
+		g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		g2d.setStroke(stroke);
-		g2d.drawRect(x+1,y+1,width-2,height-2);
+		g2d.setColor(Color.black);
+
+		Path2D.Float path=new Path2D.Float();
+		path.moveTo(x+width/16, y+17*height/32);
+		//path.lineTo(x+width/8, y+3*height/8);
+		path.lineTo(x+width/16, y+7*height/16);
+		path.quadTo(x+width/16, y+5*height/16, x+4*width/16, y+5*height/16);
+		path.lineTo(x+6*width/8, y+5*height/16);
+		g2d.draw(path);
+		path.moveTo(x+7*width/8, y+5*height/16);
+		path.lineTo(x+10*width/16, y+7*height/32);
+		path.lineTo(x+10*width/16, y+13*height/32);
+		path.lineTo(x+7*width/8, y+5*height/16);
+		g2d.draw(path);
+		path.moveTo(x+15*width/16, y+15*height/32);
+		//path.lineTo(x+7*width/8, y+5*height/8);
+		path.lineTo(x+15*width/16, y+9*height/16);
+		path.quadTo(x+15*width/16, y+11*height/16, x+12*width/16, y+11*height/16);
+		path.lineTo(x+2*width/8, y+11*height/16);
+		g2d.draw(path);
+		path.moveTo(x+1*width/8, y+11*height/16);
+		path.lineTo(x+6*width/16, y+25*height/32);
+		path.lineTo(x+6*width/16, y+19*height/32);
+		path.lineTo(x+1*width/8, y+11*height/16);
+		g2d.draw(path);
 		g2d.dispose();
 	}
 
@@ -316,11 +341,13 @@ public class MediaPlayer extends JPanel
 		if (this.isPlaying)
 		{
 			playPauseButton.setText(pauseLabel);
+			playPauseButton.setToolTipText(pauseLabel);
 			playPauseButton.setIcon(pauseIcon);
 		}
 		else
 		{
 			playPauseButton.setText(playLabel);
+			playPauseButton.setToolTipText(playLabel);
 			playPauseButton.setIcon(playIcon);
 		}
 		playPauseButton.addActionListener(new ActionListener() {
@@ -332,12 +359,14 @@ public class MediaPlayer extends JPanel
 				{
 					System.out.println("Playing");
 					playPauseButton.setText(pauseLabel);
+					playPauseButton.setToolTipText(pauseLabel);
 					playPauseButton.setIcon(pauseIcon);
 				}
 				else
 				{
 					System.out.println("Not playing");
 					playPauseButton.setText(playLabel);
+					playPauseButton.setToolTipText(playLabel);
 					playPauseButton.setIcon(playIcon);
 				}
 			}
@@ -380,7 +409,7 @@ public class MediaPlayer extends JPanel
 					SwingUtilities.getWindowAncestor(mediaPlayer).invalidate();
 					SwingUtilities.getWindowAncestor(mediaPlayer).validate();
 
-					//Controller.setFullScreen();
+					Controller.setFullScreen();
 				}
 				else
 				{
@@ -433,12 +462,14 @@ public class MediaPlayer extends JPanel
 		{
 			System.out.println("Playing");
 			playPauseButton.setText(pauseLabel);
+			playPauseButton.setToolTipText(pauseLabel);
 			playPauseButton.setIcon(pauseIcon);
 		}
 		else
 		{
 			System.out.println("Not playing");
 			playPauseButton.setText(playLabel);
+			playPauseButton.setToolTipText(playLabel);
 			playPauseButton.setIcon(playIcon);
 		}
 	}
