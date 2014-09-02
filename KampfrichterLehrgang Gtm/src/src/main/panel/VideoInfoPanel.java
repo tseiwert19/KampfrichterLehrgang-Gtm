@@ -45,11 +45,13 @@ public class VideoInfoPanel extends JPanel
 
 	public void enterFullScreen()
 	{
+		System.out.println("VideoInfoPanel: enterFullScreen");
 		jTextPane.setVisible(false);
 	}
 
 	public void leaveFullScreen()
 	{
+		System.out.println("VideoInfoPanel: leaveFullScreen");
 		jTextPane.setVisible(true);
 	}
 
