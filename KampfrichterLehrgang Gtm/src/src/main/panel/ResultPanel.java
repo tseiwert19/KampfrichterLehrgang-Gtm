@@ -15,9 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
 import src.main.listener.ItemChangeListener;
+import src.main.listener.VideoButtonActionListener;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
@@ -148,11 +150,14 @@ public class ResultPanel extends CenterPanel {
 	private void createButtons(ArrayList<Video> videos) {
 		
 		results.removeAll();
+		VideoButtonActionListener actionListener = new VideoButtonActionListener();
 		if(videos.size() != 0){
 		for (Video video : videos) {
-			JButton newButton = new JButton(createHtmlString(video));
+			KariButton newButton = new KariButton(createHtmlString(video));
 			newButton.setForeground(Color.WHITE);
 			newButton.setBackground(MYRED);
+			newButton.setName(Integer.toString(video.getId()));
+			newButton.addActionListener(actionListener);
 
 			results.add(newButton);
 		}
