@@ -16,7 +16,14 @@ public class KariButton extends JButton implements MouseListener{
 		addMouseListener(this);
 	}
 
-	@Override
+	public KariButton(String string)
+    {
+        super(string);
+        setBackground(Color.WHITE);
+        addMouseListener(this);
+    }
+
+    @Override
 	public void mouseClicked(MouseEvent e) {		
 	}
 

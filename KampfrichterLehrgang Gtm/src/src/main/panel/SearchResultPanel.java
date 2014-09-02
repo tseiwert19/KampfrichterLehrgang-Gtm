@@ -1,5 +1,6 @@
 package src.main.panel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -14,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import src.main.components.KariButton;
+import src.main.listener.VideoButtonActionListener;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
@@ -69,8 +72,13 @@ public class SearchResultPanel extends CenterPanel {
                 lastVideo = video;
             }
         }
+        //Falls Videos vorhanden
+        if(videos.size() > 0){
         createGeraetePanel(lastVideo.getGeraet());
         createPanelWithResults(videosEinesGeraets);
+        }else{
+            createNoResults();
+        }
     }
     /**
      * Erstellt ein Panel, das den Namen eines Geraets anzeigt
@@ -99,12 +107,13 @@ public class SearchResultPanel extends CenterPanel {
 
         Color myRot = Color.decode("#b92d2e");
         Color white = Color.decode("#FFFFFF");
-
+        VideoButtonActionListener actionListener = new VideoButtonActionListener();
         for (Video video : videos) {
-            JButton newButton = new JButton(createHtmlString(video));
+            KariButton newButton = new KariButton(createHtmlString(video));
             newButton.setForeground(white);
             newButton.setBackground(myRot);
-
+            newButton.setName(Integer.toString(video.getId()));
+            newButton.addActionListener(actionListener);
             resultPanel.add(newButton);
         }
         add(resultPanel);
@@ -121,6 +130,21 @@ public class SearchResultPanel extends CenterPanel {
                 + " </b></i></font><br> Schwierigkeitsgrad: "
                 + video.getSchwierigkeitsgrad() + "<br> Elementgruppe: "
                 + video.getElementgruppe() + "  </html>";
+    }
+    /**
+     * Werden keine Ergebnisse gefunden, dann wird der Text "Keine Treffer!" angezeigt
+     */
+    private void createNoResults(){
+        JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
+        JPanel platzhalter = new JPanel();
+        JPanel platzhalter2 = new JPanel();
+        //Platzhalter werden benoetigt damit Label in der Mitte erscheint! ----> Funktioniert allerdings nicht
+        platzhalter.setBackground(Color.WHITE);
+        platzhalter2.setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
+        add(platzhalter, BorderLayout.WEST);
+        add(keineTreffer, BorderLayout.CENTER);
+        add(platzhalter2, BorderLayout.EAST);
     }
     
     /**

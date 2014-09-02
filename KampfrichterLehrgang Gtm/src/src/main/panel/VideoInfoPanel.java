@@ -10,7 +10,7 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public class VideoInfoPanel extends JPanel
+public class VideoInfoPanel extends CenterPanel
 {
 	private MediaPlayer mediaPlayer;
 	private JTextPane jTextPane;

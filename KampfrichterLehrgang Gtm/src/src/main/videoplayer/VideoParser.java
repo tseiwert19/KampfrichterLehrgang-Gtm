@@ -58,6 +58,19 @@ public class VideoParser {
 
         return videos;
     }
+    
+    public Video mappeEinVideo(int id){
+        Video video;
+        ResultSet ergebnis = dbController.getEntry(id);
+        ArrayList<Video> videoListe = parseVideos(ergebnis);
+        if(videoListe.size() == 1){
+            video = videoListe.get(0);
+        }else{
+            video = null;
+        }
+        
+        return video;
+    }
 		
 		private ArrayList<Video> parseVideos(ResultSet ergebnis){
             int id;
