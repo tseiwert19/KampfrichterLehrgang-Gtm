@@ -1,5 +1,7 @@
 package src.main;
 
+import javax.swing.JScrollPane;
+
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.WelcomeActionListener;
@@ -39,6 +41,8 @@ public class Controller
 
     private static KariButton kari;
     private static SucheTextfeld textfeld;
+
+    private static JScrollPane scrollPane;
 
     public static void setKampfrichterlehrgang(Kampfrichterlehrgang k)
     {
@@ -173,4 +177,14 @@ public class Controller
 		imppan.leaveFullScreen();
 		videoInfoPanel.leaveFullScreen();
 	}
+
+    public static JScrollPane getScrollPane()
+    {
+        return scrollPane;
+    }
+    
+    public static void setScrollPane(JScrollPane sp){
+        scrollPane = sp;
+    }
+
 }
