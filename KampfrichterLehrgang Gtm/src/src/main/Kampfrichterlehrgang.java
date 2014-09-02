@@ -7,6 +7,8 @@ import java.util.Stack;
 
 import src.main.listener.WelcomeActionListener;
 import src.main.panel.*;
+import src.main.videoplayer.Video;
+import src.main.videoplayer.VideoParser;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -49,7 +51,8 @@ public class Kampfrichterlehrgang extends JFrame {
 		setSize(900, 700);
 		setMinimumSize(new Dimension(900,700));
 		setLocation(300, 100);
-
+		
+		Controller.setScrollPane(new JScrollPane());
 		// insert navigationPanel to top
 		getContentPane().add(buildNavigationPanel(), BorderLayout.NORTH);
 
@@ -91,6 +94,18 @@ public class Kampfrichterlehrgang extends JFrame {
 	    Controller.setSearchResultPanel(searchResultPanel);
 	    changeCenterPanel(searchResultPanel); 
 	}
+	/**
+	 * Wechselt zu einem VideoInfoPanel
+	 */
+    public void changeToVideoInfoPanel(int id)
+    {
+        VideoParser parser = new VideoParser();
+        Video video = parser.mappeEinVideo(id);
+        VideoInfoPanel videoInfoPanel = new VideoInfoPanel(video);
+        Controller.setVideoInfoPanel(videoInfoPanel);
+        changeCenterPanel(videoInfoPanel);
+        
+    }
 
         /**
          * TODO Diese Methode funktioniert bisher NUR mit dem resultpanel.
@@ -105,7 +120,10 @@ public class Kampfrichterlehrgang extends JFrame {
           //Debug
           System.out.println("Changing center panel.");
           this.getContentPane().remove(Controller.getCurrentCenterPanel());
-          this.getContentPane().add(new JScrollPane(newCenterPanel), BorderLayout.CENTER);
+          this.getContentPane().remove(Controller.getScrollPane());
+          JScrollPane scrollPane = new JScrollPane(newCenterPanel);
+          Controller.setScrollPane(scrollPane);
+          this.getContentPane().add(scrollPane, BorderLayout.CENTER);
           Controller.setCurrentCenterPanel(newCenterPanel);
           this.getContentPane().validate();
           this.getContentPane().repaint();
@@ -165,4 +183,6 @@ public class Kampfrichterlehrgang extends JFrame {
 		@SuppressWarnings("unused")
 		Kampfrichterlehrgang k = new Kampfrichterlehrgang();
 	}
+
+
 }
