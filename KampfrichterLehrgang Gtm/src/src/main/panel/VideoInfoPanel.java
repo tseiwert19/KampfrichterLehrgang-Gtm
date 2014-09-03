@@ -58,6 +58,7 @@ public class VideoInfoPanel extends CenterPanel {
 	public void enterFullScreen() {
 		System.out.println("VideoInfoPanel: enterFullScreen");
 		jlabel.setVisible(false);
+		//repaint();
 	}
 
 	public void leaveFullScreen() {

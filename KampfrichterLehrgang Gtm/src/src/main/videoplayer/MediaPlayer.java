@@ -388,74 +388,7 @@ public class MediaPlayer extends JPanel {
 		fullScreenButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// embeddedMediaPlayerComponent.getMediaPlayer().toggleFullScreen();
-				// https://www3.ntu.edu.sg/home/ehchua/programming/java/J8b_Game_2DGraphics.html
-				if (GraphicsEnvironment.getLocalGraphicsEnvironment()
-						.getDefaultScreenDevice().getFullScreenWindow() == null) {
-					/*
-					 * ((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).
-					 * setVisible(false);
-					 * ((JFrame)SwingUtilities.getWindowAncestor
-					 * (mediaPlayer)).setResizable(false);
-					 * ((JFrame)SwingUtilities
-					 * .getWindowAncestor(mediaPlayer)).dispose();
-					 * ((JFrame)SwingUtilities
-					 * .getWindowAncestor(mediaPlayer)).setUndecorated(true);
-					 * GraphicsEnvironment
-					 * .getLocalGraphicsEnvironment().getDefaultScreenDevice
-					 * ().setFullScreenWindow
-					 * ((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
-					 * ((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).
-					 * setVisible(true);
-					 * ((JFrame)SwingUtilities.getWindowAncestor
-					 * (mediaPlayer)).repaint();
-					 */
-
-					GraphicsEnvironment
-							.getLocalGraphicsEnvironment()
-							.getDefaultScreenDevice()
-							.setFullScreenWindow(
-									(JFrame) SwingUtilities
-											.getWindowAncestor(mediaPlayer));
-					// DisplayMode
-					// displayMode=getDisplayMode(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes());
-					DisplayMode displayMode = GraphicsEnvironment
-							.getLocalGraphicsEnvironment()
-							.getDefaultScreenDevice().getDisplayMode();
-					LibXUtil.setFullScreenWindow(
-							SwingUtilities.getWindowAncestor(mediaPlayer), true);
-					if (displayMode != null) {
-						System.out.println("Hallo");
-						GraphicsEnvironment.getLocalGraphicsEnvironment()
-								.getDefaultScreenDevice()
-								.setDisplayMode(displayMode);
-					}
-					SwingUtilities.getWindowAncestor(mediaPlayer).invalidate();
-					SwingUtilities.getWindowAncestor(mediaPlayer).validate();
-
-					Controller.setFullScreen();
-				} else {
-					LibXUtil.setFullScreenWindow(
-							SwingUtilities.getWindowAncestor(mediaPlayer),
-							false);
-					GraphicsEnvironment.getLocalGraphicsEnvironment()
-							.getDefaultScreenDevice().setFullScreenWindow(null);
-					// ((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).toFront();
-					// ((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setVisible(true);
-					// f.dispose();
-					// f.setBounds(0, 0, 1920, 1080);
-					// f.toFront();
-					// f.setVisible(true);
-
-					Controller.unsetFullScreen();
-				}
-				boolean vollMoeglich = GraphicsEnvironment
-						.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-						.isFullScreenSupported();
-				if (vollMoeglich == true) {
-					System.out.println("Vollbild möglich");
-				}
-
+				mediaPlayer.toggleFullScreen();
 			}
 		});
 		controlsPanel.add(fullScreenButton);
@@ -466,6 +399,76 @@ public class MediaPlayer extends JPanel {
 		// TODO: player muss dem repeat button einen veränderten
 		// repeat-state mitteilen, ebenso wie dem pause-button
 		// repeatButton.setSelected(false);
+
+	}
+
+
+	private void toggleFullScreen()
+	{
+		// https://www3.ntu.edu.sg/home/ehchua/programming/java/J8b_Game_2DGraphics.html
+		// embeddedMediaPlayerComponent.getMediaPlayer().toggleFullScreen();
+		topFrame=((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
+		if (GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice().getFullScreenWindow() == null) {
+			try
+			{
+				Controller.setFullScreen();
+			}
+			catch (Exception ex) {}
+			/*
+			 * topFrame.setVisible(false);
+			 * topFrame.setResizable(false);
+			 * topFrame.dispose();
+			 * topFrame.setUndecorated(true);
+			 * GraphicsEnvironment
+			 * .getLocalGraphicsEnvironment().getDefaultScreenDevice
+			 * ().setFullScreenWindow(topFrame);
+			 * topFrame.setVisible(true);
+			 * topFrame.repaint();
+			 */
+
+			GraphicsEnvironment
+				.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice()
+				.setFullScreenWindow(topFrame);
+			// DisplayMode
+			// displayMode=getDisplayMode(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes());
+			DisplayMode displayMode = GraphicsEnvironment
+				.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice().getDisplayMode();
+			LibXUtil.setFullScreenWindow(topFrame, true);
+			if (displayMode != null) {
+				System.out.println("Hallo");
+				GraphicsEnvironment.getLocalGraphicsEnvironment()
+					.getDefaultScreenDevice()
+					.setDisplayMode(displayMode);
+			}
+			topFrame.invalidate();
+			topFrame.validate();
+
+		} else {
+			LibXUtil.setFullScreenWindow(topFrame, false);
+			GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice().setFullScreenWindow(null);
+			// topFrame.toFront();
+			// topFrame.setVisible(true);
+			// f.dispose();
+			// f.setBounds(0, 0, 1920, 1080);
+			// f.toFront();
+			// f.setVisible(true);
+
+			try
+			{
+				Controller.unsetFullScreen();
+			}
+			catch (Exception ex) {}
+		}
+		boolean vollMoeglich = GraphicsEnvironment
+			.getLocalGraphicsEnvironment().getDefaultScreenDevice()
+			.isFullScreenSupported();
+		if (vollMoeglich == true) {
+			System.out.println("Vollbild möglich");
+		}
 
 	}
 
