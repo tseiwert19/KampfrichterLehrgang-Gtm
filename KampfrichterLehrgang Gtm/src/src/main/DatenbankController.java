@@ -18,7 +18,7 @@ public class DatenbankController
 
 	private Connection connection;
 	// Pfad zur Datenbank
-	private static final String DB_PATH = "src/videoDb";
+	private static final String DB_PATH = "videoDb";
 
 	/**
 	 * Konstruktor Stellt die Verbindung zur Datenbank her und erstellt die

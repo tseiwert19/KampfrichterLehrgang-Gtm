@@ -115,6 +115,7 @@ public class VideoParser
         Video video;
         ArrayList<Video> videos = new ArrayList<Video>();
 
+
         try
         {
             while (ergebnis.next())
