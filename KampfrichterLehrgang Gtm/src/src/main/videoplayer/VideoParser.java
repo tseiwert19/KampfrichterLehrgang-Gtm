@@ -158,13 +158,13 @@ public class VideoParser
                     elementgruppe);
             videos = parseVideos(ergebnis);
         }
-        else if (!geraet.equals("Alle Schwierigkeitsgrade anzeigen")
+        else if (!geraet.equals("Alle Geräte anzeigen")
                 && elementgruppe.equals("Alle Elementgruppen anzeigen"))
         {
             ResultSet ergebnis = dbController.getAllByNameGeraet(name, geraet);
             videos = parseVideos(ergebnis);
         }
-        else if (geraet.equals("Alle Schwierigkeitsgrade anzeigen")
+        else if (geraet.equals("Alle Geräte anzeigen")
                 && !elementgruppe.equals("Alle Elementgruppen anzeigen"))
         {
             ResultSet ergebnis = dbController.getAllByNameElementgruppe(name, elementgruppe);
@@ -172,7 +172,8 @@ public class VideoParser
         }
         else
         {
-            videos = mappeVideosVonGeraet(geraet);
+            ResultSet ergebnis = dbController.getAllByName(name);
+            videos = parseVideos(ergebnis);
         }
 
         return videos;
