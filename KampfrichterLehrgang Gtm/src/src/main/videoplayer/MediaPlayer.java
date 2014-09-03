@@ -266,14 +266,9 @@ public class MediaPlayer extends JPanel
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win32");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win64");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/programme/videolan/vlc");
-		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
-		/*
+		//embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
 		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent()
 		{
-			//TODO: für alle Plattformen
-			protected FullScreenStrategy onGetFullScreenStrategy() {
-				return new XFullScreenStrategy(topFrame);
-			}
 			public void playing(MediaPlayer mediaPlayer) {
 				playPauseButton.setText(pauseLabel);
 				playPauseButton.setIcon(pauseIcon);
@@ -298,7 +293,6 @@ public class MediaPlayer extends JPanel
 				System.out.println("error()");
 			}
 		};
-		*/
 
 			/*
         embeddedMediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
@@ -405,6 +399,7 @@ public class MediaPlayer extends JPanel
 				//https://www3.ntu.edu.sg/home/ehchua/programming/java/J8b_Game_2DGraphics.html
 				if (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getFullScreenWindow() == null)
 				{
+					/*
 					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setVisible(false);
 					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setResizable(false);
 					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).dispose();
@@ -412,9 +407,9 @@ public class MediaPlayer extends JPanel
 					GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
 					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setVisible(true);
 					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).repaint();
+					*/
 
 
-					/*
 					GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
 					//DisplayMode displayMode=getDisplayMode(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes());
 					DisplayMode displayMode=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
@@ -428,7 +423,6 @@ public class MediaPlayer extends JPanel
 					SwingUtilities.getWindowAncestor(mediaPlayer).validate();
 
 					Controller.setFullScreen();
-					*/
 				}
 				else
 				{
