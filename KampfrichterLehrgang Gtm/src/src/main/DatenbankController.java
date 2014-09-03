@@ -214,4 +214,45 @@ public class DatenbankController
 		return findDatasets("SELECT * FROM videos WHERE id =" + primaryKey);
 	}
 
+	/**
+	 * Liefert alle Eintraege zu einer Elementgruppe
+	 * @param elementgruppe
+	 * @return ResultSet
+	 */
+    public ResultSet getAllByElementgruppe(String elementgruppe)
+    {
+        return findDatasets("SELECT * FROM videos WHERE elementgruppe =" + elementgruppe);
+    }
+    /**
+     * Liefert alle Eintraege die mit Name, Geraet und Elementgruppe uebereinstimmen
+     * @param name
+     * @param geraet
+     * @param elementgruppe
+     * @return ResultSet
+     */
+    public ResultSet getAllByNameGeraetElementgruppe(String name, String geraet, String elementgruppe)
+    {
+        return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name + "%' AND geraet = '" + geraet + "' AND elementgruppe ='"+ elementgruppe + "'");
+    }
+    /**
+     * Liefert alle Eintraege die mit Name, Geraet uebereinstimmen
+     * @param name
+     * @param geraet
+     * @return ResultSet
+     */
+    public ResultSet getAllByNameGeraet(String name, String geraet)
+    {
+        return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name + "%' AND geraet = '" + geraet + "'");
+    }
+    /**
+     * Liefert alle Eintraege die mit Name, Elementgrupope uebereinstimmen
+     * @param name
+     * @param elementgruppe
+     * @return ResultSet
+     */
+    public ResultSet getAllByNameElementgruppe(String name, String elementgruppe)
+    {
+        return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name + "%' AND elementgruppe ='"+ elementgruppe + "'");
+    }
+
 }
