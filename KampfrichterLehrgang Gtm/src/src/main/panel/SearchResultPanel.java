@@ -40,6 +40,7 @@ public class SearchResultPanel extends CenterPanel {
     private RoundCorneredComboBox elementgruppeCb;
     private JPanel comboBoxPanel;
     private JPanel resultPanel;
+    private JPanel mainResultPanel;
     private String name;
 
     /**
@@ -57,19 +58,23 @@ public class SearchResultPanel extends CenterPanel {
         
         VideoParser parser = new VideoParser();
         ArrayList<Video> videos = parser.mappeVideosVonName(name);
+        createComboBoxPanel();
         
+        mainResultPanel = new JPanel();
+        mainResultPanel.setBackground(Color.WHITE);
+        mainResultPanel.setLayout(new BoxLayout(mainResultPanel, BoxLayout.PAGE_AXIS));
         createAllPanels(videos);
+        
+        add(mainResultPanel);
     }
     /**
      * Parst die Datensaetze aus der Datenbank und erstellt alle benoetigten Panels
      * @param name
      */
     private void createAllPanels( ArrayList<Video> videos){
-        removeAll();
+        mainResultPanel.removeAll();
         ArrayList<Video> videosEinesGeraets = new ArrayList<Video>();
         Video lastVideo = null;
-        
-        createComboBoxPanel();
           
         for(Video video: videos){
             if(videosEinesGeraets.size() == 0){
@@ -107,7 +112,7 @@ public class SearchResultPanel extends CenterPanel {
         geraetePanel.setBackground(Color.WHITE);
         JLabel label = new JLabel(geraeteName);
         geraetePanel.add(label);
-        add(geraetePanel);
+        mainResultPanel.add(geraetePanel);
     }
     /**
      * Erstellt Panel, das die ComboBoxen zur Filterung enthaelt
@@ -171,7 +176,7 @@ public class SearchResultPanel extends CenterPanel {
             newButton.addActionListener(actionListener);
             resultPanel.add(newButton);
         }
-        add(resultPanel);
+        mainResultPanel.add(resultPanel);
     }
     /**
      * Formatiert den Text, der auf dem Button steht (in HTML)
@@ -193,12 +198,12 @@ public class SearchResultPanel extends CenterPanel {
         JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
         JPanel platzhalter = new JPanel();
         JPanel platzhalter2 = new JPanel();
-        //Platzhalter werden benoetigt damit Label in der Mitte erscheint! ----> Funktioniert allerdings nicht
+
         platzhalter.setBackground(Color.WHITE);
         platzhalter2.setBackground(Color.WHITE);
-        add(platzhalter);
-        add(keineTreffer);
-        add(platzhalter2);
+        mainResultPanel.add(platzhalter);
+        mainResultPanel.add(keineTreffer);
+        mainResultPanel.add(platzhalter2);
     }
     
     
