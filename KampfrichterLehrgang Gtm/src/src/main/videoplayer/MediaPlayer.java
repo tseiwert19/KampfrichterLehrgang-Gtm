@@ -264,7 +264,9 @@ public class MediaPlayer extends JPanel
 		//http://download.videolan.org/pub/videolan/vlc/last/win32/
 		//http://download.videolan.org/pub/videolan/vlc/last/win64/
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win32");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "../../src/main/libs/win32");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win64");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "../../src/main/libs/win64");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/programme/videolan/vlc");
 		//embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
 		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent()
