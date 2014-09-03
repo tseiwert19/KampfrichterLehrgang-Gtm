@@ -3,6 +3,7 @@ package src.main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.Stack;
 
 import src.main.listener.WelcomeActionListener;
@@ -142,25 +143,28 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
 	/**
-	 * TODO Text aktualisieren
-         * Baut eine Impressums JPanel nach VOrlage einer noch anzufertigen Klasse
-	 * und gibt dieses zurueck.
+	 * TODO Text aktualisieren Baut eine Impressums JPanel nach VOrlage einer
+	 * noch anzufertigen Klasse und gibt dieses zurueck.
 	 */
 	private JPanel buildImpressumPanel() {
-                impressumPanel = new ImpressumPanel();
-                Controller.setImpressumPanel(impressumPanel);
-		add(impressumPanel, BorderLayout.SOUTH);
-
-                JPanel k = new JPanel();
+		GridLayout gridLayout = new GridLayout(1,3);
+		
+		JPanel k = new JPanel();
 		k.setBackground(Color.WHITE);
-		k.add(impressumPanel, BorderLayout.NORTH);
+		
+		JPanel m = new JPanel();
+		m.setBackground(Color.WHITE);
+	    k.add(m);
+	    
+		impressumPanel = new ImpressumPanel();
+		Controller.setImpressumPanel(impressumPanel);
+		k.add(impressumPanel);
 
 		JPanel l = new JPanel();
 		l.setBackground(Color.WHITE);
-		l.setPreferredSize(new Dimension(200, 30));
-		k.add(l, BorderLayout.SOUTH);
+		k.add(l);
 
-                return k;
+		return k;
 	}
 
 	/**
