@@ -23,7 +23,6 @@ package src.main.videoplayer;
 import src.main.*;
 
 import java.util.*;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
@@ -40,6 +39,7 @@ import java.awt.BasicStroke;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.RenderingHints;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -47,7 +47,10 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.Icon;
 
+import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
+
+import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.binding.LibVlcConst;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
@@ -263,11 +266,11 @@ public class MediaPlayer extends JPanel
 		//-Djna.library.path=C:\programme\videolan\vlc
 		//http://download.videolan.org/pub/videolan/vlc/last/win32/
 		//http://download.videolan.org/pub/videolan/vlc/last/win64/
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win32");
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "../../src/main/libs/win32");
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win64");
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "../../src/main/libs/win64");
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/programme/videolan/vlc");
+		
+NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/Programme/VideoLan/VLC");
+		
+		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+        LibXUtil.initialise();
 		//embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
 		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent()
 		{

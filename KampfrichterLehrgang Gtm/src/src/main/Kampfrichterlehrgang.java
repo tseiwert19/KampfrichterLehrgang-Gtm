@@ -10,10 +10,16 @@ import src.main.listener.WelcomeActionListener;
 import src.main.panel.*;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
+import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+import uk.co.caprica.vlcj.runtime.x.LibXUtil;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
 
 public class Kampfrichterlehrgang extends JFrame {
 
@@ -43,7 +49,12 @@ public class Kampfrichterlehrgang extends JFrame {
 	private Stack<JPanel> backStack;
 
 	public Kampfrichterlehrgang() {
-		setBackground(Color.WHITE);
+		
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/Programme/VideoLan/VLC");
+		
+		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+        LibXUtil.initialise();
+        
 		backStack = new Stack<JPanel>();
 
 		setTitle(NAME);
@@ -100,8 +111,9 @@ public class Kampfrichterlehrgang extends JFrame {
 	 */
     public void changeToVideoInfoPanel(int id)
     {
-        VideoParser parser = new VideoParser();
+        VideoParser parser = new VideoParser();        
         Video video = parser.mappeEinVideo(id);
+        System.out.println(video == null);
         VideoInfoPanel videoInfoPanel = new VideoInfoPanel(video);
         Controller.setVideoInfoPanel(videoInfoPanel);
         changeCenterPanel(videoInfoPanel);

@@ -29,7 +29,7 @@ import src.main.videoplayer.VideoParser;
  * @author michael
  *
  */
-public class ResultPanel extends CenterPanel { 
+public class ResultPanel extends CenterPanel {
 
 	private static final long serialVersionUID = 1L;
 	private String iconPfad;
@@ -39,12 +39,14 @@ public class ResultPanel extends CenterPanel {
 	private String geraeteName;
 	private RoundCorneredComboBox schwierigkeitsgradCb;
 	private RoundCorneredComboBox elementgruppeCb;
-	
-	private static final String[] SCHWIERIGKEITSGRADE = {"Alle Schwierigkeitsgrade anzeigen", "A", "B", "C", "D", "E", "F"};
-    private static final String[] ELEMENTGRUPPEN = {"Alle Elementgruppen anzeigen", "I", "II", "III", "IV", "V"};
-    
-    private static final Color MYRED = Color.decode("#b92d2e");
-    
+
+	private static final String[] SCHWIERIGKEITSGRADE = {
+			"Alle Schwierigkeitsgrade anzeigen", "A", "B", "C", "D", "E", "F" };
+	private static final String[] ELEMENTGRUPPEN = {
+			"Alle Elementgruppen anzeigen", "I", "II", "III", "IV", "V" };
+
+	private static final Color MYRED = Color.decode("#b92d2e");
+
 	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
 	private static final String BARREN = "Barren";
 	private static final String BODEN = "Boden";
@@ -70,75 +72,81 @@ public class ResultPanel extends CenterPanel {
 
 		BorderLayout borderLayout = new BorderLayout();
 		setLayout(borderLayout);
-		
+
 		createHeaderPanel(geraet);
 		add(header, BorderLayout.NORTH);
-		
+
 		createResultPanel();
 		add(results, BorderLayout.CENTER);
 	}
+
 	/**
 	 * Erstellt Panel mit Geraetenamen
+	 * 
 	 * @param geraet
 	 */
-	private void createHeaderPanel(String geraet){
-	        header = new JPanel();
-	        header.setLayout(new BoxLayout(header, BoxLayout.PAGE_AXIS));
-	        JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>"+ geraet+ "</b></i></font>");
-	        header.add(geraeteTyp);
-	        header.setBackground(Color.WHITE);
-	        
-	        createComboBoxPanel();
-	        header.add(comboBoxPanel);
+	private void createHeaderPanel(String geraet) {
+		header = new JPanel();
+		header.setLayout(new BoxLayout(header, BoxLayout.PAGE_AXIS));
+		JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>" + geraet
+				+ "</b></i></font>");
+		header.add(geraeteTyp);
+		header.setBackground(Color.WHITE);
+
+		createComboBoxPanel();
+		header.add(comboBoxPanel);
 
 	}
+
 	/**
 	 * Erstellt Panel fuer die Anzeige der ComboBoxen
 	 */
-	private void createComboBoxPanel(){
-	    comboBoxPanel = new JPanel();
-	    comboBoxPanel.setBackground(Color.WHITE);
-	    FlowLayout flowLayout = new FlowLayout();
-	    comboBoxPanel.setLayout(flowLayout);
-	    
-	    createComboBoxes();
-	    
-	    comboBoxPanel.add(schwierigkeitsgradCb);
-	    comboBoxPanel.add(elementgruppeCb);   
+	private void createComboBoxPanel() {
+		comboBoxPanel = new JPanel();
+		comboBoxPanel.setBackground(Color.WHITE);
+		FlowLayout flowLayout = new FlowLayout();
+		comboBoxPanel.setLayout(flowLayout);
+
+		createComboBoxes();
+
+		comboBoxPanel.add(schwierigkeitsgradCb);
+		comboBoxPanel.add(elementgruppeCb);
 	}
+
 	/**
-	 * Erstellt beide ComboBoxen 
+	 * Erstellt beide ComboBoxen
 	 */
-	private void createComboBoxes(){
-	    schwierigkeitsgradCb = new RoundCorneredComboBox(SCHWIERIGKEITSGRADE);
-        elementgruppeCb = new RoundCorneredComboBox(ELEMENTGRUPPEN);
-        
-        schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
-        elementgruppeCb.setName("Elementgruppe");
-        
-        ComboBoxActionListener actionListener = new ComboBoxActionListener();
-        ItemChangeListener itemListener = new ItemChangeListener();
-        
-        schwierigkeitsgradCb.addActionListener(actionListener);
-        schwierigkeitsgradCb.addItemListener(itemListener);
-        elementgruppeCb.addActionListener(actionListener);
-        elementgruppeCb.addItemListener(itemListener);
+	private void createComboBoxes() {
+		schwierigkeitsgradCb = new RoundCorneredComboBox(SCHWIERIGKEITSGRADE);
+		elementgruppeCb = new RoundCorneredComboBox(ELEMENTGRUPPEN);
+
+		schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
+		elementgruppeCb.setName("Elementgruppe");
+
+		ComboBoxActionListener actionListener = new ComboBoxActionListener();
+		ItemChangeListener itemListener = new ItemChangeListener();
+
+		schwierigkeitsgradCb.addActionListener(actionListener);
+		schwierigkeitsgradCb.addItemListener(itemListener);
+		elementgruppeCb.addActionListener(actionListener);
+		elementgruppeCb.addItemListener(itemListener);
 	}
+
 	/**
 	 * Erstellt Panel mit Ergebnissen
 	 */
-	private void createResultPanel(){
-	    results = new JPanel();
-        GridLayout gridlayout = new GridLayout(0, 3, 20, 20);
-        results.setLayout(gridlayout);
-        results.setBorder(new EmptyBorder(20, 20, 20, 20));
-        results.setBackground(Color.WHITE);
-        
-        VideoParser parser = new VideoParser();
-        ArrayList<Video> videos = new ArrayList<Video>();
+	private void createResultPanel() {
+		results = new JPanel();
+		GridLayout gridlayout = new GridLayout(0, 3, 20, 20);
+		results.setLayout(gridlayout);
+		results.setBorder(new EmptyBorder(20, 20, 20, 20));
+		results.setBackground(Color.WHITE);
 
-        videos = parser.mappeVideosVonGeraet(geraeteName);
-        createButtons(videos);
+		VideoParser parser = new VideoParser();
+		ArrayList<Video> videos = new ArrayList<Video>();
+
+		videos = parser.mappeVideosVonGeraet(geraeteName);
+		createButtons(videos);
 	}
 
 	/**
@@ -148,50 +156,53 @@ public class ResultPanel extends CenterPanel {
 	 *            Videos von diesem Geraet werden dargestellt
 	 */
 	private void createButtons(ArrayList<Video> videos) {
-		
+
 		results.removeAll();
 		VideoButtonActionListener actionListener = new VideoButtonActionListener();
-		if(videos.size() != 0){
-		for (Video video : videos) {
-			KariButton newButton = new KariButton(createHtmlString(video));
-			newButton.setForeground(Color.WHITE);
-			newButton.setBackground(MYRED);
-			newButton.setName(Integer.toString(video.getId()));
-			newButton.addActionListener(actionListener);
+		if (videos.size() != 0) {
+			for (Video video : videos) {
+				KariButton newButton = new KariButton(createHtmlString(video));
+				newButton.setForeground(Color.WHITE);
+				newButton.setBackground(MYRED);
+				newButton.setName(Integer.toString(video.getId()));
+				newButton.addActionListener(actionListener);
 
-			results.add(newButton);
+				results.add(newButton);
+			}
+		} else {
+			createNoResults();
 		}
-		}else{
-		    createNoResults();
-		}
-		
-		 validate();
-         repaint();
+
+		validate();
+		repaint();
 
 	}
+
 	/**
-	 * Werden keine Ergebnisse gefunden, dann wird der Text "Keine Treffer!" angezeigt
+	 * Werden keine Ergebnisse gefunden, dann wird der Text "Keine Treffer!"
+	 * angezeigt
 	 */
-	private void createNoResults(){
-        JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
-        JPanel platzhalter = new JPanel();
-        JPanel platzhalter2 = new JPanel();
-        //Platzhalter werden benoetigt damit Label in der Mitte erscheint!
-        platzhalter.setBackground(Color.WHITE);
-        platzhalter2.setBackground(Color.WHITE);
-        results.add(platzhalter);
-        results.add(keineTreffer);
-        results.add(platzhalter2);
+	private void createNoResults() {
+		JLabel keineTreffer = new JLabel(
+				"<html><font size='8'><b>Keine Treffer!</b></i></font>");
+		JPanel platzhalter = new JPanel();
+		JPanel platzhalter2 = new JPanel();
+		// Platzhalter werden benoetigt damit Label in der Mitte erscheint!
+		platzhalter.setBackground(Color.WHITE);
+		platzhalter2.setBackground(Color.WHITE);
+		results.add(platzhalter);
+		results.add(keineTreffer);
+		results.add(platzhalter2);
 	}
-	
-	public void filterVideos(String schwierigkeitsgrad, String elementgruppe){
-	    VideoParser parser = new VideoParser();
-        ArrayList<Video> videos = new ArrayList<Video>();
 
-        videos = parser.mappeGefilterteVideos(geraeteName, schwierigkeitsgrad, elementgruppe);
-        createButtons(videos);
+	public void filterVideos(String schwierigkeitsgrad, String elementgruppe) {
+		VideoParser parser = new VideoParser();
+		ArrayList<Video> videos = new ArrayList<Video>();
+
+		videos = parser.mappeGefilterteVideos(geraeteName, schwierigkeitsgrad,
+				elementgruppe);
+		createButtons(videos);
 	}
-	
 
 	/**
 	 * Formatiert den Text, der auf dem Button steht (in HTML)
@@ -206,13 +217,13 @@ public class ResultPanel extends CenterPanel {
 				+ video.getSchwierigkeitsgrad() + "<br> Elementgruppe: "
 				+ video.getElementgruppe() + "  </html>";
 	}
-	
-	public RoundCorneredComboBox getSchwierigkeitsgradCb(){
-	    return schwierigkeitsgradCb;
+
+	public RoundCorneredComboBox getSchwierigkeitsgradCb() {
+		return schwierigkeitsgradCb;
 	}
-	
-	public RoundCorneredComboBox getElementgruppeCb(){
-	    return elementgruppeCb;
+
+	public RoundCorneredComboBox getElementgruppeCb() {
+		return elementgruppeCb;
 	}
 
 	/**
@@ -247,5 +258,4 @@ public class ResultPanel extends CenterPanel {
 
 	}
 
-	
 }

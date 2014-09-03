@@ -211,7 +211,7 @@ public class DatenbankController
 	 * @throws SQLException
 	 */
 	public ResultSet getEntry(int primaryKey) {
-		return findDatasets("SELECT * FROM videos WHERE id =" + primaryKey);
+		return findDatasets("SELECT * FROM videos WHERE id = '"+  primaryKey+"'");
 	}
 
 	/**
