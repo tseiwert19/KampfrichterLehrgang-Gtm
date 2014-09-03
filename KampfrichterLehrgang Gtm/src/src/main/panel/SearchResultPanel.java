@@ -3,9 +3,11 @@ package src.main.panel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,6 +18,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import src.main.components.KariButton;
+import src.main.components.RoundCorneredComboBox;
+import src.main.listener.ComboBoxActionListener;
+import src.main.listener.ComboBoxSearchActionListener;
+import src.main.listener.ItemChangeListener;
 import src.main.listener.VideoButtonActionListener;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
@@ -27,35 +33,43 @@ import src.main.videoplayer.VideoParser;
  */
 public class SearchResultPanel extends CenterPanel {
 
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = -1462843621974397662L;
+    private static final String[] GERAETE = {"Alle Geräte anzeigen", "Boden", "Pauschenpferd", "Ringe", "Sprung", "Barren", "Reck"} ;
+    private static final String[] SCHWIERIGKEITSGRADE = {"Alle Elementgruppen anzeigen", "I", "II", "III", "IV", "V"};
+    private RoundCorneredComboBox geraeteCb;
+    private RoundCorneredComboBox elementgruppeCb;
+    private JPanel comboBoxPanel;
+    private JPanel resultPanel;
+    private String name;
 
     /**
      * Konstruktor
      * @param name Es wird ein Video gesucht, das diesen Teilstring enthaelt
      */
     public SearchResultPanel(String name){
+        this.name = name;
+        
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder());
-
+        
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         setLayout(boxLayout);
         
-        createAllPanels(name);
+        VideoParser parser = new VideoParser();
+        ArrayList<Video> videos = parser.mappeVideosVonName(name);
+        
+        createAllPanels(videos);
     }
     /**
      * Parst die Datensaetze aus der Datenbank und erstellt alle benoetigten Panels
      * @param name
      */
-    private void createAllPanels(String name){
-        VideoParser parser = new VideoParser();
-        ArrayList<Video> videos = parser.mappeVideosVonName(name);
+    private void createAllPanels( ArrayList<Video> videos){
+        removeAll();
         ArrayList<Video> videosEinesGeraets = new ArrayList<Video>();
         Video lastVideo = null;
         
+        createComboBoxPanel();
           
         for(Video video: videos){
             if(videosEinesGeraets.size() == 0){
@@ -79,6 +93,8 @@ public class SearchResultPanel extends CenterPanel {
         }else{
             createNoResults();
         }
+        validate();
+        repaint();
     }
     /**
      * Erstellt ein Panel, das den Namen eines Geraets anzeigt
@@ -94,11 +110,50 @@ public class SearchResultPanel extends CenterPanel {
         add(geraetePanel);
     }
     /**
+     * Erstellt Panel, das die ComboBoxen zur Filterung enthaelt
+     */
+    private void createComboBoxPanel(){
+        comboBoxPanel = new JPanel();
+        comboBoxPanel.setBackground(Color.WHITE);
+        Dimension maxSize = new Dimension(2000, 50);
+        comboBoxPanel.setMaximumSize(maxSize);
+        FlowLayout flowLayout = new FlowLayout();
+        comboBoxPanel.setLayout(flowLayout);
+        
+        createComboBoxes();
+        
+        comboBoxPanel.add(geraeteCb);
+        comboBoxPanel.add(elementgruppeCb); 
+        
+        add(comboBoxPanel);
+    }
+    
+    /**
+     * Erstellt geraeteCb-ComboBox und elementgruppeCb-ComboBox
+     */
+    private void createComboBoxes()
+    {
+        geraeteCb = new RoundCorneredComboBox(GERAETE);
+        elementgruppeCb = new RoundCorneredComboBox(SCHWIERIGKEITSGRADE);
+        
+        geraeteCb.setName("Geraete");
+        elementgruppeCb.setName("Elementgruppe");
+        
+        ComboBoxSearchActionListener actionListener = new ComboBoxSearchActionListener();
+        ItemChangeListener itemListener = new ItemChangeListener();
+        
+        geraeteCb.addActionListener(actionListener);
+        geraeteCb.addItemListener(itemListener);
+        elementgruppeCb.addActionListener(actionListener);
+        elementgruppeCb.addItemListener(itemListener);
+        
+    }
+    /**
      * Erstellt ein Panel, das alle Videos eines Geraetetyps enthaelt
      * @param videos Liste der Videos von einem Geraet
      */
     private void createPanelWithResults(ArrayList<Video> videos){
-        JPanel resultPanel = new JPanel();
+        resultPanel = new JPanel();
         GridLayout gridlayout = new GridLayout(0, 3, 20, 20);
         resultPanel.setLayout(gridlayout);
         resultPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -141,12 +196,25 @@ public class SearchResultPanel extends CenterPanel {
         //Platzhalter werden benoetigt damit Label in der Mitte erscheint! ----> Funktioniert allerdings nicht
         platzhalter.setBackground(Color.WHITE);
         platzhalter2.setBackground(Color.WHITE);
-        setLayout(new BorderLayout());
-        add(platzhalter, BorderLayout.WEST);
-        add(keineTreffer, BorderLayout.CENTER);
-        add(platzhalter2, BorderLayout.EAST);
+        add(platzhalter);
+        add(keineTreffer);
+        add(platzhalter2);
     }
     
+    
+    public RoundCorneredComboBox getGeraeteCb()
+    {
+        return geraeteCb;
+    }
+    public RoundCorneredComboBox getElementgruppeCb()
+    {
+        return elementgruppeCb;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
     /**
      * Dient nur zu Testzwecken
      * @param args
@@ -158,5 +226,19 @@ public class SearchResultPanel extends CenterPanel {
         frame.getContentPane().add(new JScrollPane(panel));
         frame.setVisible(true);
 
+    }
+    /**
+     * Filtert Videos nach Name, Geraet und Elementgruppe
+     * @param name
+     * @param geraet
+     * @param elementgruppe
+     */
+    public void filterVideos(String name, String geraet, String elementgruppe)
+    {
+        VideoParser parser = new VideoParser();
+        ArrayList<Video> videos = new ArrayList<Video>();
+
+        videos = parser.mappeGefilterteSucheVideos(name, geraet, elementgruppe);
+        createAllPanels(videos);
     }
 }
