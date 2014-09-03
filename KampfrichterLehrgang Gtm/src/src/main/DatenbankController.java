@@ -18,7 +18,7 @@ public class DatenbankController
 
 	private Connection connection;
 	// Pfad zur Datenbank
-	private static final String DB_PATH = "videoDb";
+	private static final String DB_PATH = "src/videoDb";
 
 	/**
 	 * Konstruktor Stellt die Verbindung zur Datenbank her und erstellt die
@@ -176,7 +176,6 @@ public class DatenbankController
         try
         {
             alleVideos = connection.createStatement().executeQuery(sql);
-            
         }
         catch (SQLException e)
         {
