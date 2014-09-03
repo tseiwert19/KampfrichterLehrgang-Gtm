@@ -258,15 +258,17 @@ public class MediaPlayer extends JPanel
 		topFrame=(JFrame)SwingUtilities.getWindowAncestor(this);
 		//topFrame=f;
 
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "lib");
-		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
-		/*
+		//TODO: exception
+		//libvlc.dll und libvlccore.dll
+		//-Djna.library.path=C:\programme\videolan\vlc
+		//http://download.videolan.org/pub/videolan/vlc/last/win32/
+		//http://download.videolan.org/pub/videolan/vlc/last/win64/
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win32");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "src/main/libs/win64");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/programme/videolan/vlc");
+		//embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
 		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent()
 		{
-			//TODO: für alle Plattformen
-			protected FullScreenStrategy onGetFullScreenStrategy() {
-				return new XFullScreenStrategy(topFrame);
-			}
 			public void playing(MediaPlayer mediaPlayer) {
 				playPauseButton.setText(pauseLabel);
 				playPauseButton.setIcon(pauseIcon);
@@ -291,7 +293,6 @@ public class MediaPlayer extends JPanel
 				System.out.println("error()");
 			}
 		};
-		*/
 
 			/*
         embeddedMediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
@@ -395,8 +396,20 @@ public class MediaPlayer extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 //embeddedMediaPlayerComponent.getMediaPlayer().toggleFullScreen();
+				//https://www3.ntu.edu.sg/home/ehchua/programming/java/J8b_Game_2DGraphics.html
 				if (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getFullScreenWindow() == null)
 				{
+					/*
+					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setVisible(false);
+					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setResizable(false);
+					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).dispose();
+					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setUndecorated(true);
+					GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
+					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setVisible(true);
+					((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).repaint();
+					*/
+
+
 					GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
 					//DisplayMode displayMode=getDisplayMode(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes());
 					DisplayMode displayMode=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
@@ -413,8 +426,6 @@ public class MediaPlayer extends JPanel
 				}
 				else
 				{
-					//((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).dispose();
-					//((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).setUndecorated(false);
 					LibXUtil.setFullScreenWindow(SwingUtilities.getWindowAncestor(mediaPlayer), false);
 					GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
 					//((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer)).toFront();
@@ -424,7 +435,7 @@ public class MediaPlayer extends JPanel
                         //f.toFront();
                         //f.setVisible(true);
 
-					//Controller.unsetFullScreen();
+					Controller.unsetFullScreen();
 				}
 				boolean vollMoeglich=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().isFullScreenSupported();
 				if (vollMoeglich==true)
