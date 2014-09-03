@@ -9,21 +9,27 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
-
-public class VideoInfoPanel extends CenterPanel
-{
+public class VideoInfoPanel extends CenterPanel {
 	private MediaPlayer mediaPlayer;
-	private JTextPane jTextPane;
+	private JLabel jlabel;
 	private String formattedText;
 	private Video video;
 
-    private static final Color MYRED = Color.decode("#b92d2e");
+	private static final Color MYRED = Color.decode("#b92d2e");
 
 	public VideoInfoPanel(Video v)
 	{
 		video=v;
 		setLayout(new BorderLayout());
 		mediaPlayer=new MediaPlayer(video.getPfad());
+		
+		if (video.getBeschreibung() == null) {
+			formattedText="<html><font color='white'><font size=\"5\"><b><i>\n" + video.getName() + "</i></b></font size><br/><br/>\n" +
+					"<font size=\"4\"><b>Gerät: </b>" + video.getGeraet() + "<br/><br/>\n" +
+					"<b>Schwierigkeitsgrad: </b>" + video.getSchwierigkeitsgrad() + "<br/><br/>\n" +
+					"<b>Elementgruppe: </b>" + video.getElementgruppe() + "<br/></font size>\n" +
+					"</font></html>";
+		} else {
 		formattedText="<html><font color='white'>\n" +
 			"<b>Name: </b>" + video.getName() + "<br/>\n" +
 			"<b>Gerät: </b>" + video.getGeraet() + "<br/>\n" +
@@ -31,48 +37,45 @@ public class VideoInfoPanel extends CenterPanel
 			"<b>Schwierigkeitsgrad: </b>" + video.getSchwierigkeitsgrad() + "<br/>\n" +
 			"<b>Elementgruppe: </b>" + video.getElementgruppe() + "<br/>\n" +
 			"</font></html>";
-		jTextPane=new JTextPane();
-		jTextPane.setForeground(Color.WHITE);
-		jTextPane.setBackground(MYRED);
-		jTextPane.setContentType("text/html");
-		jTextPane.setText(formattedText);
+		}
+		
+		jlabel = new JLabel(formattedText);
+		jlabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+		jlabel.setPreferredSize(new Dimension(100,90));
+		jlabel.setForeground(Color.WHITE);
+		jlabel.setBackground(MYRED);
+		jlabel.setOpaque(true);
 
 		add(mediaPlayer, BorderLayout.WEST);
-		add(jTextPane, BorderLayout.CENTER);
+		add(jlabel, BorderLayout.CENTER);
 
+		jlabel.repaint();
+		
 		Controller.setVideoInfoPanel(this);
 	}
 
-	public void enterFullScreen()
-	{
+	public void enterFullScreen() {
 		System.out.println("VideoInfoPanel: enterFullScreen");
-		jTextPane.setVisible(false);
+		jlabel.setVisible(false);
 	}
 
-	public void leaveFullScreen()
-	{
+	public void leaveFullScreen() {
 		System.out.println("VideoInfoPanel: leaveFullScreen");
-		jTextPane.setVisible(true);
+		jlabel.setVisible(true);
 	}
 
-	public void run()
-	{
+	public void run() {
 		mediaPlayer.run();
 	}
 
-	public static void main(String[] args)
-	{
-		JFrame mainFrame=new JFrame();
-		mainFrame.setSize(640,480);
+	public static void main(String[] args) {
+		JFrame mainFrame = new JFrame();
+		mainFrame.setSize(640, 480);
 
-		VideoInfoPanel videoInfoPanel=new VideoInfoPanel(new Video(
-					666,
-					"Name",
-					"/tmp/out.mkv",
-					"Gerät",
-					"Beschreibung",
-					"Schwierigkeitsgrad",
-					"Elementgruppe"));
+		VideoInfoPanel videoInfoPanel = new VideoInfoPanel(new Video(666,
+				"Name", "/tmp/out.mkv", "Gerät", "Beschreibung",
+				"Schwierigkeitsgrad", "Elementgruppe"));
 		mainFrame.setContentPane(videoInfoPanel);
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,5 +85,3 @@ public class VideoInfoPanel extends CenterPanel
 		videoInfoPanel.run();
 	}
 }
-
-
