@@ -40,6 +40,7 @@ public class VideoInfoPanel extends CenterPanel
 		add(mediaPlayer, BorderLayout.WEST);
 		add(jTextPane, BorderLayout.CENTER);
 
+		
 		Controller.setVideoInfoPanel(this);
 	}
 

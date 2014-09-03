@@ -117,6 +117,7 @@ public class Kampfrichterlehrgang extends JFrame {
         VideoInfoPanel videoInfoPanel = new VideoInfoPanel(video);
         Controller.setVideoInfoPanel(videoInfoPanel);
         changeCenterPanel(videoInfoPanel);
+        videoInfoPanel.run();
         
     }
 
