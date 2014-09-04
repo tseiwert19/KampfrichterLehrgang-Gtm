@@ -23,13 +23,13 @@ public class VideoInfoPanel extends CenterPanel {
 		String os = "os.name";
 
 		Properties prop = System.getProperties();
-		System.out.println(prop.getProperty(os));
+		String workingDir = System.getProperty("user.dir");
 		if (prop.getProperty(os).contains("Windows")) {
 			String videostring = video.getPfad().replace('/','\\');
-		mediaPlayer = new MediaPlayer("C:\\Users\\Thomas\\git\\KampfrichterLehrgang-Gtm\\KampfrichterLehrgang Gtm\\src\\"+ videostring);
+		mediaPlayer = new MediaPlayer(workingDir + "\\src\\"+ videostring);
 
 		} else {
-			mediaPlayer = new MediaPlayer("C:\\Users\\Thomas\\git\\KampfrichterLehrgang-Gtm\\KampfrichterLehrgang Gtm\\src\\"+ video.getPfad());
+			mediaPlayer = new MediaPlayer(workingDir + "\\src\\" + video.getPfad());
 
 		}
 		
