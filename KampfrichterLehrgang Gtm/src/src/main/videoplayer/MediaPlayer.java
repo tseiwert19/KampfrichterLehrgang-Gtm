@@ -258,12 +258,6 @@ public class MediaPlayer extends JPanel {
 		topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
 		// topFrame=f;
 
-		// TODO: exception
-		// libvlc.dll und libvlccore.dll
-		// -Djna.library.path=C:\programme\videolan\vlc
-		// http://download.videolan.org/pub/videolan/vlc/last/win32/
-		// http://download.videolan.org/pub/videolan/vlc/last/win64/
-
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
 				"c:/Programme/VideoLan/VLC");
 

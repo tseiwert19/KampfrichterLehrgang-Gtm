@@ -27,9 +27,7 @@ public class Kampfrichterlehrgang extends JFrame {
 
         // TODO Das wird nicht immer in der Mitte sein
         // dynamische Loesung suchen oder einigen
-	private static final String NAME = "                                                              "
-			+ "                                   "
-			+ "      KampfrichterLehrgang Gtm";
+	private static final String NAME = "KampfrichterLehrgang Gtm";
 
 	private NavigationPanel navigationPanel;
 	private ImpressumPanel impressumPanel;
@@ -51,9 +49,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	public Kampfrichterlehrgang() {
 		
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/Programme/VideoLan/VLC");
-		
-		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
-        LibXUtil.initialise();
+
         
 		backStack = new Stack<JPanel>();
 
