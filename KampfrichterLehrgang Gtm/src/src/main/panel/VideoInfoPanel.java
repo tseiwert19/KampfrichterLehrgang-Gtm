@@ -47,8 +47,8 @@ public class VideoInfoPanel extends CenterPanel {
 		jlabel.setBackground(MYRED);
 		jlabel.setOpaque(true);
 
-		add(mediaPlayer, BorderLayout.WEST);
-		add(jlabel, BorderLayout.CENTER);
+		add(mediaPlayer, BorderLayout.CENTER);
+		add(jlabel, BorderLayout.EAST);
 
 		jlabel.repaint();
 		
