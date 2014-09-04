@@ -264,8 +264,13 @@ public class MediaPlayer extends JPanel {
 		// http://download.videolan.org/pub/videolan/vlc/last/win32/
 		// http://download.videolan.org/pub/videolan/vlc/last/win64/
 
+		//export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:src/main/libs/linux-amd64
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
 				"c:/Programme/VideoLan/VLC");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
+				"src/main/libs");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
+				"src/main/libs/linux-amd64");
 
 		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 		LibXUtil.initialise();
