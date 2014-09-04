@@ -25,14 +25,13 @@ public class VideoInfoPanel extends CenterPanel {
 		Properties prop = System.getProperties();
 		String workingDir = System.getProperty("user.dir");
 		if (prop.getProperty(os).contains("Windows")) {
-			String videostring = video.getPfad().replace('/','\\');
-		mediaPlayer = new MediaPlayer(workingDir + "\\src\\"+ videostring);
-
+			String videostring = video.getPfad().replace('/', '\\');
+			mediaPlayer = new MediaPlayer(workingDir + "\\src\\" + videostring);
 		} else {
-			mediaPlayer = new MediaPlayer(workingDir + "\\src\\" + video.getPfad());
-
+			mediaPlayer = new MediaPlayer(workingDir + "\\src\\"
+					+ video.getPfad());
 		}
-		
+
 		if (video.getBeschreibung() == null) {
 			formattedText = "<html><font color='white'><font size=\"5\"><b><i>\n"
 					+ video.getName()
@@ -60,7 +59,7 @@ public class VideoInfoPanel extends CenterPanel {
 		jlabel = new JLabel(formattedText);
 		jlabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-		jlabel.setPreferredSize(new Dimension(100, 90));
+		jlabel.setPreferredSize(new Dimension(200, 90));
 		jlabel.setForeground(Color.WHITE);
 		jlabel.setBackground(MYRED);
 		jlabel.setOpaque(true);
