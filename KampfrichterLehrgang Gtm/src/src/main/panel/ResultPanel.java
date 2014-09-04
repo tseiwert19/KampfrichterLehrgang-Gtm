@@ -19,6 +19,7 @@ import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
 import src.main.listener.ItemChangeListener;
 import src.main.listener.VideoButtonActionListener;
+import src.main.listener.VideoButtonMouseListener;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
@@ -154,6 +155,7 @@ public class ResultPanel extends CenterPanel
 
         results.removeAll();
         VideoButtonActionListener actionListener = new VideoButtonActionListener();
+        VideoButtonMouseListener mouseListener = new VideoButtonMouseListener();
         if (videos.size() != 0)
         {
             for (Video video : videos)
@@ -162,7 +164,9 @@ public class ResultPanel extends CenterPanel
                 newButton.setForeground(Color.WHITE);
                 newButton.setBackground(MYRED);
                 newButton.setName(Integer.toString(video.getId()));
+                newButton.setVideo(video);
                 newButton.addActionListener(actionListener);
+                newButton.addMouseListener(mouseListener);
 
                 results.add(newButton);
             }
@@ -212,7 +216,7 @@ public class ResultPanel extends CenterPanel
      */
     private String createHtmlString(Video video)
     {
-        return "<html><font size='6'><b><i>" + video.getName()
+        return "<html><font size='5'><b><i>" + kuerzeString(video.getName())
                 + " </b></i></font><br> Schwierigkeitsgrad: " + video.getSchwierigkeitsgrad()
                 + "<br> Elementgruppe: " + video.getElementgruppe() + "  </html>";
     }
@@ -225,6 +229,28 @@ public class ResultPanel extends CenterPanel
     public RoundCorneredComboBox getElementgruppeCb()
     {
         return elementgruppeCb;
+    }
+    /**
+     * Kuerzt einen String.
+     * Namen der Videos sind fuer die Buttons zu gross, deswegen werden sie gekuerzt.
+     * @param string
+     * @return gekuerzter String
+     */
+    private String kuerzeString(String string)
+    {
+        if (string == null)
+        {
+            throw new IllegalArgumentException("s darf nicht null sein");
+        }
+
+        if (string.length() <= 15)
+        {
+            return string;
+        }
+        else
+        {
+            return string.substring(0, 15) + "...";
+        }
     }
 
     // Dient zum Testen
