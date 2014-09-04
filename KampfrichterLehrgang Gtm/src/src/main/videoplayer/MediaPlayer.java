@@ -248,7 +248,7 @@ public class MediaPlayer extends JPanel {
 
 	// MediaPlayer(String mediaURL, JFrame f)
 	public MediaPlayer(String mediaURL) {
-		setPreferredSize(new Dimension(650,90));
+		setPreferredSize(new Dimension(550,90));
 		mediaPlayer = this;
 		this.mediaPath = mediaURL;
 

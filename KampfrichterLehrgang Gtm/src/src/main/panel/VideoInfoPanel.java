@@ -17,32 +17,49 @@ public class VideoInfoPanel extends CenterPanel {
 
 	private static final Color MYRED = Color.decode("#b92d2e");
 
-	public VideoInfoPanel(Video v)
-	{
-		video=v;
+	public VideoInfoPanel(Video v) {
+		video = v;
 		setLayout(new BorderLayout());
-		mediaPlayer=new MediaPlayer(video.getPfad());
-		
-		if (video.getBeschreibung() == null) {
-			formattedText="<html><font color='white'><font size=\"5\"><b><i>\n" + video.getName() + "</i></b></font size><br/><br/>\n" +
-					"<font size=\"4\"><b>Gerät: </b>" + video.getGeraet() + "<br/><br/>\n" +
-					"<b>Schwierigkeitsgrad: </b>" + video.getSchwierigkeitsgrad() + "<br/><br/>\n" +
-					"<b>Elementgruppe: </b>" + video.getElementgruppe() + "<br/></font size>\n" +
-					"</font></html>";
+		String os = "os.name";
+
+		Properties prop = System.getProperties();
+		String workingDir = System.getProperty("user.dir");
+		if (prop.getProperty(os).contains("Windows")) {
+			String videostring = video.getPfad().replace('/', '\\');
+			mediaPlayer = new MediaPlayer(workingDir + "\\src\\" + videostring);
 		} else {
-		formattedText="<html><font color='white'>\n" +
-			"<b>Name: </b>" + video.getName() + "<br/>\n" +
-			"<b>Gerät: </b>" + video.getGeraet() + "<br/>\n" +
-			"<b>Beschreibung: </b>" + video.getBeschreibung() + "<br/>\n" +
-			"<b>Schwierigkeitsgrad: </b>" + video.getSchwierigkeitsgrad() + "<br/>\n" +
-			"<b>Elementgruppe: </b>" + video.getElementgruppe() + "<br/>\n" +
-			"</font></html>";
+			mediaPlayer = new MediaPlayer(workingDir + "\\src\\"
+					+ video.getPfad());
 		}
-		
+
+		if (video.getBeschreibung() == null) {
+			formattedText = "<html><font color='white'><font size=\"5\"><b><i>\n"
+					+ video.getName()
+					+ "</i></b></font size><br/><br/>\n"
+					+ "<font size=\"4\"><b>Gerät: </b>"
+					+ video.getGeraet()
+					+ "<br/><br/>\n"
+					+ "<b>Schwierigkeitsgrad: </b>"
+					+ video.getSchwierigkeitsgrad()
+					+ "<br/><br/>\n"
+					+ "<b>Elementgruppe: </b>"
+					+ video.getElementgruppe()
+					+ "<br/></font size>\n" + "</font></html>";
+		} else {
+			formattedText = "<html><font color='white'>\n" + "<b>Name: </b>"
+					+ video.getName() + "<br/>\n" + "<b>Gerät: </b>"
+					+ video.getGeraet() + "<br/>\n" + "<b>Beschreibung: </b>"
+					+ video.getBeschreibung() + "<br/>\n"
+					+ "<b>Schwierigkeitsgrad: </b>"
+					+ video.getSchwierigkeitsgrad() + "<br/>\n"
+					+ "<b>Elementgruppe: </b>" + video.getElementgruppe()
+					+ "<br/>\n" + "</font></html>";
+		}
+
 		jlabel = new JLabel(formattedText);
 		jlabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-		jlabel.setPreferredSize(new Dimension(100,90));
+		jlabel.setPreferredSize(new Dimension(200, 90));
 		jlabel.setForeground(Color.WHITE);
 		jlabel.setBackground(MYRED);
 		jlabel.setOpaque(true);
@@ -51,14 +68,14 @@ public class VideoInfoPanel extends CenterPanel {
 		add(jlabel, BorderLayout.EAST);
 
 		jlabel.repaint();
-		
+
 		Controller.setVideoInfoPanel(this);
 	}
 
 	public void enterFullScreen() {
 		System.out.println("VideoInfoPanel: enterFullScreen");
 		jlabel.setVisible(false);
-		//repaint();
+		// repaint();
 	}
 
 	public void leaveFullScreen() {
