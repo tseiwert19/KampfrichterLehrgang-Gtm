@@ -177,6 +177,7 @@ public class SearchResultPanel extends CenterPanel {
             newButton.setName(Integer.toString(video.getId()));
             newButton.addActionListener(actionListener);
             newButton.addMouseListener(mouseListener);
+            newButton.setVideo(video);
             resultPanel.add(newButton);
         }
         mainResultPanel.add(resultPanel);
@@ -189,7 +190,7 @@ public class SearchResultPanel extends CenterPanel {
      * @return Text in HTML
      */
     private String createHtmlString(Video video) {
-        return "<html><font size='4'><b><i>" + kuerzeString(video.getName())
+        return "<html><font size='5'><b><i>" + kuerzeString(video.getName())
                 + " </b></i></font><br> Schwierigkeitsgrad: "
                 + video.getSchwierigkeitsgrad() + "<br> Elementgruppe: "
                 + video.getElementgruppe() + "  </html>";
