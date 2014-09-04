@@ -23,6 +23,7 @@ import src.main.listener.ComboBoxActionListener;
 import src.main.listener.ComboBoxSearchActionListener;
 import src.main.listener.ItemChangeListener;
 import src.main.listener.VideoButtonActionListener;
+import src.main.listener.VideoButtonMouseListener;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
@@ -168,12 +169,14 @@ public class SearchResultPanel extends CenterPanel {
         Color myRot = Color.decode("#b92d2e");
         Color white = Color.decode("#FFFFFF");
         VideoButtonActionListener actionListener = new VideoButtonActionListener();
+        VideoButtonMouseListener mouseListener = new VideoButtonMouseListener();
         for (Video video : videos) {
             KariButton newButton = new KariButton(createHtmlString(video));
             newButton.setForeground(white);
             newButton.setBackground(myRot);
             newButton.setName(Integer.toString(video.getId()));
             newButton.addActionListener(actionListener);
+            newButton.addMouseListener(mouseListener);
             resultPanel.add(newButton);
         }
         mainResultPanel.add(resultPanel);
@@ -186,7 +189,7 @@ public class SearchResultPanel extends CenterPanel {
      * @return Text in HTML
      */
     private String createHtmlString(Video video) {
-        return "<html><font size='6'><b><i>" + video.getName()
+        return "<html><font size='4'><b><i>" + kuerzeString(video.getName())
                 + " </b></i></font><br> Schwierigkeitsgrad: "
                 + video.getSchwierigkeitsgrad() + "<br> Elementgruppe: "
                 + video.getElementgruppe() + "  </html>";
@@ -245,5 +248,27 @@ public class SearchResultPanel extends CenterPanel {
 
         videos = parser.mappeGefilterteSucheVideos(name, geraet, elementgruppe);
         createAllPanels(videos);
+    }
+    /**
+     * Kuerzt einen String.
+     * Namen der Videos sind fuer die Buttons zu gross, deswegen werden sie gekuerzt.
+     * @param string
+     * @return gekuerzter String
+     */
+    private String kuerzeString(String string)
+    {
+        if (string == null)
+        {
+            throw new IllegalArgumentException("s darf nicht null sein");
+        }
+
+        if (string.length() <= 15)
+        {
+            return string;
+        }
+        else
+        {
+            return string.substring(0, 15) + "...";
+        }
     }
 }
