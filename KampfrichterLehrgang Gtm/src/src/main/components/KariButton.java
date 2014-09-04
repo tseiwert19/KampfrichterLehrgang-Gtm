@@ -7,9 +7,12 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+import src.main.videoplayer.Video;
+
 public class KariButton extends JButton implements MouseListener{
 
 	private static final long serialVersionUID = 1L;
+	private Video video;
 
 	public KariButton() {
 		setBackground(Color.WHITE);
@@ -22,6 +25,14 @@ public class KariButton extends JButton implements MouseListener{
         setBackground(Color.WHITE);
         addMouseListener(this);
     }
+	
+	public void setVideo(Video v){
+	    this.video = v;
+	}
+	
+	public Video getVideo(){
+	    return video;
+	}
 
     @Override
 	public void mouseClicked(MouseEvent e) {		
