@@ -436,18 +436,26 @@ public class MediaPlayer extends JPanel {
 			DisplayMode displayMode = GraphicsEnvironment
 				.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDisplayMode();
-			LibXUtil.setFullScreenWindow(topFrame, true);
+			try
+			{
+				LibXUtil.setFullScreenWindow(topFrame, true);
+			}
+			catch (Exception ex) {}
 			if (displayMode != null) {
 				System.out.println("Hallo");
 				GraphicsEnvironment.getLocalGraphicsEnvironment()
 					.getDefaultScreenDevice()
 					.setDisplayMode(displayMode);
 			}
-			topFrame.invalidate();
-			topFrame.validate();
+			//topFrame.invalidate();
+			//topFrame.validate();
 
 		} else {
-			LibXUtil.setFullScreenWindow(topFrame, false);
+			try
+			{
+				LibXUtil.setFullScreenWindow(topFrame, false);
+			}
+			catch (Exception ex) {}
 			GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().setFullScreenWindow(null);
 			// topFrame.toFront();
