@@ -1,1 +1,2 @@
-java -cp ./src/main/libs/*:. src.main.Kampfrichterlehrgang
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:src/main/libs/linux-amd64
+java -cp ./src/main/libs/*:..:. src.main.Kampfrichterlehrgang
