@@ -23,27 +23,12 @@ public class VideoInfoPanel extends CenterPanel {
 		video = v;
 		setLayout(new BorderLayout());
 
-		/*
-		String os = "os.name";
-
-		Properties prop = System.getProperties();
-		String workingDir = System.getProperty("user.dir");
-		if (prop.getProperty(os).contains("Windows")) {
-			String videostring = video.getPfad().replace("/", prop.getProperty("file.separator"));
-			mediaPlayer = new MediaPlayer(workingDir + "\\src\\" + videostring);
-		} else {
-			//mediaPlayer = new MediaPlayer(workingDir + "/src/"
-					//+ video.getPfad());
-			mediaPlayer = new MediaPlayer(video.getPfad());
-		}
-		*/
-
 		URL	urlOfVideoFile = getClass().getClassLoader().getResource(video.getPfad());
 		System.out.println("VideoInfoPanel.java: " + video.getPfad() + "   " + urlOfVideoFile.toString());
 		/*
 		 * Crappy URL.toString gives file:/... instead of needed file:///...
 		 */
-		mediaPlayer = new MediaPlayer("file:///" + urlOfVideoFile.getPath());
+		mediaPlayer = new MediaPlayer("file:///" + urlOfVideoFile.getPath().replace(".wmv", ".mkv"));
 
 
 		if (video.getBeschreibung() == null || video.getBeschreibung().isEmpty()) {
