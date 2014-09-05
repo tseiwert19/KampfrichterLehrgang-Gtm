@@ -1,4 +1,7 @@
 package src.main;
+
+import java.lang.NullPointerException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,7 +21,10 @@ public class DatenbankController
 
 	private Connection connection;
 	// Pfad zur Datenbank
-	private static final String DB_PATH = "src/videoDb";
+	// http://stackoverflow.com/questions/3209901/absolute-path-of-projects-folder-in-java
+	// http://stackoverflow.com/questions/14739550/difference-between-getclass-getclassloader-getresource-and-getclass-getres
+	// Start searching at the root of the classpath:
+	private static final String DB_PATH = "/src/videoDb";
 
 	/**
 	 * Konstruktor Stellt die Verbindung zur Datenbank her und erstellt die
@@ -33,9 +39,20 @@ public class DatenbankController
 	 * Stellt eine Verbindung zur Datenbank her
 	 */
 	private void connectToDb() {
+		String urlOfDatabaseFile="";
+		System.out.println("DatenbankController.java : " + DB_PATH);
+		try
+		{
+			urlOfDatabaseFile = getClass().getResource(DB_PATH).toString();
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Datenbank-Datei " + DB_PATH + " nicht gefunden!");
+			e.printStackTrace();
+		}
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+			connection = DriverManager.getConnection("jdbc:sqlite:" + urlOfDatabaseFile);
 		} catch (ClassNotFoundException e) {
 			System.err.println("Fehler beim Laden des JDBC-Treibers");
 			e.printStackTrace();

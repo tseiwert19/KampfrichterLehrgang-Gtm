@@ -5,6 +5,8 @@ import src.main.videoplayer.*;
 
 import java.lang.*;
 import java.util.*;
+import java.net.URL;
+import java.io.File;
 
 import java.awt.*;
 import javax.swing.*;
@@ -20,17 +22,29 @@ public class VideoInfoPanel extends CenterPanel {
 	public VideoInfoPanel(Video v) {
 		video = v;
 		setLayout(new BorderLayout());
+
+		/*
 		String os = "os.name";
 
 		Properties prop = System.getProperties();
 		String workingDir = System.getProperty("user.dir");
 		if (prop.getProperty(os).contains("Windows")) {
-			String videostring = video.getPfad().replace('/', '\\');
+			String videostring = video.getPfad().replace("/", prop.getProperty("file.separator"));
 			mediaPlayer = new MediaPlayer(workingDir + "\\src\\" + videostring);
 		} else {
-			mediaPlayer = new MediaPlayer(workingDir + "\\src\\"
-					+ video.getPfad());
+			//mediaPlayer = new MediaPlayer(workingDir + "/src/"
+					//+ video.getPfad());
+			mediaPlayer = new MediaPlayer(video.getPfad());
 		}
+		*/
+
+		URL	urlOfVideoFile = getClass().getClassLoader().getResource(video.getPfad());
+		System.out.println("VideoInfoPanel.java: " + video.getPfad() + "   " + urlOfVideoFile.toString());
+		/*
+		 * Crappy URL.toString gives file:/... instead of needed file:///...
+		 */
+		mediaPlayer = new MediaPlayer("file:///" + urlOfVideoFile.getPath());
+
 
 		if (video.getBeschreibung() == null) {
 			formattedText = "<html><font color='white'><font size=\"5\"><b><i>\n"
