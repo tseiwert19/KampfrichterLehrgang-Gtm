@@ -436,22 +436,11 @@ public class MediaPlayer extends JPanel {
 				.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice()
 				.setFullScreenWindow(topFrame);
-			// DisplayMode
-			// displayMode=getDisplayMode(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes());
-			DisplayMode displayMode = GraphicsEnvironment
-				.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice().getDisplayMode();
 			try
 			{
 				LibXUtil.setFullScreenWindow(topFrame, true);
 			}
 			catch (Exception ex) {}
-			if (displayMode != null) {
-				System.out.println("Hallo");
-				GraphicsEnvironment.getLocalGraphicsEnvironment()
-					.getDefaultScreenDevice()
-					.setDisplayMode(displayMode);
-			}
 			//topFrame.invalidate();
 			//topFrame.validate();
 
@@ -485,10 +474,6 @@ public class MediaPlayer extends JPanel {
 
 	}
 
-	protected DisplayMode getDisplayMode(DisplayMode[] displayModes) {
-		System.out.println(Arrays.toString(displayModes));
-		return null;
-	}
 
 	public void run() {
 		System.out.println("Media path: " + mediaPath);
