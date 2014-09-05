@@ -46,7 +46,7 @@ public class VideoInfoPanel extends CenterPanel {
 		mediaPlayer = new MediaPlayer("file:///" + urlOfVideoFile.getPath());
 
 
-		if (video.getBeschreibung() == null) {
+		if (video.getBeschreibung() == null || video.getBeschreibung().isEmpty()) {
 			formattedText = "<html><font color='white'><font size=\"5\"><b><i>\n"
 					+ video.getName()
 					+ "</i></b></font size><br/><br/>\n"
@@ -62,8 +62,8 @@ public class VideoInfoPanel extends CenterPanel {
 		} else {
 			formattedText = "<html><font color='white'>\n" + "<b>Name: </b>"
 					+ video.getName() + "<br/>\n" + "<b>Gerät: </b>"
-					+ video.getGeraet() + "<br/>\n" + "<b>Beschreibung: </b>"
 					+ video.getBeschreibung() + "<br/>\n"
+					+ video.getGeraet() + "<br/>\n" + "<b>Beschreibung: </b>"
 					+ "<b>Schwierigkeitsgrad: </b>"
 					+ video.getSchwierigkeitsgrad() + "<br/>\n"
 					+ "<b>Elementgruppe: </b>" + video.getElementgruppe()
