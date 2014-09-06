@@ -266,14 +266,44 @@ public class MediaPlayer extends JPanel {
 
 		//export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:src/main/libs/linux-amd64
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
-				"c:/Programme/VideoLan/VLC");
+				"c:/programme/videolan/vlc");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
 				"src/main/libs");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(),
+				"src/main/libs");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
+				"src/main/libs/linux-i386");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
 				"src/main/libs/linux-amd64");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(),
+				"src/main/libs/linux-i386");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(),
+				"src/main/libs/linux-amd64");
 
-		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+		String property = System.getProperty("java.library.path");
+		StringTokenizer parser = new StringTokenizer(property, ":");
+		System.err.println("MediaPlayer.java: java.library.path: ");
+		while (parser.hasMoreTokens()) {
+			System.err.println(parser.nextToken());
+		}
+		System.err.println(RuntimeUtil.getLibVlcCoreName());
+
+		//http://www.chilkatsoft.com/java-loadLibrary-Linux.asp
+		/*
+		try {
+			//System.load("/home/stephan/Studies/HTW/Courses/Programmierung 3/KampfrichterLehrgang-Gtm/KampfrichterLehrgang Gtm/src/src/main/libs/linux-amd64/libvlccore.so.7");
+			System.loadLibrary("vlccore");
+		} catch (UnsatisfiedLinkError e) {
+			System.err.println("Native code library failed to load.\n" + e);
+			System.exit(1);
+		}
+		*/
+
+		//Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+		Native.loadLibrary(RuntimeUtil.getLibVlcCoreName(), LibVlc.class);
 		LibXUtil.initialise();
+
+
 		
 		// embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
 		embeddedMediaPlayerComponent = new EmbeddedMediaPlayerComponent() {
