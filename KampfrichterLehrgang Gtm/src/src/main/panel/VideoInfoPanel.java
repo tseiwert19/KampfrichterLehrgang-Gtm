@@ -45,14 +45,19 @@ public class VideoInfoPanel extends CenterPanel {
 					+ video.getElementgruppe()
 					+ "<br/></font size>\n" + "</font></html>";
 		} else {
-			formattedText = "<html><font color='white'>\n" + "<b>Name: </b>"
-					+ video.getName() + "<br/>\n" + "<b>Gerät: </b>"
-					+ video.getBeschreibung() + "<br/>\n"
-					+ video.getGeraet() + "<br/>\n" + "<b>Beschreibung: </b>"
+			formattedText = "<html><font color='white'><font size=\"5\"><b><i>\n"
+					+ video.getName()
+					+ "</i></b></font size><br/><br/>\n"
+					+ "<font size=\"4\"><b>Beschreibung: </b>"
+					+ video.getBeschreibung()+"<b>Gerät: </b>"
+					+ video.getGeraet()
+					+ "<br/><br/>\n"
 					+ "<b>Schwierigkeitsgrad: </b>"
-					+ video.getSchwierigkeitsgrad() + "<br/>\n"
-					+ "<b>Elementgruppe: </b>" + video.getElementgruppe()
-					+ "<br/>\n" + "</font></html>";
+					+ video.getSchwierigkeitsgrad()
+					+ "<br/><br/>\n"
+					+ "<b>Elementgruppe: </b>"
+					+ video.getElementgruppe()
+					+ "<br/></font size>\n" + "</font></html>";
 		}
 
 		jlabel = new JLabel(formattedText);
