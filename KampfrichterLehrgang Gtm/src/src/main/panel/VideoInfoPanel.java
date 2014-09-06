@@ -28,7 +28,11 @@ public class VideoInfoPanel extends CenterPanel {
 		System.out.println("VideoInfoPanel: " + video.getPfad() + "   " + urlOfVideoFile.getPath());
 		try
 		{
-			mediaPlayer = new MediaPlayer(urlOfVideoFile.toURI().getPath().replaceFirst("[.]wmv$", ".mkv"));
+			String urlEndunggetauscht = urlOfVideoFile.toURI().getPath().replaceFirst("[.]wmv$", ".mkv");
+			String url = urlEndunggetauscht.substring(1);
+			String urls = url.replace("bin", "src");
+			String urlfertig = urls.replace("/", "\\");
+			mediaPlayer = new MediaPlayer(urlfertig);
 		}
 		catch (URISyntaxException e) { }
 
