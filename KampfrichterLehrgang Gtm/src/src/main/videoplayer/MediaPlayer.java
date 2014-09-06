@@ -294,6 +294,14 @@ public class MediaPlayer extends JPanel {
 		System.out.println("os.arch: " + System.getProperty("os.arch"));
 
 		Properties p=System.getProperties();
+		Enumeration props=p.propertyNames();
+		while (props.hasMoreElements())
+		{
+			String key = (String)props.nextElement();
+			String value = (String)p.get(key);
+			System.out.println(key + ": " + value);
+		}
+
 
 
 		//http://www.chilkatsoft.com/java-loadLibrary-Linux.asp
@@ -303,7 +311,7 @@ public class MediaPlayer extends JPanel {
 			{
 				try
 				{
-					System.out.println(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").toURI().getPath());
+					System.out.println(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").toURI().getSchemeSpecificPart());
 				}
 				catch (URISyntaxException e) { }
 				try {

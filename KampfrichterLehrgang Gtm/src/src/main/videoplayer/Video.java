@@ -1,4 +1,9 @@
 package src.main.videoplayer;
+
+import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  * Klasse Video
  * Repraesentiert einen Datensatz aus der Datenbank.
@@ -15,11 +20,13 @@ public class Video {
 	private String beschreibung;
 	private String schwierigkeitsgrad;
 	private String elementgruppe;
+
+	private static final String videoLocationPrefix="../../../";
 	
 	public Video (int id, String name, String pfad, String geraet, String beschreibung, String schwierigkeitsgrad, String elementgruppe){
 		this.id = id;
 		this.name = name;
-		this.pfad = pfad;
+		this.pfad = detectAbsolutePath(pfad);
 		this.geraet = geraet;
 		this.beschreibung = beschreibung;
 		this.schwierigkeitsgrad = schwierigkeitsgrad;
@@ -119,4 +126,32 @@ public class Video {
 	
 	
 	
+	private String detectAbsolutePath(String pfad)
+	{
+		if (pfad == null || pfad.isEmpty())
+		{
+			System.err.println("Video: No path for video in database!");
+			return null;
+		}
+		pfad=videoLocationPrefix + pfad;
+		pfad=pfad.replaceFirst("[.]wmv$", ".mkv");
+		URL	urlOfVideoFile = getClass().getResource(pfad);
+		if (urlOfVideoFile == null)
+		{
+			System.err.println("Video: Video " + pfad + " not found!");
+			return null;
+		}
+		URI uriOfVideoFile;
+		try
+		{
+			uriOfVideoFile=urlOfVideoFile.toURI();
+		}
+		catch (URISyntaxException e)
+		{
+			System.err.println("Video: URL of video " + pfad + " couldn't be converted to URI!");
+			return null;
+		}
+
+		return uriOfVideoFile.getSchemeSpecificPart();
+	}
 }

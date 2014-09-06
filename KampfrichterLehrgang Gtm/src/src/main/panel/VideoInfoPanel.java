@@ -30,6 +30,8 @@ public class VideoInfoPanel extends CenterPanel {
 			System.err.println("VideoInfoPanel: No path for video in database!");
 			//TODO: weitere Fehlerbehandlung
 		}
+
+		/*
 		videoPathFromDB=videoPathFromDB.replaceFirst("[.]wmv$", ".mkv");
 		URL	urlOfVideoFile = getClass().getResource("../../../" + videoPathFromDB);
 		if (urlOfVideoFile == null)
@@ -47,7 +49,9 @@ public class VideoInfoPanel extends CenterPanel {
 		{
 			//TODO: weitere Fehlerbehandlung
 		}
+		*/
 
+		mediaPlayer = new MediaPlayer(videoPathFromDB);
 
 
 		if (video.getBeschreibung() == null || video.getBeschreibung().isEmpty()) {
