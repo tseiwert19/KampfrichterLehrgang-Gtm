@@ -288,19 +288,36 @@ public class MediaPlayer extends JPanel {
 		}
 		System.err.println(RuntimeUtil.getLibVlcCoreName());
 
-		//http://www.chilkatsoft.com/java-loadLibrary-Linux.asp
-		/*
-		try {
-			//System.load("/home/stephan/Studies/HTW/Courses/Programmierung 3/KampfrichterLehrgang-Gtm/KampfrichterLehrgang Gtm/src/src/main/libs/linux-amd64/libvlccore.so.7");
-			System.loadLibrary("vlccore");
-		} catch (UnsatisfiedLinkError e) {
-			System.err.println("Native code library failed to load.\n" + e);
-			System.exit(1);
-		}
-		*/
+		System.out.println("os.name: " + System.getProperty("os.name"));
+		System.out.println("os.arch: " + System.getProperty("os.arch"));
 
-		//Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
-		Native.loadLibrary(RuntimeUtil.getLibVlcCoreName(), LibVlc.class);
+
+		//http://www.chilkatsoft.com/java-loadLibrary-Linux.asp
+		if (System.getProperty("os.name").equals("Linux"))
+		{
+			if (System.getProperty("os.arch").equals("amd64"))
+			{
+				try {
+					System.load(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").getPath().replace("%20", " "));
+				} catch (UnsatisfiedLinkError e) {
+					System.err.println("Native code library failed to load.\n" + e);
+					System.exit(1);
+				}
+			}
+			else if (System.getProperty("os.arch").equals("i386"))
+			{
+				try {
+					System.load(getClass().getResource("../libs/linux-i386/libvlccore.so.7").getPath().replace("%20", " "));
+				} catch (UnsatisfiedLinkError e) {
+					System.err.println("Native code library failed to load.\n" + e);
+					System.exit(1);
+				}
+			}
+		}
+		else
+			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+
+		//Native.loadLibrary(RuntimeUtil.getLibVlcCoreName(), LibVlc.class);
 		LibXUtil.initialise();
 
 
