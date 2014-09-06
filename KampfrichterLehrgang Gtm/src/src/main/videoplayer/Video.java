@@ -3,6 +3,7 @@ package src.main.videoplayer;
 import java.net.URL;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.io.File;
 
 /**
  * Klasse Video
@@ -151,7 +152,17 @@ public class Video {
 			System.err.println("Video: URL of video " + pfad + " couldn't be converted to URI!");
 			return null;
 		}
+		File videoPathFileObject;
+		try
+		{
+			videoPathFileObject=new File(uriOfVideoFile);
+		}
+		catch (Exception e)
+		{
+			System.err.println("Video: URI of video " + pfad + " couldn't be converted to File!");
+			return null;
+		}
 
-		return uriOfVideoFile.getSchemeSpecificPart();
+		return videoPathFileObject.getPath();
 	}
 }
