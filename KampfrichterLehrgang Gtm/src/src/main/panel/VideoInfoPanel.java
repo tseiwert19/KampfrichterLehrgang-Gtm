@@ -6,6 +6,7 @@ import src.main.videoplayer.*;
 import java.lang.*;
 import java.util.*;
 import java.net.URL;
+import java.net.URISyntaxException;
 import java.io.File;
 
 import java.awt.*;
@@ -23,12 +24,14 @@ public class VideoInfoPanel extends CenterPanel {
 		video = v;
 		setLayout(new BorderLayout());
 
-		URL	urlOfVideoFile = getClass().getClassLoader().getResource(video.getPfad());
-		System.out.println("VideoInfoPanel.java: " + video.getPfad() + "   " + urlOfVideoFile.toString());
-		/*
-		 * Crappy URL.toString gives file:/... instead of needed file:///...
-		 */
-		mediaPlayer = new MediaPlayer("file://" + urlOfVideoFile.getPath().replace(".wmv", ".mkv"));
+		URL	urlOfVideoFile = getClass().getResource("../../../" + video.getPfad());
+		System.out.println("VideoInfoPanel: " + video.getPfad() + "   " + urlOfVideoFile.getPath());
+		try
+		{
+			mediaPlayer = new MediaPlayer(urlOfVideoFile.toURI().getPath().replaceFirst("[.]wmv$", ".mkv"));
+		}
+		catch (URISyntaxException e) { }
+
 
 
 		if (video.getBeschreibung() == null || video.getBeschreibung().isEmpty()) {

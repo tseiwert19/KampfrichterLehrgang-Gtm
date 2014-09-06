@@ -37,6 +37,8 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.RenderingHints;
 
+import java.net.URISyntaxException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -297,9 +299,16 @@ public class MediaPlayer extends JPanel {
 		{
 			if (System.getProperty("os.arch").equals("amd64"))
 			{
+				try
+				{
+					System.out.println(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").toURI().getPath());
+				}
+				catch (URISyntaxException e) { }
 				try {
-					System.load(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").getPath().replace("%20", " "));
-				} catch (UnsatisfiedLinkError e) {
+					System.load(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").toURI().getPath());
+				}
+				catch (URISyntaxException e) { }
+				catch (UnsatisfiedLinkError e) {
 					System.err.println("Native code library failed to load.\n" + e);
 					System.exit(1);
 				}
@@ -307,8 +316,10 @@ public class MediaPlayer extends JPanel {
 			else if (System.getProperty("os.arch").equals("i386"))
 			{
 				try {
-					System.load(getClass().getResource("../libs/linux-i386/libvlccore.so.7").getPath().replace("%20", " "));
-				} catch (UnsatisfiedLinkError e) {
+					System.load(getClass().getResource("../libs/linux-i386/libvlccore.so.7").toURI().getPath());
+				}
+				catch (URISyntaxException e) { }
+				catch (UnsatisfiedLinkError e) {
 					System.err.println("Native code library failed to load.\n" + e);
 					System.exit(1);
 				}
