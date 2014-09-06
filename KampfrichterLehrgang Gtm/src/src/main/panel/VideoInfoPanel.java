@@ -28,7 +28,7 @@ public class VideoInfoPanel extends CenterPanel {
 		/*
 		 * Crappy URL.toString gives file:/... instead of needed file:///...
 		 */
-		mediaPlayer = new MediaPlayer("file:///" + urlOfVideoFile.getPath().replace(".wmv", ".mkv"));
+		mediaPlayer = new MediaPlayer("file://" + urlOfVideoFile.getPath().replace(".wmv", ".mkv"));
 
 
 		if (video.getBeschreibung() == null || video.getBeschreibung().isEmpty()) {
