@@ -24,13 +24,28 @@ public class VideoInfoPanel extends CenterPanel {
 		video = v;
 		setLayout(new BorderLayout());
 
-		URL	urlOfVideoFile = getClass().getResource("../../../" + video.getPfad());
-		System.out.println("VideoInfoPanel: " + video.getPfad() + "   " + urlOfVideoFile.getPath());
+		String videoPathFromDB=video.getPfad();
+		if (videoPathFromDB == null || videoPathFromDB.isEmpty())
+		{
+			System.err.println("VideoInfoPanel: No path for video in database!");
+			//TODO: weitere Fehlerbehandlung
+		}
+		videoPathFromDB=videoPathFromDB.replaceFirst("[.]wmv$", ".mkv");
+		URL	urlOfVideoFile = getClass().getResource("../../../" + videoPathFromDB);
+		if (urlOfVideoFile == null)
+		{
+			System.err.println("VideoInfoPanel: Video " + videoPathFromDB + " not found!");
+			//TODO: weitere Fehlerbehandlung
+		}
 		try
 		{
-			mediaPlayer = new MediaPlayer(urlOfVideoFile.toURI().getPath().replaceFirst("[.]wmv$", ".mkv"));
+			System.out.println("VideoInfoPanel: " + videoPathFromDB + "   " + urlOfVideoFile.toURI().getPath());
+			mediaPlayer = new MediaPlayer(urlOfVideoFile.toURI().getPath());
 		}
-		catch (URISyntaxException e) { }
+		catch (URISyntaxException e)
+		{
+			//TODO: weitere Fehlerbehandlung
+		}
 
 
 

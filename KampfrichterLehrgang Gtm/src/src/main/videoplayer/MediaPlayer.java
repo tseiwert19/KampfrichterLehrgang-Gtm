@@ -283,7 +283,7 @@ public class MediaPlayer extends JPanel {
 				"src/main/libs/linux-amd64");
 
 		String property = System.getProperty("java.library.path");
-		StringTokenizer parser = new StringTokenizer(property, ":");
+		StringTokenizer parser = new StringTokenizer(property, System.getProperty("path.separator"));
 		System.err.println("MediaPlayer.java: java.library.path: ");
 		while (parser.hasMoreTokens()) {
 			System.err.println(parser.nextToken());
@@ -292,6 +292,8 @@ public class MediaPlayer extends JPanel {
 
 		System.out.println("os.name: " + System.getProperty("os.name"));
 		System.out.println("os.arch: " + System.getProperty("os.arch"));
+
+		Properties p=System.getProperties();
 
 
 		//http://www.chilkatsoft.com/java-loadLibrary-Linux.asp
