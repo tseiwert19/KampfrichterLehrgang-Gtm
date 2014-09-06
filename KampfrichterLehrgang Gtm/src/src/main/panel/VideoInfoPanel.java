@@ -39,7 +39,9 @@ public class VideoInfoPanel extends CenterPanel {
 		}
 		try
 		{
-			System.out.println("VideoInfoPanel: " + videoPathFromDB + "   " + urlOfVideoFile.toURI().getPath());
+			File f=new File(urlOfVideoFile.toURI());
+			//System.out.println("VideoInfoPanel: " + videoPathFromDB + "   " + urlOfVideoFile.toURI().getPath());
+			System.out.println("VideoInfoPanel: " + videoPathFromDB + "   " + f.getPath());
 			mediaPlayer = new MediaPlayer(urlOfVideoFile.toURI().getPath());
 		}
 		catch (URISyntaxException e)
