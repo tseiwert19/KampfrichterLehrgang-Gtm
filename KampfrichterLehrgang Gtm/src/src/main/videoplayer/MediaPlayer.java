@@ -37,6 +37,9 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.RenderingHints;
 
+import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
@@ -284,14 +287,12 @@ public class MediaPlayer extends JPanel {
 
 		String property = System.getProperty("java.library.path");
 		StringTokenizer parser = new StringTokenizer(property, System.getProperty("path.separator"));
-		System.err.println("MediaPlayer.java: java.library.path: ");
+		System.err.println("MediaPlayer: java.library.path: ");
 		while (parser.hasMoreTokens()) {
 			System.err.println(parser.nextToken());
 		}
 		System.err.println(RuntimeUtil.getLibVlcCoreName());
 
-		System.out.println("os.name: " + System.getProperty("os.name"));
-		System.out.println("os.arch: " + System.getProperty("os.arch"));
 
 		Properties p=System.getProperties();
 		Enumeration props=p.propertyNames();
@@ -307,32 +308,40 @@ public class MediaPlayer extends JPanel {
 		//http://www.chilkatsoft.com/java-loadLibrary-Linux.asp
 		if (System.getProperty("os.name").equals("Linux"))
 		{
+			String pathOfLib="";
 			if (System.getProperty("os.arch").equals("amd64"))
 			{
-				try
-				{
-					System.out.println(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").toURI().getSchemeSpecificPart());
-				}
-				catch (URISyntaxException e) { }
-				try {
-					System.load(getClass().getResource("../libs/linux-amd64/libvlccore.so.7.0.0").toURI().getPath());
-				}
-				catch (URISyntaxException e) { }
-				catch (UnsatisfiedLinkError e) {
-					System.err.println("Native code library failed to load.\n" + e);
-					System.exit(1);
-				}
+				pathOfLib="../libs/linux-amd64/libvlccore.so.7.0.0";
 			}
 			else if (System.getProperty("os.arch").equals("i386"))
 			{
-				try {
-					System.load(getClass().getResource("../libs/linux-i386/libvlccore.so.7").toURI().getPath());
-				}
-				catch (URISyntaxException e) { }
-				catch (UnsatisfiedLinkError e) {
-					System.err.println("Native code library failed to load.\n" + e);
-					System.exit(1);
-				}
+				pathOfLib="../libs/linux-i386/libvlccore.so.7";
+			}
+
+			URL urlOfLib=getClass().getResource(pathOfLib);
+			if (urlOfLib == null)
+			{
+				System.err.println("MediaPlayer: Library " + pathOfLib + " not found!");
+				System.exit(1);
+			}
+			String absolutePathOfLib="";
+			try
+			{
+				absolutePathOfLib=urlOfLib.toURI().getSchemeSpecificPart();
+			}
+			catch (Exception e)
+			{
+				System.err.println("MediaPlayer: URL of library " + pathOfLib + " couldn't be converted to URI!");
+				System.exit(1);
+			}
+			try
+			{
+				System.load(absolutePathOfLib);
+			}
+			catch (Exception e)
+			{
+				System.err.println("MediaPlayer: Failed to load native library " + absolutePathOfLib + "!");
+				System.exit(1);
 			}
 		}
 		else
