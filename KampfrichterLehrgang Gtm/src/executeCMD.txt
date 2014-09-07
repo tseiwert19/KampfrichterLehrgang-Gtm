@@ -1,1 +1,1 @@
-java -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -cp ./src/main/libs/*:..:. src.main.Kampfrichterlehrgang
+java -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -cp ./src/main/libs/*:. src.main.Kampfrichterlehrgang

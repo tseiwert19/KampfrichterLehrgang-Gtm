@@ -268,6 +268,18 @@ public class MediaPlayer extends JPanel {
 		// -Djna.library.path=C:\programme\videolan\vlc
 		// http://download.videolan.org/pub/videolan/vlc/last/win32/
 		// http://download.videolan.org/pub/videolan/vlc/last/win64/
+		/*
+		 * "A common mistake that is made is that a 64-bit Java Virtual
+		 * Machine is used with a 32-bit version of vlc. This will simply
+		 * not work and there is nothing that can be done to make it work.
+		 * You must use a 64-bit version of vlc with a 64-bit JDK, or a
+		 * 32-bit version of vlc with a 32-bit JDK.  If you are running a
+		 * 64-bit operating system and can not find a 64-bit build of vlc,
+		 * then you can install and run a 32-bit JDK instead."
+		 * os.arch
+		 * sun.arch.data.model
+		 *
+		 */
 
 		//export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:src/main/libs/linux-amd64
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
@@ -285,12 +297,6 @@ public class MediaPlayer extends JPanel {
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(),
 				"src/main/libs/linux-amd64");
 
-		String property = System.getProperty("java.library.path");
-		StringTokenizer parser = new StringTokenizer(property, System.getProperty("path.separator"));
-		System.err.println("MediaPlayer: java.library.path: ");
-		while (parser.hasMoreTokens()) {
-			System.err.println(parser.nextToken());
-		}
 		System.err.println(RuntimeUtil.getLibVlcCoreName());
 
 
