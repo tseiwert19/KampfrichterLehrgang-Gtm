@@ -311,11 +311,11 @@ public class MediaPlayer extends JPanel {
 			String pathOfLib="";
 			if (System.getProperty("os.arch").equals("amd64"))
 			{
-				pathOfLib="../libs/linux-amd64/libvlccore.so.7.0.0";
+				pathOfLib="../../../src/main/libs/linux-amd64/libvlccore.so.7.0.0";
 			}
 			else if (System.getProperty("os.arch").equals("i386"))
 			{
-				pathOfLib="../libs/linux-i386/libvlccore.so.7";
+				pathOfLib="../../../src/main/libs/linux-i386/libvlccore.so.7";
 			}
 
 			URL urlOfLib=getClass().getResource(pathOfLib);
