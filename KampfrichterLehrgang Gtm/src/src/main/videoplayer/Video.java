@@ -164,9 +164,7 @@ public class Video {
 		}
 
 		String pfadFertig = null;
-		if (videoPathFileObject.getPath().contains("bin") ) {
-			pfadFertig = videoPathFileObject.getPath().replace("bin", "src");
-		}
+		pfadFertig = videoPathFileObject.getPath().replace("bin", "src");
 		return pfadFertig;
 	}
 }
