@@ -168,6 +168,7 @@ public class TestPanel extends JPanel
         videos = sucheVideos(10);
         mediaPlayer = new MediaPlayer(videos.get(0).getPfad());
         mediaPanel.setVisible(true);
+        mediaPlayer.run();
         antwortPanel.setVisible(true);
         naechstesVideo();
     }
