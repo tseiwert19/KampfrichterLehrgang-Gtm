@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.util.Stack;
 
 import src.main.listener.WelcomeActionListener;
+import src.main.listener.BackActionListener;
 import src.main.panel.*;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
@@ -32,26 +33,23 @@ public class Kampfrichterlehrgang extends JFrame {
 	private NavigationPanel navigationPanel;
 	private ImpressumPanel impressumPanel;
 	private WelcomePanel welcomePanel;
-    private ResultPanel resultPanel;
-    private SearchResultPanel searchResultPanel;
+        private ResultPanel resultPanel;
+        private SearchResultPanel searchResultPanel;
   
         
 
-   private WelcomeActionListener welcomeActionListener;
+        private WelcomeActionListener welcomeActionListener;
+        private BackActionListener backActionListener;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
 
-	// Fuer die "Zurueck" Button funktionalitaet ist eine Stackloesung
-	// angedacht.
-	@SuppressWarnings("unused")
-	private Stack<JPanel> backStack;
+	private Stack<CenterPanel> backStack;
 
 	public Kampfrichterlehrgang() {
 		
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/Programme/VideoLan/VLC");
 
         
-		backStack = new Stack<JPanel>();
 
 		setTitle(NAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,6 +143,10 @@ public class Kampfrichterlehrgang extends JFrame {
 	 * implementiert wird.
 	 */
 	private NavigationPanel buildNavigationPanel() {
+		backStack = new Stack<CenterPanel>();
+                backActionListener = new BackActionListener();
+                Controller.setBackActionListener(backActionListener);
+
 		navigationPanel = new NavigationPanel();
                 Controller.setNavigationPanel(navigationPanel);
 		return navigationPanel;
@@ -189,6 +191,10 @@ public class Kampfrichterlehrgang extends JFrame {
 
 		return welcomePanel;
 	}
+
+        public Stack<CenterPanel> getBackStack() {
+          return backStack;
+        }
 
 	public static void main(String args[]) {
                 // Wieso schmeisst eclipse da ne unused warning? Oo

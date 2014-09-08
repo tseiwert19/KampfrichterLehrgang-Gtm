@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.SearchActionListener;
+import src.main.Controller;
 
 public class NavigationPanel extends JPanel {
 
@@ -42,14 +43,14 @@ public class NavigationPanel extends JPanel {
 		try {
 			BufferedImage zurueck = ImageIO.read(getClass().getResource(
 					ZURUECK_LOGO));
-			JButton tempBackButton = new KariButton();
-			tempBackButton.setIcon(new ImageIcon(zurueck));
-            tempBackButton.setFocusPainted(false);
-            tempBackButton.setBorder(BorderFactory.createEmptyBorder());
-			tempBackButton.setOpaque(false);
-			tempBackButton.setPreferredSize(new Dimension(60,60));
+			KariButton backButton = Controller.getBackActionListener().getButton();
+			backButton.setIcon(new ImageIcon(zurueck));
+            backButton.setFocusPainted(false);
+            backButton.setBorder(BorderFactory.createEmptyBorder());
+			backButton.setOpaque(false);
+			backButton.setPreferredSize(new Dimension(60,60));
 
-			add(tempBackButton, BorderLayout.WEST);
+			add(backButton, BorderLayout.WEST);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
