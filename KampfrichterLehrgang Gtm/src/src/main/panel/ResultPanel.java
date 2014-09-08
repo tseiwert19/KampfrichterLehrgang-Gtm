@@ -66,6 +66,7 @@ public class ResultPanel extends CenterPanel
         setLayout(borderLayout);
 
         createHeaderPanel(geraet);
+        
         add(header, BorderLayout.NORTH);
 
         createResultPanel();
@@ -79,11 +80,19 @@ public class ResultPanel extends CenterPanel
      */
     private void createHeaderPanel(String geraet)
     {
+    	
+        
         header = new JPanel();
-        header.setLayout(new BoxLayout(header, BoxLayout.PAGE_AXIS));
+        GridLayout gridlayout = new GridLayout(2, 0, 20, 20);
+    	header.setLayout(gridlayout);
+        header.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
         JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>" + geraet + "</b></i></font>");
+        geraeteTyp.setVerticalAlignment(JLabel.CENTER);
+        geraeteTyp.setHorizontalAlignment(JLabel.CENTER);
         header.add(geraeteTyp);
         header.setBackground(Color.WHITE);
+
 
         createComboBoxPanel();
         header.add(comboBoxPanel);
@@ -188,8 +197,11 @@ public class ResultPanel extends CenterPanel
     private void createNoResults()
     {
         JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
+        keineTreffer.setHorizontalAlignment(JLabel.CENTER);
+        keineTreffer.setVerticalAlignment(JLabel.CENTER);
         JPanel platzhalter = new JPanel();
         JPanel platzhalter2 = new JPanel();
+        
         // Platzhalter werden benoetigt damit Label in der Mitte erscheint!
         platzhalter.setBackground(Color.WHITE);
         platzhalter2.setBackground(Color.WHITE);
