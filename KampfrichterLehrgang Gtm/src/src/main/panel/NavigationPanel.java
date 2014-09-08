@@ -30,6 +30,7 @@ public class NavigationPanel extends JPanel {
 	private static final String DTB_LOGO = "../../../img/Logo/dtb-logo.jpg";
 //	private static final String ZURUECK_LOGO = "../../img/Logo/zurueck_button.png";
 	private static final String ZURUECK_LOGO = "../../../img/Logo/rot_zurueck.jpg";
+	private static final String VORWAERTS_LOGO = "../../../img/Logo/rot_vorwaerts.jpg";
 	
 	private SucheTextfeld sucheFeld;
 
@@ -50,6 +51,16 @@ public class NavigationPanel extends JPanel {
 			backButton.setOpaque(false);
 			backButton.setPreferredSize(new Dimension(60,60));
 
+			BufferedImage vorwaerts = ImageIO.read(getClass().getResource(
+					VORWAERTS_LOGO));
+			KariButton fwButton = Controller.getForwardActionListener().getButton();
+			fwButton.setIcon(new ImageIcon(vorwaerts));
+                        fwButton.setFocusPainted(false);
+                        fwButton.setBorder(BorderFactory.createEmptyBorder());
+			fwButton.setOpaque(false);
+			fwButton.setPreferredSize(new Dimension(60,60));
+
+                        add(fwButton, BorderLayout.EAST);
 			add(backButton, BorderLayout.WEST);
 		} catch (IOException e1) {
 			e1.printStackTrace();
