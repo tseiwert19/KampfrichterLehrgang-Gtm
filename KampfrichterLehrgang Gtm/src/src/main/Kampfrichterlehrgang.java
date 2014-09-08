@@ -88,7 +88,7 @@ public class Kampfrichterlehrgang extends JFrame {
           System.out.println("Start creating ResultPanel: " + search);
           resultPanel = new ResultPanel(search);
           Controller.setResultPanel(resultPanel);
-          changeCenterPanel(resultPanel);
+          changeCenterPanelForward(resultPanel);
 	}
 	/**
 	 * Wechselt zu einem SearchResultPanel (Fuer die Suchfunktion)
@@ -98,7 +98,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	    System.out.println("Start creating SearchResultPanel: " + search);
 	    searchResultPanel = new SearchResultPanel(search);
 	    Controller.setSearchResultPanel(searchResultPanel);
-	    changeCenterPanel(searchResultPanel); 
+	    changeCenterPanelForward(searchResultPanel); 
 	}
 	/**
 	 * Wechselt zu einem VideoInfoPanel
@@ -110,23 +110,21 @@ public class Kampfrichterlehrgang extends JFrame {
         System.out.println(video == null);
         VideoInfoPanel videoInfoPanel = new VideoInfoPanel(video);
         Controller.setVideoInfoPanel(videoInfoPanel);
-        changeCenterPanel(videoInfoPanel);
+        changeCenterPanelForward(videoInfoPanel);
 		videoInfoPanel.run();
     }
 
         /**
-         * TODO Diese Methode funktioniert bisher NUR mit dem resultpanel.
-         * um die Funktion zu erweitern muss man irgendwie nen generic
-         * uebergeben und es dann nach einem kriterium casten.
-         * Alternativ muss man mehrfach den gleichen code mit verschiedenem
-         * uebergabeparameter schreiben.
-         * Beachte dass dann auch das zu entfernende Panel dynamisch
-         * gefunden werden muss.
+         * Wechselt das CenterPanel zu dem uebergebenen und meldet das neue
+         * beim Controller an. 
          */
         private void changeCenterPanel(CenterPanel newCenterPanel) {
           //Debug
           System.out.println("Changing center panel.");
-          this.getContentPane().remove(Controller.getCurrentCenterPanel());
+
+          CenterPanel removingPanel = Controller.getCurrentCenterPanel();
+
+          this.getContentPane().remove(removingPanel);
           this.getContentPane().remove(Controller.getScrollPane());
           JScrollPane scrollPane = new JScrollPane(newCenterPanel);
           Controller.setScrollPane(scrollPane);
@@ -134,6 +132,28 @@ public class Kampfrichterlehrgang extends JFrame {
           Controller.setCurrentCenterPanel(newCenterPanel);
           this.getContentPane().validate();
           this.getContentPane().repaint();
+        }
+
+        /**
+         * Wechselt das CenterPanel "rueckwaerts" so dass der Back und 
+         * ForwardStack beruecksichtigt werden.
+         */
+        public void changeCenterPanelBackward() {
+          // fwStack.push(Controler.getCurrentCenterPanel());
+          changeCenterPanel(backStack.pop());
+        }
+
+        /** Wechselt das CenterPanel "vorwaerts" so, dass der Back und
+         * ForwardStack bereucksichtigt werden. Wenn das uebergeben Onjekt
+         * NULL ist wird ein objekt aus dem FowardStack uebergeben.
+         */
+        public void changeCenterPanelForward(CenterPanel newCenterPanel) {
+          backStack.push(Controller.getCurrentCenterPanel());
+          if (newCenterPanel == null) {
+          // changeCenterPanel(fwStack.pop());
+          } else {
+            changeCenterPanel(newCenterPanel);
+          }
         }
 
 

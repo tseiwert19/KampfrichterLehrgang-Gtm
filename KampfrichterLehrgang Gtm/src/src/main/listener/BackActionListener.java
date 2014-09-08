@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import src.main.Controller;
 import src.main.components.KariButton;
+import src.main.panel.CenterPanel;
 
 /**
  * Faengt und kontrolliert die ActionEvents vom Zurueck Button im 
@@ -26,8 +27,11 @@ public class BackActionListener implements ActionListener {
    * und wechselt das CenterPanel.
    */
   public void actionPerformed (ActionEvent e) {
-    String command = e.getActionCommand();
-
-    // BackStack implementierung
+    if (!Controller.getKampfrichterlehrgang().getBackStack().empty()) {
+      Controller.getKampfrichterlehrgang().changeCenterPanelBackward();
+    } else {
+      //Debug
+      System.out.println("Error Back Button: Empty BackStack.");
+    }
   }
 }
