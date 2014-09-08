@@ -284,6 +284,7 @@ public class MediaPlayer extends JPanel {
 		//export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:src/main/libs/linux-amd64
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
 				"c:/programme/videolan/vlc");
+		/*
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
 				"src/main/libs");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(),
@@ -296,6 +297,7 @@ public class MediaPlayer extends JPanel {
 				"src/main/libs/linux-i386");
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcCoreName(),
 				"src/main/libs/linux-amd64");
+				*/
 
 		System.err.println(RuntimeUtil.getLibVlcCoreName());
 
@@ -311,6 +313,7 @@ public class MediaPlayer extends JPanel {
 
 
 
+		/*
 		//http://www.chilkatsoft.com/java-loadLibrary-Linux.asp
 		if (System.getProperty("os.name").equals("Linux"))
 		{
@@ -351,6 +354,7 @@ public class MediaPlayer extends JPanel {
 			}
 		}
 		else
+		*/
 			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 
 		//Native.loadLibrary(RuntimeUtil.getLibVlcCoreName(), LibVlc.class);

@@ -1,1 +1,1 @@
-java -Dcom.sun.media.jai.disableMediaLib=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -cp src/main/libs/*:src/main/libs/jpod/*:. src.main.Kampfrichterlehrgang
+java -Dvlcj.log=DEBUG -Dcom.sun.media.jai.disableMediaLib=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -cp src/main/libs/*:src/main/libs/jpod/*:. src.main.Kampfrichterlehrgang
