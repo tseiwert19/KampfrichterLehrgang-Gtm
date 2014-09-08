@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import src.main.listener.WelcomeActionListener;
 import src.main.listener.BackActionListener;
+import src.main.listener.ForwardActionListener;
 import src.main.panel.*;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
@@ -36,14 +37,14 @@ public class Kampfrichterlehrgang extends JFrame {
         private ResultPanel resultPanel;
         private SearchResultPanel searchResultPanel;
   
-        
-
         private WelcomeActionListener welcomeActionListener;
         private BackActionListener backActionListener;
+        private ForwardActionListener forwardActionListener;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 	private Stack<CenterPanel> backStack;
+        private Stack<CenterPanel> forwardStack;
 
 	public Kampfrichterlehrgang() {
 		
@@ -139,7 +140,7 @@ public class Kampfrichterlehrgang extends JFrame {
          * ForwardStack beruecksichtigt werden.
          */
         public void changeCenterPanelBackward() {
-          // fwStack.push(Controler.getCurrentCenterPanel());
+          forwardStack.push(Controller.getCurrentCenterPanel());
           changeCenterPanel(backStack.pop());
         }
 
@@ -150,7 +151,7 @@ public class Kampfrichterlehrgang extends JFrame {
         public void changeCenterPanelForward(CenterPanel newCenterPanel) {
           backStack.push(Controller.getCurrentCenterPanel());
           if (newCenterPanel == null) {
-          // changeCenterPanel(fwStack.pop());
+            changeCenterPanel(forwardStack.pop());
           } else {
             changeCenterPanel(newCenterPanel);
           }
@@ -166,6 +167,9 @@ public class Kampfrichterlehrgang extends JFrame {
 		backStack = new Stack<CenterPanel>();
                 backActionListener = new BackActionListener();
                 Controller.setBackActionListener(backActionListener);
+                forwardStack = new Stack<CenterPanel>();
+                forwardActionListener = new ForwardActionListener();
+                Controller.setForwardActionListener(forwardActionListener);
 
 		navigationPanel = new NavigationPanel();
                 Controller.setNavigationPanel(navigationPanel);
@@ -214,6 +218,10 @@ public class Kampfrichterlehrgang extends JFrame {
 
         public Stack<CenterPanel> getBackStack() {
           return backStack;
+        }
+
+        public Stack<CenterPanel> getForwardStack() {
+          return forwardStack;
         }
 
 	public static void main(String args[]) {

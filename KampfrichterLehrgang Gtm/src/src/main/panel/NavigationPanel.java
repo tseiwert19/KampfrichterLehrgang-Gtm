@@ -45,8 +45,8 @@ public class NavigationPanel extends JPanel {
 					ZURUECK_LOGO));
 			KariButton backButton = Controller.getBackActionListener().getButton();
 			backButton.setIcon(new ImageIcon(zurueck));
-            backButton.setFocusPainted(false);
-            backButton.setBorder(BorderFactory.createEmptyBorder());
+                        backButton.setFocusPainted(false);
+                        backButton.setBorder(BorderFactory.createEmptyBorder());
 			backButton.setOpaque(false);
 			backButton.setPreferredSize(new Dimension(60,60));
 
