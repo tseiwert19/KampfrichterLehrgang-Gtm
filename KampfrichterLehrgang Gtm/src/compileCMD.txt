@@ -1,2 +1,2 @@
 find -iname '*.class' -delete
-javac -Djava.ext.dirs=src/main/libs src/main/Kampfrichterlehrgang.java
+javac -Djava.ext.dirs=src/main/libs:src/main/libs/jpod src/main/Kampfrichterlehrgang.java

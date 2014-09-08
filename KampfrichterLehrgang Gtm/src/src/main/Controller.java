@@ -38,7 +38,7 @@ public class Controller
     private static Video video;
     private static VideoParser vidparser;
 
-    private static PDFViewer pdfviewer;
+    private static PDFViewer2 pdfviewer;
 
     private static KariButton kari;
     private static SucheTextfeld textfeld;
@@ -125,12 +125,12 @@ public class Controller
 		return videoInfoPanel;
 	}
 
-    public static void setPDFViewer(PDFViewer p)
+    public static void setPDFViewer(PDFViewer2 p)
     {
         pdfviewer = p;
     }
 
-    public static PDFViewer getPDFViewer()
+    public static PDFViewer2 getPDFViewer()
     {
         return pdfviewer;
     }
