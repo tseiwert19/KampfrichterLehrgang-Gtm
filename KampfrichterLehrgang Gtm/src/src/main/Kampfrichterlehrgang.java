@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.util.Stack;
 
 import src.main.listener.WelcomeActionListener;
+import src.main.listener.BackActionListener;
+import src.main.listener.ForwardActionListener;
 import src.main.panel.*;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
@@ -32,26 +34,23 @@ public class Kampfrichterlehrgang extends JFrame {
 	private NavigationPanel navigationPanel;
 	private ImpressumPanel impressumPanel;
 	private WelcomePanel welcomePanel;
-    private ResultPanel resultPanel;
-    private SearchResultPanel searchResultPanel;
+        private ResultPanel resultPanel;
+        private SearchResultPanel searchResultPanel;
   
-        
-
-   private WelcomeActionListener welcomeActionListener;
+        private WelcomeActionListener welcomeActionListener;
+        private BackActionListener backActionListener;
+        private ForwardActionListener forwardActionListener;
 
 	protected String curLF = "javax.swing.plaf.metal.MetalLookAndFeel";
 
-	// Fuer die "Zurueck" Button funktionalitaet ist eine Stackloesung
-	// angedacht.
-	@SuppressWarnings("unused")
-	private Stack<JPanel> backStack;
+	private Stack<CenterPanel> backStack;
+        private Stack<CenterPanel> forwardStack;
 
 	public Kampfrichterlehrgang() {
 		
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "c:/Programme/VideoLan/VLC");
 
         
-		backStack = new Stack<JPanel>();
 
 		setTitle(NAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +89,7 @@ public class Kampfrichterlehrgang extends JFrame {
           System.out.println("Start creating ResultPanel: " + search);
           resultPanel = new ResultPanel(search);
           Controller.setResultPanel(resultPanel);
-          changeCenterPanel(resultPanel);
+          changeCenterPanelForward(resultPanel);
 	}
 	/**
 	 * Wechselt zu einem SearchResultPanel (Fuer die Suchfunktion)
@@ -100,7 +99,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	    System.out.println("Start creating SearchResultPanel: " + search);
 	    searchResultPanel = new SearchResultPanel(search);
 	    Controller.setSearchResultPanel(searchResultPanel);
-	    changeCenterPanel(searchResultPanel); 
+	    changeCenterPanelForward(searchResultPanel); 
 	}
 	/**
 	 * Wechselt zu einem VideoInfoPanel
@@ -112,23 +111,21 @@ public class Kampfrichterlehrgang extends JFrame {
         System.out.println(video == null);
         VideoInfoPanel videoInfoPanel = new VideoInfoPanel(video);
         Controller.setVideoInfoPanel(videoInfoPanel);
-        changeCenterPanel(videoInfoPanel);
+        changeCenterPanelForward(videoInfoPanel);
 		videoInfoPanel.run();
     }
 
         /**
-         * TODO Diese Methode funktioniert bisher NUR mit dem resultpanel.
-         * um die Funktion zu erweitern muss man irgendwie nen generic
-         * uebergeben und es dann nach einem kriterium casten.
-         * Alternativ muss man mehrfach den gleichen code mit verschiedenem
-         * uebergabeparameter schreiben.
-         * Beachte dass dann auch das zu entfernende Panel dynamisch
-         * gefunden werden muss.
+         * Wechselt das CenterPanel zu dem uebergebenen und meldet das neue
+         * beim Controller an. 
          */
         private void changeCenterPanel(CenterPanel newCenterPanel) {
           //Debug
           System.out.println("Changing center panel.");
-          this.getContentPane().remove(Controller.getCurrentCenterPanel());
+
+          CenterPanel removingPanel = Controller.getCurrentCenterPanel();
+
+          this.getContentPane().remove(removingPanel);
           this.getContentPane().remove(Controller.getScrollPane());
           JScrollPane scrollPane = new JScrollPane(newCenterPanel);
           Controller.setScrollPane(scrollPane);
@@ -138,6 +135,28 @@ public class Kampfrichterlehrgang extends JFrame {
           this.getContentPane().repaint();
         }
 
+        /**
+         * Wechselt das CenterPanel "rueckwaerts" so dass der Back und 
+         * ForwardStack beruecksichtigt werden.
+         */
+        public void changeCenterPanelBackward() {
+          forwardStack.push(Controller.getCurrentCenterPanel());
+          changeCenterPanel(backStack.pop());
+        }
+
+        /** Wechselt das CenterPanel "vorwaerts" so, dass der Back und
+         * ForwardStack bereucksichtigt werden. Wenn das uebergeben Onjekt
+         * NULL ist wird ein objekt aus dem FowardStack uebergeben.
+         */
+        public void changeCenterPanelForward(CenterPanel newCenterPanel) {
+          backStack.push(Controller.getCurrentCenterPanel());
+          if (newCenterPanel == null) {
+            changeCenterPanel(forwardStack.pop());
+          } else {
+            changeCenterPanel(newCenterPanel);
+          }
+        }
+
 
 	/**
 	 * Baut ein Navigations JPanel. Das Panel enthaelt ein Logo sowie einen
@@ -145,6 +164,13 @@ public class Kampfrichterlehrgang extends JFrame {
 	 * implementiert wird.
 	 */
 	private NavigationPanel buildNavigationPanel() {
+		backStack = new Stack<CenterPanel>();
+                backActionListener = new BackActionListener();
+                Controller.setBackActionListener(backActionListener);
+                forwardStack = new Stack<CenterPanel>();
+                forwardActionListener = new ForwardActionListener();
+                Controller.setForwardActionListener(forwardActionListener);
+
 		navigationPanel = new NavigationPanel();
                 Controller.setNavigationPanel(navigationPanel);
 		return navigationPanel;
@@ -189,6 +215,14 @@ public class Kampfrichterlehrgang extends JFrame {
 
 		return welcomePanel;
 	}
+
+        public Stack<CenterPanel> getBackStack() {
+          return backStack;
+        }
+
+        public Stack<CenterPanel> getForwardStack() {
+          return forwardStack;
+        }
 
 	public static void main(String args[]) {
                 // Wieso schmeisst eclipse da ne unused warning? Oo

@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.SearchActionListener;
+import src.main.Controller;
 
 public class NavigationPanel extends JPanel {
 
@@ -29,6 +30,7 @@ public class NavigationPanel extends JPanel {
 	private static final String DTB_LOGO = "../../../img/Logo/dtb-logo.jpg";
 //	private static final String ZURUECK_LOGO = "../../img/Logo/zurueck_button.png";
 	private static final String ZURUECK_LOGO = "../../../img/Logo/rot_zurueck.jpg";
+	private static final String VORWAERTS_LOGO = "../../../img/Logo/rot_vorwaerts.jpg";
 	
 	private SucheTextfeld sucheFeld;
 
@@ -42,14 +44,24 @@ public class NavigationPanel extends JPanel {
 		try {
 			BufferedImage zurueck = ImageIO.read(getClass().getResource(
 					ZURUECK_LOGO));
-			JButton tempBackButton = new KariButton();
-			tempBackButton.setIcon(new ImageIcon(zurueck));
-            tempBackButton.setFocusPainted(false);
-            tempBackButton.setBorder(BorderFactory.createEmptyBorder());
-			tempBackButton.setOpaque(false);
-			tempBackButton.setPreferredSize(new Dimension(60,60));
+			KariButton backButton = Controller.getBackActionListener().getButton();
+			backButton.setIcon(new ImageIcon(zurueck));
+                        backButton.setFocusPainted(false);
+                        backButton.setBorder(BorderFactory.createEmptyBorder());
+			backButton.setOpaque(false);
+			backButton.setPreferredSize(new Dimension(60,60));
 
-			add(tempBackButton, BorderLayout.WEST);
+			BufferedImage vorwaerts = ImageIO.read(getClass().getResource(
+					VORWAERTS_LOGO));
+			KariButton fwButton = Controller.getForwardActionListener().getButton();
+			fwButton.setIcon(new ImageIcon(vorwaerts));
+                        fwButton.setFocusPainted(false);
+                        fwButton.setBorder(BorderFactory.createEmptyBorder());
+			fwButton.setOpaque(false);
+			fwButton.setPreferredSize(new Dimension(60,60));
+
+                        add(fwButton, BorderLayout.EAST);
+			add(backButton, BorderLayout.WEST);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

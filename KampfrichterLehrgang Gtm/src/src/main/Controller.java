@@ -5,6 +5,8 @@ import javax.swing.JScrollPane;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.WelcomeActionListener;
+import src.main.listener.BackActionListener;
+import src.main.listener.ForwardActionListener;
 import src.main.panel.*;
 import src.main.videoplayer.*;
 import src.main.pdfviewer.*;
@@ -32,6 +34,8 @@ public class Controller
     private static CenterPanel currentCenterPanel;
 
     private static WelcomeActionListener welcAction;
+    private static BackActionListener backAction;
+    private static ForwardActionListener fwAction;
 
     private static MediaPlayer player;
     private static VideoInfoPanel videoInfoPanel;
@@ -197,4 +201,19 @@ public class Controller
         testPanel = tp;
     }
 
+    public static void setBackActionListener(BackActionListener newBackAction) {
+      backAction = newBackAction;
+    }
+
+    public static BackActionListener getBackActionListener() {
+      return backAction;
+    }
+
+    public static void setForwardActionListener(ForwardActionListener newFwAction) {
+      fwAction = newFwAction;
+    }
+
+    public static ForwardActionListener getForwardActionListener() {
+      return fwAction;
+    }
 }
