@@ -199,15 +199,18 @@ public class SearchResultPanel extends CenterPanel {
      * Werden keine Ergebnisse gefunden, dann wird der Text "Keine Treffer!" angezeigt
      */
     private void createNoResults(){
-        JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
-        JPanel platzhalter = new JPanel();
-        JPanel platzhalter2 = new JPanel();
-
-        platzhalter.setBackground(Color.WHITE);
-        platzhalter2.setBackground(Color.WHITE);
-        mainResultPanel.add(platzhalter);
-        mainResultPanel.add(keineTreffer);
-        mainResultPanel.add(platzhalter2);
+    	 JLabel keineTreffer = new JLabel("<html><font size='8'><b>Keine Treffer!</b></i></font>");
+         keineTreffer.setHorizontalAlignment(JLabel.CENTER);
+         keineTreffer.setVerticalAlignment(JLabel.CENTER);
+         JPanel platzhalter = new JPanel();
+         JPanel platzhalter2 = new JPanel();
+         
+         // Platzhalter werden benoetigt damit Label in der Mitte erscheint!
+         platzhalter.setBackground(Color.WHITE);
+         platzhalter2.setBackground(Color.WHITE);
+         mainResultPanel.add(platzhalter);
+         mainResultPanel.add(keineTreffer);
+         mainResultPanel.add(platzhalter2);
     }
     
     
