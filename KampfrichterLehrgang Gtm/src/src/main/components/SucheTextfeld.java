@@ -31,7 +31,7 @@ public class SucheTextfeld extends JTextField implements MouseListener, KeyListe
     private static final long serialVersionUID = -575653543070324305L;
 
     private static final String STARTTEXT = "Nach Element suchen ... ";
-    private static final String LUPE_LOGO = "../../../img/Logo/lupe.jpg";
+    private static final String LUPE_LOGO = "/img/Logo/lupe.jpg";
 
     private KariButton lupeButton;
 

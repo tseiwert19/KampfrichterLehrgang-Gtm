@@ -30,8 +30,8 @@ public class TestPanel extends JPanel
 {
     private static final long serialVersionUID = -3560834471579393469L;
     private static final Color MY_RED = Color.decode("#b92d2e");
-    private static final String RICHTIG = "../../../img/TestModus/richtig.png";
-    private static final String FALSCH = "../../../img/TestModus/falsch.png";
+    private static final String RICHTIG = "/img/TestModus/richtig.png";
+    private static final String FALSCH = "/img/TestModus/falsch.png";
     private static final String[] SCHWIERIGKEITEN =  {"A", "B", "C", "D", "E", "F"};
     private static final String[] ELEMENTGRUPPEN = {"I", "II", "III", "IV", "V"};
     private MediaPlayer mediaPlayer;

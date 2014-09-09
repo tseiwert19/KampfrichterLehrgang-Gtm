@@ -28,9 +28,9 @@ public class RoundCorneredComboBox extends JComboBox
     private BufferedImage centerImage = null;
 
     //Konstanten fuer die Imagepfade
-    private static final String LEFT_IMAGE = "../../../img/ComboBox/leftComboBox.png";
-    private static final String RIGHT_IMAGE = "../../../img/ComboBox/rightComboBox.png";
-    private static final String CENTER_IMAGE = "../../../img/ComboBox/centerComboBox.png";
+    private static final String LEFT_IMAGE = "/img/ComboBox/leftComboBox.png";
+    private static final String RIGHT_IMAGE = "/img/ComboBox/rightComboBox.png";
+    private static final String CENTER_IMAGE = "/img/ComboBox/centerComboBox.png";
     //Konstanten fuer Sizes
     private static final int MIN_WIDTH = 100;
     private static final int MAX_WIDTH = 2000;

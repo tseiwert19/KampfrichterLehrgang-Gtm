@@ -22,7 +22,7 @@ public class Video {
 	private String schwierigkeitsgrad;
 	private String elementgruppe;
 
-	private static final String videoLocationPrefix="../../../";
+	private static final String videoLocationPrefix="";
 	
 	public Video (int id, String name, String pfad, String geraet, String beschreibung, String schwierigkeitsgrad, String elementgruppe){
 		this.id = id;

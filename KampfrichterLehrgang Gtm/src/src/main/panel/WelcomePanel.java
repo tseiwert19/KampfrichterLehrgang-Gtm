@@ -18,7 +18,7 @@ import src.main.components.KariButton;
 public class WelcomePanel extends CenterPanel {
 
         private static final long serialVersionUID = -1882830821523886193L;
-	private static final String RESOURCEPATH = "../../../img/GeraeteLogos/";
+	private static final String RESOURCEPATH = "/img/GeraeteLogos/";
 	private static final String BARREN = "Barren";
 	private static final String BODEN = "Boden";
 	private static final String PAUSCHENPFERD = "Pauschenpferd";
