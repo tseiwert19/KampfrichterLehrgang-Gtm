@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,13 +48,17 @@ public class TestModePanel extends JPanel
     private JPanel antwortPanel;
     private int richtigeAntworten;
     private ArrayList<KariButton> antwortButtons;
-    KariButton nextButton;
+    private KariButton nextButton;
+    private KariButton neuerTest;
+    private JLabel endeErgebnis;
 
     public TestModePanel()
     {
         setBackground(Color.WHITE);
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         setLayout(boxLayout);
+       // GridLayout gridLayout = new GridLayout(0, 1, 0, 20);
+        //setLayout(gridLayout);
         createAllComponents();
 
     }
@@ -121,9 +127,10 @@ public class TestModePanel extends JPanel
     private void createModusPanel()
     {
         modusPanel = new JPanel();
-        BorderLayout borderLayout = new BorderLayout();
-        modusPanel.setLayout(new BoxLayout(modusPanel, BoxLayout.Y_AXIS));
+        GridLayout gridLayout = new GridLayout(3, 0, 0, 10);
+        modusPanel.setLayout(gridLayout);
         modusPanel.setBackground(Color.WHITE);
+        modusPanel.setMaximumSize(new Dimension(400, 400));
 
         elementgruppeRb = new JRadioButton("Elementgruppen abfragen");
         elementgruppeRb.setSelected(true);
@@ -135,15 +142,14 @@ public class TestModePanel extends JPanel
         radioGroup.add(elementgruppeRb);
         radioGroup.add(schwierigkeitsgradRb);
 
-        JLabel label = new JLabel("Wählen Sie den Testmodus:");
-        label.setAlignmentX(CENTER_ALIGNMENT);
+        JLabel label = new JLabel("<html><b><font size=\"6\">Wählen Sie den Testmodus:</b></font</html>");
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.CENTER);
         modusPanel.add(label);
         JPanel rbPanel = new JPanel();
         rbPanel.setBackground(Color.WHITE);
         rbPanel.add(elementgruppeRb);
         rbPanel.add(schwierigkeitsgradRb);
-        rbPanel.setAlignmentX(CENTER_ALIGNMENT);
-        rbPanel.setMaximumSize(new Dimension(700, 40));
 
         modusPanel.add(rbPanel);
 
@@ -151,6 +157,7 @@ public class TestModePanel extends JPanel
         startButton.setBackground(MY_RED);
         startButton.setForeground(Color.WHITE);
         startButton.addActionListener(testActionListener);
+        startButton.setActionCommand("start");
         startButton.setAlignmentX(CENTER_ALIGNMENT);
         modusPanel.add(startButton);
 
@@ -195,13 +202,21 @@ public class TestModePanel extends JPanel
     private void beendeTest()
     {
         System.out.println("Ende");
-        JLabel endeErgebnis = new JLabel("Sie haben " + richtigeAntworten
+        endeErgebnis = new JLabel("Sie haben " + richtigeAntworten
                 + " von 10 Übungen richtig erkannt!");
+        
         mediaPanel.setVisible(false);
         antwortPanel.setVisible(false);
-        modusPanel.setVisible(true);
         endeErgebnis.setAlignmentX(CENTER_ALIGNMENT);
         add(endeErgebnis);
+        neuerTest = new KariButton("<html><b><font size '5'>Test Neustarten</b></font></html>");
+        neuerTest.setBackground(MY_RED);
+        neuerTest.setForeground(Color.WHITE);
+        neuerTest.addActionListener(new TestModeActionListener());
+        neuerTest.setActionCommand("new");
+        neuerTest.setAlignmentX(CENTER_ALIGNMENT);
+        neuerTest.setMaximumSize(new Dimension(200, 80));
+        add(neuerTest);
         validate();
         repaint();
 
@@ -213,7 +228,6 @@ public class TestModePanel extends JPanel
         antwortPanel.setBackground(Color.WHITE);
         antwortPanel.add(new JLabel("Antwort Wählen:"));
         createAntwortButtons(antwortPanel, video);
-        //add(antwortPanel);
 
     }
 
@@ -353,7 +367,7 @@ public class TestModePanel extends JPanel
         frame.setSize(800, 800);
         TestModePanel panel = new TestModePanel();
         frame.getContentPane().add(new JScrollPane(panel));
-        Controller.setTestPanel(panel);
+        Controller.setTestModePanel(panel);
         frame.setVisible(true);
     }
 
@@ -370,6 +384,16 @@ public class TestModePanel extends JPanel
         disableAntwortButtons();
         //naechstesVideo();
 
+    }
+    
+    public void neuerTestVorbereiten(){
+    	modusPanel.setVisible(true);
+    	ergebnisPanel.removeAll();
+    	antwortPanel.removeAll();
+    	remove(neuerTest);
+    	remove(endeErgebnis);
+    	validate();
+    	repaint();
     }
 
     private void aendereFarbeRichtigerButton(String richtigeAntwort)
@@ -393,7 +417,6 @@ public class TestModePanel extends JPanel
         aendereFarbeRichtigerButton(richtigeAntwort);
         nextButton.setVisible(true);
         disableAntwortButtons();
-       // naechstesVideo();
 
     }
     
