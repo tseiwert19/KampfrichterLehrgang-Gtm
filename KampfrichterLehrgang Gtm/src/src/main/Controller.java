@@ -192,13 +192,9 @@ public class Controller
         scrollPane = sp;
     }
 
-    public static TestModePanel getTestPanel()
+    public static TestModePanel getTestModePanel()
     {
         return testPanel;
-    }
-    
-    public static void setTestPanel(TestModePanel tp){
-        testPanel = tp;
     }
 
     public static void setBackActionListener(BackActionListener newBackAction) {
@@ -216,4 +212,9 @@ public class Controller
     public static ForwardActionListener getForwardActionListener() {
       return fwAction;
     }
+
+	public static void setTestModePanel(TestModePanel panel) {
+		testPanel = panel;
+		
+	}
 }
