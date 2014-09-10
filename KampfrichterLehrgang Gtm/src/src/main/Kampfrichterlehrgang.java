@@ -79,6 +79,9 @@ public class Kampfrichterlehrgang extends JFrame {
         // Angedacht fall noch ein Home Button eingebaut wird
         @SuppressWarnings("unused")
 	public void changeToWelcome() {
+        	WelcomePanel welcomePanel = new WelcomePanel();
+        	Controller.setWelcomePanel(welcomePanel);
+        	changeCenterPanelForward(welcomePanel);
 	}
 
         /**

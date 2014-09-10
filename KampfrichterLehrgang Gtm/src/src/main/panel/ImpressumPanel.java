@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import src.main.components.KariButton;
+import src.main.listener.HomeActionListener;
 import src.main.pdfviewer.PDFReader;
 
 public class ImpressumPanel extends JPanel implements ActionListener {
@@ -24,6 +25,7 @@ public class ImpressumPanel extends JPanel implements ActionListener {
 	public ImpressumPanel() {
 		setPreferredSize(new Dimension(700, 50));
 
+		HomeActionListener home = new HomeActionListener();
 		Color myRot = Color.decode("#b92d2e");
 		setBackground(myRot);
 
@@ -37,10 +39,15 @@ public class ImpressumPanel extends JPanel implements ActionListener {
 		cdptext.setBorderPainted(false);
 		cdptext.setOpaque(true);
 		cdptext.addActionListener(this);
+		
 		JPanel m = new JPanel();
 		m.setBackground(Color.WHITE);
-		JLabel l = new JLabel();
-		m.add(l, BorderLayout.WEST);
+		KariButton homeButton = new KariButton();
+		homeButton.setText("Home");
+		homeButton.setBackground(Color.GREEN);
+		homeButton.addActionListener(home);
+			
+		m.add(homeButton, BorderLayout.WEST);
 		m.add(this);
 
 		add(cdptext);
