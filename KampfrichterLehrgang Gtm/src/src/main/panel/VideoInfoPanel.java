@@ -58,7 +58,7 @@ public class VideoInfoPanel extends CenterPanel {
 
 
 		if (video.getBeschreibung() == null || video.getBeschreibung().isEmpty()) {
-			formattedText = "<html><font color='white'><font size=\"5\"><b><i>\n"
+			formattedText = "<html><font face='sans-serif' color='white'><font size=\"5\"><b><i>\n"
 					+ video.getName()
 					+ "</i></b></font size><br/><br/>\n"
 					+ "<font size=\"4\"><b>Gerät: </b>"
@@ -71,11 +71,11 @@ public class VideoInfoPanel extends CenterPanel {
 					+ video.getElementgruppe()
 					+ "<br/></font size>\n" + "</font></html>";
 		} else {
-			formattedText = "<html><font color='white'><font size=\"5\"><b><i>\n"
+			formattedText = "<html><font face='sans-serif' color='white'><font size=\"5\"><b><i>\n"
 					+ video.getName()
 					+ "</i></b></font size><br/><br/>\n"
 					+ "<font size=\"4\"><b>Beschreibung: </b>"
-					+ video.getBeschreibung()+"<b>Gerät: </b>"
+					+ video.getBeschreibung()+"<br/><b>Gerät: </b>"
 					+ video.getGeraet()
 					+ "<br/><br/>\n"
 					+ "<b>Schwierigkeitsgrad: </b>"
@@ -89,8 +89,8 @@ public class VideoInfoPanel extends CenterPanel {
 		jTextPane=new JTextPane();
 		jTextPane.setForeground(Color.WHITE);
 		jTextPane.setBackground(MYRED);
-		jTextPane.setFont(new Font("Arial", Font.PLAIN, 25));
 		jTextPane.setContentType("text/html");
+		jTextPane.setFont(new Font("Arial", Font.PLAIN, 25));
 		jTextPane.setText(formattedText);
 		jScrollPane=new JScrollPane(jTextPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jScrollPane.setPreferredSize(new Dimension(300, 300));
