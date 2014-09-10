@@ -84,7 +84,7 @@ public class ResultPanel extends CenterPanel
     	
         
         header = new JPanel();
-        GridLayout gridlayout = new GridLayout(2, 0, 20, 20);
+        GridLayout gridlayout = new GridLayout(3, 0, 20, 20);
     	header.setLayout(gridlayout);
         header.setBorder(new EmptyBorder(20, 20, 20, 20));
         

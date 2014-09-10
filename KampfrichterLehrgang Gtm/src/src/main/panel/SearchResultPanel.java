@@ -109,8 +109,12 @@ public class SearchResultPanel extends CenterPanel {
      */
     private void createGeraetePanel(String geraeteName){
         JPanel geraetePanel = new JPanel();
+        GridLayout gridlayout = new GridLayout(2, 0, 20, 20);
+        geraetePanel.setLayout(gridlayout);
         geraetePanel.setBackground(Color.WHITE);
         JLabel label = new JLabel("<html><font size='8'><b><i>" + geraeteName + "</b></i></font>");
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.CENTER);
         geraetePanel.add(label);
         KariButton pdfButton = new KariButton("Informationen zur D-Note");
         pdfButton.setBackground(Color.decode("#b92d2e"));
