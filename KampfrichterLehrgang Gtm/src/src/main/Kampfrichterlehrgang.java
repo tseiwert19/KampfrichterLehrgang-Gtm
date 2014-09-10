@@ -6,23 +6,24 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Stack;
 
-import src.main.components.KariButton;
-import src.main.listener.HomeActionListener;
-import src.main.listener.WelcomeActionListener;
-import src.main.listener.BackActionListener;
-import src.main.listener.ForwardActionListener;
-import src.main.panel.*;
-import src.main.videoplayer.Video;
-import src.main.videoplayer.VideoParser;
-import uk.co.caprica.vlcj.binding.LibVlc;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
-import uk.co.caprica.vlcj.runtime.x.LibXUtil;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.sun.jna.Native;
+import src.main.listener.BackActionListener;
+import src.main.listener.ForwardActionListener;
+import src.main.listener.WelcomeActionListener;
+import src.main.panel.CenterPanel;
+import src.main.panel.ImpressumPanel;
+import src.main.panel.NavigationPanel;
+import src.main.panel.ResultPanel;
+import src.main.panel.SearchResultPanel;
+import src.main.panel.VideoInfoPanel;
+import src.main.panel.WelcomePanel;
+import src.main.videoplayer.Video;
+import src.main.videoplayer.VideoParser;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+
 import com.sun.jna.NativeLibrary;
 
 public class Kampfrichterlehrgang extends JFrame {
@@ -199,17 +200,6 @@ public class Kampfrichterlehrgang extends JFrame {
 		impressumPanel = new ImpressumPanel();
 		Controller.setImpressumPanel(impressumPanel);
 		k.add(impressumPanel);
-
-		Color myRot = Color.decode("#b92d2e");
-		HomeActionListener home = new HomeActionListener();
-		KariButton homeButton = new KariButton();
-		homeButton.setText("Home");
-		homeButton.setBackground(myRot);
-		homeButton.setForeground(Color.WHITE);
-		homeButton.addActionListener(home);
-		homeButton.setPreferredSize(new Dimension(140, 50));
-		k.add(homeButton);
-
 		return k;
 	}
 
