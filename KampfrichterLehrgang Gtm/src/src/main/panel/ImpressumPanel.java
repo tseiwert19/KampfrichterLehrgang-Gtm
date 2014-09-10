@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import src.main.components.KariButton;
+import src.main.pdfviewer.PDFReader;
 
 public class ImpressumPanel extends JPanel implements ActionListener {
 
@@ -57,12 +58,12 @@ public class ImpressumPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		try {
 			Desktop.getDesktop().open(
 					new File("src/pdf/CDP_2013_GER_ENG_RUS_v2.pdf"));
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			PDFReader reader = new PDFReader("src/pdf/CDP_2013_GER_ENG_RUS_v2.pdf");
 		}
 	}
 }

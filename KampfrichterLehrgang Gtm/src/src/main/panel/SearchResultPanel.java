@@ -22,6 +22,7 @@ import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
 import src.main.listener.ComboBoxSearchActionListener;
 import src.main.listener.ItemChangeListener;
+import src.main.listener.PDFActionListener;
 import src.main.listener.VideoButtonActionListener;
 import src.main.listener.VideoButtonMouseListener;
 import src.main.videoplayer.Video;
@@ -107,12 +108,20 @@ public class SearchResultPanel extends CenterPanel {
      * @param geraeteName
      */
     private void createGeraetePanel(String geraeteName){
-        Dimension maxSize = new Dimension(200, 50);
         JPanel geraetePanel = new JPanel();
-        geraetePanel.setMaximumSize(maxSize);
+        GridLayout gridlayout = new GridLayout(2, 0, 20, 20);
+        geraetePanel.setLayout(gridlayout);
         geraetePanel.setBackground(Color.WHITE);
-        JLabel label = new JLabel(geraeteName);
+        JLabel label = new JLabel("<html><font size='8'><b><i>" + geraeteName + "</b></i></font>");
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.CENTER);
         geraetePanel.add(label);
+        KariButton pdfButton = new KariButton("Informationen zur D-Note");
+        pdfButton.setBackground(Color.decode("#b92d2e"));
+        pdfButton.setForeground(Color.WHITE);
+        pdfButton.setActionCommand(geraeteName);
+        pdfButton.addActionListener(new PDFActionListener());
+        geraetePanel.add(pdfButton);
         mainResultPanel.add(geraetePanel);
     }
     /**

@@ -17,7 +17,7 @@ import src.main.components.KariButton;
 
 public class WelcomePanel extends CenterPanel {
 
-        private static final long serialVersionUID = -1882830821523886193L;
+	private static final long serialVersionUID = -1882830821523886193L;
 	private static final String RESOURCEPATH = "/img/GeraeteLogos/";
 	private static final String BARREN = "Barren";
 	private static final String BODEN = "Boden";
@@ -25,7 +25,7 @@ public class WelcomePanel extends CenterPanel {
 	private static final String RECK = "Reck";
 	private static final String RINGE = "Ringe";
 	private static final String SPRUNG = "Sprung";
-        private static final String FILESUFFIX = ".png";
+	private static final String FILESUFFIX = ".png";
 
 	private static final String IMAGES[] = new String[] { BODEN, PAUSCHENPFERD,
 			RINGE, SPRUNG, BARREN, RECK };
@@ -43,7 +43,7 @@ public class WelcomePanel extends CenterPanel {
 		try {
 			BufferedImage buttonImage;
 			Icon buttonIcon;
-                        KariButton newGeraeteButton;
+			KariButton newGeraeteButton;
 			int indexIMAGES = 0;
 
 			while (indexIMAGES <= (IMAGES.length - 1)) {
@@ -51,20 +51,21 @@ public class WelcomePanel extends CenterPanel {
 						RESOURCEPATH + IMAGES[indexIMAGES] + FILESUFFIX));
 				buttonIcon = new ImageIcon(buttonImage);
 
-				newGeraeteButton = Controller.getWelcomeActionListener().getButton();
+				newGeraeteButton = Controller.getWelcomeActionListener()
+						.getButton();
 				newGeraeteButton.setText(IMAGES[indexIMAGES]);
 				newGeraeteButton.setIcon(buttonIcon);
 				newGeraeteButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-				newGeraeteButton.setHorizontalTextPosition(SwingConstants.CENTER);
-				newGeraeteButton.setFont(new Font("Arial",
-						Font.ITALIC, 25));
+				newGeraeteButton
+						.setHorizontalTextPosition(SwingConstants.CENTER);
+				newGeraeteButton.setFont(new Font("Arial", Font.ITALIC, 25));
 
 				Color myRot = Color.decode("#b92d2e");
 
 				newGeraeteButton.setBackground(myRot);
 				newGeraeteButton.setForeground(Color.WHITE);
 
-                                newGeraeteButton.setActionCommand(IMAGES[indexIMAGES]);
+				newGeraeteButton.setActionCommand(IMAGES[indexIMAGES]);
 
 				add(newGeraeteButton);
 				indexIMAGES++;

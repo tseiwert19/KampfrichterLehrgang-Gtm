@@ -29,7 +29,7 @@ public class Controller
     private static WelcomePanel welcpan;
     private static NavigationPanel navpan;
     private static SearchResultPanel searchResultPanel;
-    private static TestPanel testPanel;
+    private static TestModePanel testPanel;
 
     private static CenterPanel currentCenterPanel;
 
@@ -192,13 +192,9 @@ public class Controller
         scrollPane = sp;
     }
 
-    public static TestPanel getTestPanel()
+    public static TestModePanel getTestModePanel()
     {
         return testPanel;
-    }
-    
-    public static void setTestPanel(TestPanel tp){
-        testPanel = tp;
     }
 
     public static void setBackActionListener(BackActionListener newBackAction) {
@@ -216,4 +212,9 @@ public class Controller
     public static ForwardActionListener getForwardActionListener() {
       return fwAction;
     }
+
+	public static void setTestModePanel(TestModePanel panel) {
+		testPanel = panel;
+		
+	}
 }

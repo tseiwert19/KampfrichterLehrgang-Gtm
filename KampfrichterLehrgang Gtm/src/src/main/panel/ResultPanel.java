@@ -18,6 +18,7 @@ import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
 import src.main.listener.ItemChangeListener;
+import src.main.listener.PDFActionListener;
 import src.main.listener.VideoButtonActionListener;
 import src.main.listener.VideoButtonMouseListener;
 import src.main.videoplayer.Video;
@@ -83,7 +84,7 @@ public class ResultPanel extends CenterPanel
     	
         
         header = new JPanel();
-        GridLayout gridlayout = new GridLayout(2, 0, 20, 20);
+        GridLayout gridlayout = new GridLayout(3, 0, 20, 20);
     	header.setLayout(gridlayout);
         header.setBorder(new EmptyBorder(20, 20, 20, 20));
         
@@ -91,6 +92,12 @@ public class ResultPanel extends CenterPanel
         geraeteTyp.setVerticalAlignment(JLabel.CENTER);
         geraeteTyp.setHorizontalAlignment(JLabel.CENTER);
         header.add(geraeteTyp);
+        KariButton pdfButton = new KariButton("Informationen zur D-Note");
+        pdfButton.setBackground(MYRED);
+        pdfButton.setForeground(Color.WHITE);
+        pdfButton.setActionCommand(geraet);
+        pdfButton.addActionListener(new PDFActionListener());
+        header.add(pdfButton);
         header.setBackground(Color.WHITE);
 
 

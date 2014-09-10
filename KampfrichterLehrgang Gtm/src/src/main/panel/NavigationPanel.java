@@ -3,21 +3,21 @@ package src.main.panel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
+import src.main.Controller;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
+import src.main.listener.HomeActionListener;
 import src.main.listener.SearchActionListener;
-import src.main.Controller;
 
 public class NavigationPanel extends JPanel {
 
@@ -29,10 +29,12 @@ public class NavigationPanel extends JPanel {
 	// konvention
 	//private static final String DTB_LOGO = "/img/Logo/dtb-logo.jpg";
 	//http://www.dtb-online.de/portal/verband/leitbild-design/logowelt.html
-	private static final String DTB_LOGO = "/img/Logo/DTB_Logo_08_72dpi10cm.jpg";
+	private static final String DTB_LOGO = "/img/Logo/DTB_Logo_neu.jpg";
 //	private static final String ZURUECK_LOGO = "/img/Logo/zurueck_button.png";
 	private static final String ZURUECK_LOGO = "/img/Logo/rot_zurueck.jpg";
 	private static final String VORWAERTS_LOGO = "/img/Logo/rot_vorwaerts.jpg";
+	private static final String HOME_LOGO = "/img/Logo/home_button.png";
+	private static final String TESTMODE_LOGO = "/img/logo/testmode_button.png";
 	
 	private SucheTextfeld sucheFeld;
 
@@ -52,7 +54,24 @@ public class NavigationPanel extends JPanel {
                         backButton.setBorder(BorderFactory.createEmptyBorder());
 			backButton.setOpaque(false);
 			backButton.setPreferredSize(new Dimension(60,60));
-
+			
+			BufferedImage home = ImageIO.read(getClass().getResource(HOME_LOGO));
+			KariButton homeButton = new KariButton();
+			homeButton.setIcon(new ImageIcon(home));
+			homeButton.addActionListener(new HomeActionListener());
+			homeButton.setPreferredSize(new Dimension(60, 60));
+			homeButton.setFocusPainted(false);
+			homeButton.setBorder(BorderFactory.createEmptyBorder());
+			homeButton.setOpaque(false);
+			
+			BufferedImage testMode = ImageIO.read(getClass().getResource(TESTMODE_LOGO));
+			KariButton testModeButton = new KariButton();
+			testModeButton.setIcon(new ImageIcon(testMode));
+			testModeButton.setPreferredSize(new Dimension(60, 60));
+			testModeButton.setFocusPainted(false);
+			testModeButton.setBorder(BorderFactory.createEmptyBorder());
+			testModeButton.setOpaque(false);
+			
 			BufferedImage vorwaerts = ImageIO.read(getClass().getResource(
 					VORWAERTS_LOGO));
 			KariButton fwButton = Controller.getForwardActionListener().getButton();
@@ -61,9 +80,23 @@ public class NavigationPanel extends JPanel {
                         fwButton.setBorder(BorderFactory.createEmptyBorder());
 			fwButton.setOpaque(false);
 			fwButton.setPreferredSize(new Dimension(60,60));
+                     
+            JPanel leftButtonPanel = new JPanel();           
+            leftButtonPanel.setBackground(Color.WHITE);
+            leftButtonPanel.setLayout(new FlowLayout());
+            leftButtonPanel.add(backButton);
+            leftButtonPanel.add(homeButton);
+            
+            JPanel rightButtonPanel = new JPanel();
+            rightButtonPanel.setBackground(Color.WHITE);
+            rightButtonPanel.setLayout(new FlowLayout());
+            rightButtonPanel.add(testModeButton);
+            rightButtonPanel.add(fwButton);
+            
+			add(leftButtonPanel, BorderLayout.WEST);
+			add(rightButtonPanel, BorderLayout.EAST);
 
-                        add(fwButton, BorderLayout.EAST);
-			add(backButton, BorderLayout.WEST);
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

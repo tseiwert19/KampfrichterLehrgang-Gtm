@@ -17,5 +17,32 @@
 	<classpathentry kind="lib" path="C:/Users/Thomas/Downloads/isfreetype-5.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/Downloads/isnativec-5.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/Downloads/sun-jai_codec.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-discovery.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-fileupload-1.3.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-digester-2.0.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/iscommon.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/iscwt.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/isfreetype.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/isnativec.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/isrt.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/isswt.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jai_codec.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jai_core.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jai_imageio.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jbig2.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jna.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jPod.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jPodFonts.jar"/>
+	<classpathentry kind="lib" path="src/src/main/libs/jpod/jPodRenderer.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
