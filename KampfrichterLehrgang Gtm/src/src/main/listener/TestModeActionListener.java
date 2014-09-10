@@ -17,16 +17,20 @@ public class TestModeActionListener implements ActionListener
         String command = e.getActionCommand();
         KariButton button = (KariButton) e.getSource();
         String name = button.getText();
-        TestModePanel testPanel = Controller.getTestPanel();
+        TestModePanel testPanel = Controller.getTestModePanel();
         
-        switch (name) {
-            case    "Start":
+        switch (command) {
+            case    "start":
                     testPanel.versteckeModusPanel();
                     testPanel.starteTest();
                 break;
-            case    "Nächste Aufgabe":
+            case    "next":
                     testPanel.naechstesVideo();
                 break;
+            case	"new":
+            		System.out.println("NEUER TEST");
+            		testPanel.neuerTestVorbereiten();
+            	break;
             default:
                 if(command.equals(name)){
                     testPanel.zeigeRichtigesErgebnis(command);
