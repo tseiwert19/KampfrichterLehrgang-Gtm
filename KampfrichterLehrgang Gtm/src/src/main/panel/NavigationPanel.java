@@ -76,6 +76,8 @@ public class NavigationPanel extends JPanel {
 		try {
 			BufferedImage logo = ImageIO.read(getClass().getResource(DTB_LOGO));
 			JLabel logoLabel = new JLabel(new ImageIcon(logo));
+			logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+			logoLabel.setMaximumSize(new Dimension(142, 41));
 			add(logoLabel, BorderLayout.CENTER);
 		} catch (Exception e) {
 			System.out.print(e);
