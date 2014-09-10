@@ -10,10 +10,13 @@ import java.net.URISyntaxException;
 import java.io.File;
 
 import java.awt.*;
+import java.awt.Font;
 import javax.swing.*;
 
 public class VideoInfoPanel extends CenterPanel {
 	private MediaPlayer mediaPlayer;
+	private JTextPane jTextPane;
+	private JScrollPane jScrollPane;
 	private JLabel jlabel;
 	private String formattedText;
 	private Video video;
@@ -83,6 +86,18 @@ public class VideoInfoPanel extends CenterPanel {
 					+ "<br/></font size>\n" + "</font></html>";
 		}
 
+		jTextPane=new JTextPane();
+		jTextPane.setForeground(Color.WHITE);
+		jTextPane.setBackground(MYRED);
+		jTextPane.setFont(new Font("Arial", Font.PLAIN, 25));
+		jTextPane.setContentType("text/html");
+		jTextPane.setText(formattedText);
+		jScrollPane=new JScrollPane(jTextPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jScrollPane.setPreferredSize(new Dimension(300, 300));
+		jScrollPane.setMinimumSize(new Dimension(10, 10));
+
+
+
 		jlabel = new JLabel(formattedText);
 		jlabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
@@ -93,6 +108,7 @@ public class VideoInfoPanel extends CenterPanel {
 
 		add(mediaPlayer, BorderLayout.CENTER);
 		add(jlabel, BorderLayout.EAST);
+		add(jScrollPane, BorderLayout.EAST);
 
 		jlabel.repaint();
 
@@ -101,13 +117,15 @@ public class VideoInfoPanel extends CenterPanel {
 
 	public void enterFullScreen() {
 		System.out.println("VideoInfoPanel: enterFullScreen");
-		jlabel.setVisible(false);
+		//jlabel.setVisible(false);
+		jScrollPane.setVisible(false);
 		// repaint();
 	}
 
 	public void leaveFullScreen() {
 		System.out.println("VideoInfoPanel: leaveFullScreen");
-		jlabel.setVisible(true);
+		//jlabel.setVisible(true);
+		jScrollPane.setVisible(true);
 	}
 
 	public void run() {

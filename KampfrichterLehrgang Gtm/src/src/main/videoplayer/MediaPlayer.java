@@ -281,6 +281,8 @@ public class MediaPlayer extends JPanel {
 		 *
 		 */
 
+		/* https://github.com/caprica/vlcj/issues/62 */
+
 		//export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:src/main/libs/linux-amd64
 		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
 				"c:/programme/videolan/vlc");
