@@ -72,18 +72,14 @@ public class TestModePanel extends CenterPanel {
 	private JLabel endeErgebnis;
 	private JTable ergebnisTabelle;
 	private DefaultTableModel model;
-
+	/**
+	 * Konstruktor
+	 * Setzt Layout und ruft Methode auf, die alle Komponenten erstellt
+	 */
 	public TestModePanel() {
 		setBackground(Color.WHITE);
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
 		setLayout(boxLayout);
-		// GridLayout gridLayout = new GridLayout(0, 1, 0, 20);
-		// setLayout(gridLayout);
-		createAllComponents();
-
-	}
-
-	private void createAllComponents() {
 		testActionListener = new TestModeActionListener();
 		try {
 			richtigImg = new ImageIcon(ImageIO.read(getClass().getResource(
@@ -94,8 +90,19 @@ public class TestModePanel extends CenterPanel {
 			e.printStackTrace();
 			System.err.println("Fehler beim Einlesen der Icons!");
 		}
+		createAllComponents();
+
+	}
+	/**
+	 * Erstellt folgende Panels:
+	 * - ModusPanel
+	 * - MediaPanel
+	 * - AntwortPanel
+	 * - ErgebnisPanel
+	 */
+	private void createAllComponents() {
 		createModusPanel();
-		createMediaPlayer("");
+		createMediaPlayer();
 		mediaPanel.setVisible(false);
 		antwortPanel = new JPanel();
 		antwortPanel.setVisible(false);
@@ -105,10 +112,12 @@ public class TestModePanel extends CenterPanel {
 		createNextButton();
 		nextButton.setVisible(false);
 	}
-
+	/**
+	 * Erstellt ErgebnisPanel
+	 * Enthält den Antwortverlauf
+	 */
 	private void createErgebnisPanel() {
 		ergebnisPanel = new JPanel();
-		// ergebnisPanel.removeAll();
 		ergebnisPanel.setBackground(Color.WHITE);
 		ergebnisPanel.setLayout(new FlowLayout());
 		JLabel ergebnis = new JLabel("Ihre Antworten: ");
@@ -116,7 +125,9 @@ public class TestModePanel extends CenterPanel {
 		add(ergebnisPanel);
 
 	}
-
+	/**
+	 * Erstellt den "Nächste Aufgabe" Button
+	 */
 	private void createNextButton() {
 		nextButton = new KariButton("Nächste Aufgabe");
 		nextButton.addActionListener(testActionListener);
@@ -126,23 +137,29 @@ public class TestModePanel extends CenterPanel {
 		nextButton.setAlignmentX(CENTER_ALIGNMENT);
 		add(nextButton);
 	}
-
+	/**
+	 * Resettet den Antwortverlauf
+	 */
 	private void resetErgebnisPanel() {
 		ergebnisPanel.removeAll();
 		ergebnisPanel.setVisible(true);
 		JLabel ergebnis = new JLabel("Ihre Antworten: ");
 		ergebnisPanel.add(ergebnis);
 	}
-
-	private void createMediaPlayer(String videoPfad) {
+	/**
+	 * Erstellt das Panel für den MediaPlayer
+	 * @param videoPfad
+	 */
+	private void createMediaPlayer() {
 		mediaPanel = new JPanel();
 		mediaPanel.setLayout(new BorderLayout());
 		mediaPanel.setBackground(Color.WHITE);
-		//mediaPlayer = new MediaPlayer(videoPfad);
-		// mediaPanel.add(mediaPlayer, BorderLayout.CENTER);
 		add(mediaPanel);
 	}
-
+	/**
+	 * Erstellt ModusPanel
+	 * Enthält das Menü zum Starten eines Tests
+	 */
 	private void createModusPanel() {
 		modusPanel = new JPanel();
 		GridLayout gridLayout = new GridLayout(3, 0, 0, 10);
@@ -183,7 +200,9 @@ public class TestModePanel extends CenterPanel {
 		add(modusPanel);
 
 	}
-
+	/**
+	 * Startet einen Test
+	 */
 	public void starteTest() {
 		aktuellesVideo = 0;
 		richtigeAntworten = 0;
@@ -193,7 +212,9 @@ public class TestModePanel extends CenterPanel {
 		antwortPanel.setVisible(true);
 		naechstesVideo();
 	}
-
+	/**
+	 * Ein nächstes Video wird geladen und somit eine neue Aufgabe
+	 */
 	public void naechstesVideo() {
 		nextButton.setVisible(false);
 		if (aktuellesVideo == 10) {
@@ -214,7 +235,9 @@ public class TestModePanel extends CenterPanel {
 		}
 
 	}
-
+	/**
+	 * Beendet den aktuellen Test und gibt Möglichkeit einen neuen Test zu starten
+	 */
 	private void beendeTest() {
 		System.out.println("Ende");
 		endeErgebnis = new JLabel("Sie haben " + richtigeAntworten
@@ -233,14 +256,16 @@ public class TestModePanel extends CenterPanel {
 		neuerTest.setActionCommand("new");
 		neuerTest.setAlignmentX(CENTER_ALIGNMENT);
 		neuerTest.setMaximumSize(new Dimension(200, 80));
-		// createErgebnisTabelle();
 		add(tabellePanel);
 		add(neuerTest);
 		validate();
 		repaint();
 
 	}
-
+	/**
+	 * Erstellt Panel, das die AntwortButtons enthält
+	 * @param video zu diesem Video werden AntwortButtons erstellt
+	 */
 	private void createAntwortPanel(Video video) {
 		antwortPanel.setPreferredSize(new Dimension(600, 100));
 		antwortPanel.setBackground(Color.WHITE);
@@ -248,7 +273,11 @@ public class TestModePanel extends CenterPanel {
 		createAntwortButtons(antwortPanel, video);
 
 	}
-
+	/**
+	 * Erstellt die passenden AntwortButtons zu einem Video
+	 * @param antwortPanel Buttons werden diesem Panel hinzugefügt
+	 * @param video Buttons beziehen sich auf dieses Video
+	 */
 	private void createAntwortButtons(JPanel antwortPanel, Video video) {
 
 		if (schwierigkeitsgradRb.isSelected()) {
@@ -257,7 +286,11 @@ public class TestModePanel extends CenterPanel {
 			createElementgruppeButtons(antwortPanel, video);
 		}
 	}
-
+	/**
+	 * Erstellt Buttons für den Modus: Elementgruppe abfragen
+	 * @param antwortPanel Buttons werden diesem Panel hinzugefügt
+	 * @param video Buttons beziehen sich auf dieses Video
+	 */
 	private void createElementgruppeButtons(JPanel antwortPanel, Video video) {
 		antwortButtons = new ArrayList<KariButton>();
 		antwortButtons.clear();
@@ -302,7 +335,11 @@ public class TestModePanel extends CenterPanel {
 		antwortButtons.add(v);
 		antwortPanel.add(v);
 	}
-
+	/**
+	 * Buttons für den Modus: Schwierigkeitsgrad abfragen
+	 * @param antwortPanel Buttons werden diesem Panel hinzugefügt
+	 * @param video Buttons beziehen sich auf dieses Video
+	 */
 	private void createSchwierigkeitsgradButtons(JPanel antwortPanel,
 			Video video) {
 		antwortButtons = new ArrayList<KariButton>();
@@ -356,7 +393,11 @@ public class TestModePanel extends CenterPanel {
 		antwortButtons.add(f);
 		antwortPanel.add(f);
 	}
-
+	/**
+	 * Sucht n zufällige Videos aus der Datenbank
+	 * @param anzahl Anzahl der zufälligen Videos
+	 * @return Liste mit den gefundenen Videos
+	 */
 	private ArrayList<Video> sucheVideos(int anzahl) {
 		ArrayList<Video> videoListe = new ArrayList<Video>();
 		VideoParser parser = new VideoParser();
@@ -370,7 +411,10 @@ public class TestModePanel extends CenterPanel {
 		return videoListe;
 
 	}
-
+	/**
+	 * Dient zum Testen
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(800, 800);
@@ -379,7 +423,10 @@ public class TestModePanel extends CenterPanel {
 		Controller.setTestModePanel(panel);
 		frame.setVisible(true);
 	}
-
+	/**
+	 * Zeigt dem User das richtige Ergebnis
+	 * @param richtigeAntwort
+	 */
 	public void zeigeRichtigesErgebnis(String richtigeAntwort) {
 		richtigeAntworten++;
 		remove(ergebnisPanel);
@@ -390,10 +437,12 @@ public class TestModePanel extends CenterPanel {
 		aendereFarbeRichtigerButton(richtigeAntwort);
 		nextButton.setVisible(true);
 		disableAntwortButtons();
-		// naechstesVideo();
 
 	}
-
+	/**
+	 * Es wird ein neuer Test vorbereitet, d.h. alle unnötigen Panels werden ausgeblendet
+	 * und das ModusPanel wird wieder eingeblendet
+	 */
 	public void neuerTestVorbereiten() {
 		modusPanel.setVisible(true);
 		ergebnisPanel.removeAll();
@@ -405,7 +454,10 @@ public class TestModePanel extends CenterPanel {
 		validate();
 		repaint();
 	}
-
+	/**
+	 * Ändert die Farbe des richtigen Buttons zu grün
+	 * @param richtigeAntwort
+	 */
 	private void aendereFarbeRichtigerButton(String richtigeAntwort) {
 		for (KariButton aktuellerButton : antwortButtons) {
 			if (aktuellerButton.getText().equals(richtigeAntwort))
@@ -413,7 +465,10 @@ public class TestModePanel extends CenterPanel {
 		}
 
 	}
-
+	/**
+	 * Fügt dem Antwortverlauf ein X hinzu
+	 * @param richtigeAntwort
+	 */
 	public void zeigeFalschesErgebnis(String richtigeAntwort) {
 		remove(ergebnisPanel);
 		JLabel falsch = new JLabel(falschImg);
@@ -425,7 +480,9 @@ public class TestModePanel extends CenterPanel {
 		disableAntwortButtons();
 
 	}
-
+	/**
+	 * Erstellt die Tabelle die dem User sein Testergebnis anzeigt
+	 */
 	private void createErgebnisTabelle() {
 		String[] spaltenNamen = { "Ihre Antwort", "Richtige Antwort",
 				"Richtig/Falsch", "Video" };
@@ -442,11 +499,15 @@ public class TestModePanel extends CenterPanel {
 				.setCellRenderer(new ButtonRenderer());
 		ergebnisTabelle.getColumnModel().getColumn(3)
 				.setCellEditor(new ButtonEditor(new JCheckBox()));
-		// ergebnisTabelle.setPreferredScrollableViewportSize(ergebnisTabelle.getPreferredSize());
 		scroll.setPreferredSize(new Dimension(550, 330));
 		tabellePanel.add(scroll);
 	}
-
+	/**
+	 * Fügt eine neue Zeile der Ergebnistabelle hinzu
+	 * @param antwort Antwort des Users
+	 * @param loesung Lösung zur Frage
+	 * @param richtig Richtige Antwort?
+	 */
 	public void addTabelleZeile(String antwort, String loesung, boolean richtig) {
 		int size = model.getColumnCount();
 
@@ -466,13 +527,17 @@ public class TestModePanel extends CenterPanel {
 		model.addRow(vector);
 
 	}
-
+	/**
+	 * Disabled Antwortbuttons
+	 */
 	private void disableAntwortButtons() {
 		for (KariButton aktuellerButton : antwortButtons) {
 			aktuellerButton.setEnabled(false);
 		}
 	}
-
+	/**
+	 * Versteckt das ModusPanel
+	 */
 	public void versteckeModusPanel() {
 		modusPanel.setVisible(false);
 	}
@@ -501,16 +566,14 @@ class ImageRenderer extends DefaultTableCellRenderer {
  */
 class ButtonRenderer extends JButton implements TableCellRenderer {
 
-	// public ButtonRenderer() {
-	// setOpaque(true);
-	// }
+
+	private static final long serialVersionUID = 90599820059818649L;
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
 		setForeground(Color.WHITE);
 		setBackground(Color.decode("#b92d2e"));
-		String val = value.toString();
 		setText("Video anschauen");
 		return this;
 	}
@@ -523,6 +586,7 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
  */
 class ButtonEditor extends DefaultCellEditor {
 
+	private static final long serialVersionUID = 7491064410137584273L;
 	protected KariButton button;
 	private String label;
 	private boolean isPushed;
