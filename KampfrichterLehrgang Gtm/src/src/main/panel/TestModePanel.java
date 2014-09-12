@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -129,11 +130,7 @@ public class TestModePanel extends CenterPanel {
 	 * Erstellt den "Nächste Aufgabe" Button
 	 */
 	private void createNextButton() {
-		nextButton = new KariButton("Nächste Aufgabe");
-		nextButton.addActionListener(testActionListener);
-		nextButton.setBackground(MY_RED);
-		nextButton.setForeground(Color.WHITE);
-		nextButton.setActionCommand("next");
+		nextButton = erstelleEinButton("Nächste Aufgabe", "", "next", testActionListener);
 		nextButton.setAlignmentX(CENTER_ALIGNMENT);
 		add(nextButton);
 	}
@@ -189,16 +186,35 @@ public class TestModePanel extends CenterPanel {
 
 		modusPanel.add(rbPanel);
 
-		KariButton startButton = new KariButton("Start");
-		startButton.setBackground(MY_RED);
-		startButton.setForeground(Color.WHITE);
-		startButton.addActionListener(testActionListener);
-		startButton.setActionCommand("start");
+		KariButton startButton = erstelleEinButton("Start", "", "start", testActionListener);
 		startButton.setAlignmentX(CENTER_ALIGNMENT);
-		modusPanel.add(startButton);
+		startButton.setPreferredSize(new Dimension(150, 50));
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.WHITE);
+		buttonPanel.add(startButton);
+		modusPanel.add(buttonPanel);
 
 		add(modusPanel);
 
+	}
+	/**
+	 * Erstellt einen KariButton
+	 * @param text Text, der angezeigt wird
+	 * @param name Name des Buttons
+	 * @param command ActionCommand
+	 * @param al ActionListener
+	 * @return KariButton
+	 */
+	private KariButton erstelleEinButton(String text, String name, String command, ActionListener al){
+		KariButton neuerButton = new KariButton(text);
+		neuerButton.setName(name);
+		neuerButton.setActionCommand(command);
+		neuerButton.addActionListener(al);
+		
+		neuerButton.setBackground(MY_RED);
+		neuerButton.setForeground(Color.WHITE);
+		
+		return neuerButton;
 	}
 	/**
 	 * Startet einen Test
@@ -295,43 +311,25 @@ public class TestModePanel extends CenterPanel {
 		antwortButtons = new ArrayList<KariButton>();
 		antwortButtons.clear();
 		String antwort = video.getElementgruppe();
-		KariButton i = new KariButton("I");
-		i.setBackground(MY_RED);
-		i.setForeground(Color.WHITE);
-		i.addActionListener(testActionListener);
-		i.setActionCommand(antwort);
+		KariButton i = erstelleEinButton("I", "", antwort, testActionListener);
 		antwortButtons.add(i);
 		antwortPanel.add(i);
 
-		KariButton ii = new KariButton("II");
+		KariButton ii = erstelleEinButton("II", "", antwort, testActionListener);
 		ii.setBackground(MY_RED);
-		ii.setForeground(Color.WHITE);
-		ii.addActionListener(testActionListener);
-		ii.setActionCommand(antwort);
 		antwortButtons.add(ii);
 		antwortPanel.add(ii);
 
-		KariButton iii = new KariButton("III");
-		iii.setBackground(MY_RED);
-		iii.setForeground(Color.WHITE);
-		iii.addActionListener(testActionListener);
-		iii.setActionCommand(antwort);
+		KariButton iii = erstelleEinButton("III", "", antwort, testActionListener);
 		antwortButtons.add(iii);
 		antwortPanel.add(iii);
 
-		KariButton iv = new KariButton("IV");
-		iv.setBackground(MY_RED);
-		iv.setForeground(Color.WHITE);
-		iv.addActionListener(testActionListener);
-		iv.setActionCommand(antwort);
+		KariButton iv = erstelleEinButton("IV", "", antwort, testActionListener);
 		antwortButtons.add(iv);
 		antwortPanel.add(iv);
 
-		KariButton v = new KariButton("V");
+		KariButton v = erstelleEinButton("V", "", antwort, testActionListener);
 		v.setBackground(MY_RED);
-		v.setForeground(Color.WHITE);
-		v.addActionListener(testActionListener);
-		v.setActionCommand(antwort);
 		antwortButtons.add(v);
 		antwortPanel.add(v);
 	}
@@ -345,51 +343,27 @@ public class TestModePanel extends CenterPanel {
 		antwortButtons = new ArrayList<KariButton>();
 		antwortButtons.clear();
 		String antwort = video.getSchwierigkeitsgrad();
-		KariButton a = new KariButton("A");
-		a.setBackground(MY_RED);
-		a.setForeground(Color.WHITE);
-		a.addActionListener(testActionListener);
-		a.setActionCommand(antwort);
+		KariButton a = erstelleEinButton("A", "", antwort, testActionListener);
 		antwortButtons.add(a);
 		antwortPanel.add(a);
 
-		KariButton b = new KariButton("B");
-		b.setBackground(MY_RED);
-		b.setForeground(Color.WHITE);
-		b.addActionListener(testActionListener);
-		b.setActionCommand(antwort);
+		KariButton b = erstelleEinButton("B", "", antwort, testActionListener);
 		antwortButtons.add(b);
 		antwortPanel.add(b);
 
-		KariButton c = new KariButton("C");
-		c.setBackground(MY_RED);
-		c.setForeground(Color.WHITE);
-		c.addActionListener(testActionListener);
-		c.setActionCommand(antwort);
+		KariButton c = erstelleEinButton("C", "", antwort, testActionListener);
 		antwortButtons.add(c);
 		antwortPanel.add(c);
 
-		KariButton d = new KariButton("D");
-		d.setBackground(MY_RED);
-		d.setForeground(Color.WHITE);
-		d.addActionListener(testActionListener);
-		d.setActionCommand(antwort);
+		KariButton d = erstelleEinButton("D", "", antwort, testActionListener);
 		antwortButtons.add(d);
 		antwortPanel.add(d);
 
-		KariButton e = new KariButton("E");
-		e.setBackground(MY_RED);
-		e.setForeground(Color.WHITE);
-		e.addActionListener(testActionListener);
-		e.setActionCommand(antwort);
+		KariButton e = erstelleEinButton("E", "", antwort, testActionListener);
 		antwortButtons.add(e);
 		antwortPanel.add(e);
 
-		KariButton f = new KariButton("F");
-		f.setBackground(MY_RED);
-		f.setForeground(Color.WHITE);
-		f.addActionListener(testActionListener);
-		f.setActionCommand(antwort);
+		KariButton f = erstelleEinButton("F", "", antwort, testActionListener);
 		antwortButtons.add(f);
 		antwortPanel.add(f);
 	}
