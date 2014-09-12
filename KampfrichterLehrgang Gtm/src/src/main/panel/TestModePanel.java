@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,9 +74,10 @@ public class TestModePanel extends CenterPanel {
 	private JLabel endeErgebnis;
 	private JTable ergebnisTabelle;
 	private DefaultTableModel model;
+
 	/**
-	 * Konstruktor
-	 * Setzt Layout und ruft Methode auf, die alle Komponenten erstellt
+	 * Konstruktor Setzt Layout und ruft Methode auf, die alle Komponenten
+	 * erstellt
 	 */
 	public TestModePanel() {
 		setBackground(Color.WHITE);
@@ -94,12 +96,10 @@ public class TestModePanel extends CenterPanel {
 		createAllComponents();
 
 	}
+
 	/**
-	 * Erstellt folgende Panels:
-	 * - ModusPanel
-	 * - MediaPanel
-	 * - AntwortPanel
-	 * - ErgebnisPanel
+	 * Erstellt folgende Panels: - ModusPanel - MediaPanel - AntwortPanel -
+	 * ErgebnisPanel
 	 */
 	private void createAllComponents() {
 		createModusPanel();
@@ -113,27 +113,28 @@ public class TestModePanel extends CenterPanel {
 		createNextButton();
 		nextButton.setVisible(false);
 	}
+
 	/**
-	 * Erstellt ErgebnisPanel
-	 * Enthält den Antwortverlauf
+	 * Erstellt ErgebnisPanel Enthält den Antwortverlauf
 	 */
 	private void createErgebnisPanel() {
-		ergebnisPanel = new JPanel();
-		ergebnisPanel.setBackground(Color.WHITE);
-		ergebnisPanel.setLayout(new FlowLayout());
+		ergebnisPanel = erstelleEinPanel(new FlowLayout(), null, null, null);
 		JLabel ergebnis = new JLabel("Ihre Antworten: ");
 		ergebnisPanel.add(ergebnis);
 		add(ergebnisPanel);
 
 	}
+
 	/**
 	 * Erstellt den "Nächste Aufgabe" Button
 	 */
 	private void createNextButton() {
-		nextButton = erstelleEinButton("Nächste Aufgabe", "", "next", testActionListener);
+		nextButton = erstelleEinButton("Nächste Aufgabe", "", "next",
+				testActionListener);
 		nextButton.setAlignmentX(CENTER_ALIGNMENT);
 		add(nextButton);
 	}
+
 	/**
 	 * Resettet den Antwortverlauf
 	 */
@@ -143,26 +144,24 @@ public class TestModePanel extends CenterPanel {
 		JLabel ergebnis = new JLabel("Ihre Antworten: ");
 		ergebnisPanel.add(ergebnis);
 	}
+
 	/**
 	 * Erstellt das Panel für den MediaPlayer
+	 * 
 	 * @param videoPfad
 	 */
 	private void createMediaPlayer() {
-		mediaPanel = new JPanel();
-		mediaPanel.setLayout(new BorderLayout());
-		mediaPanel.setBackground(Color.WHITE);
+		mediaPanel = erstelleEinPanel(new BorderLayout(), null, null, null);
 		add(mediaPanel);
 	}
+
 	/**
-	 * Erstellt ModusPanel
-	 * Enthält das Menü zum Starten eines Tests
+	 * Erstellt ModusPanel Enthält das Menü zum Starten eines Tests
 	 */
 	private void createModusPanel() {
-		modusPanel = new JPanel();
 		GridLayout gridLayout = new GridLayout(3, 0, 0, 10);
-		modusPanel.setLayout(gridLayout);
-		modusPanel.setBackground(Color.WHITE);
-		modusPanel.setMaximumSize(new Dimension(400, 400));
+		modusPanel = erstelleEinPanel(gridLayout, null,
+				new Dimension(400, 400), null);
 
 		elementgruppeRb = new JRadioButton("Elementgruppen abfragen");
 		elementgruppeRb.setSelected(true);
@@ -186,36 +185,45 @@ public class TestModePanel extends CenterPanel {
 
 		modusPanel.add(rbPanel);
 
-		KariButton startButton = erstelleEinButton("Start", "", "start", testActionListener);
+		KariButton startButton = erstelleEinButton("Start", "", "start",
+				testActionListener);
 		startButton.setAlignmentX(CENTER_ALIGNMENT);
 		startButton.setPreferredSize(new Dimension(150, 50));
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(Color.WHITE);
+		JPanel buttonPanel = erstelleEinPanel(null, null, null, null);
+
 		buttonPanel.add(startButton);
 		modusPanel.add(buttonPanel);
 
 		add(modusPanel);
 
 	}
+
 	/**
 	 * Erstellt einen KariButton
-	 * @param text Text, der angezeigt wird
-	 * @param name Name des Buttons
-	 * @param command ActionCommand
-	 * @param al ActionListener
+	 * 
+	 * @param text
+	 *            Text, der angezeigt wird
+	 * @param name
+	 *            Name des Buttons
+	 * @param command
+	 *            ActionCommand
+	 * @param al
+	 *            ActionListener
 	 * @return KariButton
 	 */
-	private KariButton erstelleEinButton(String text, String name, String command, ActionListener al){
+	private KariButton erstelleEinButton(String text, String name,
+			String command, ActionListener al) {
 		KariButton neuerButton = new KariButton(text);
 		neuerButton.setName(name);
 		neuerButton.setActionCommand(command);
 		neuerButton.addActionListener(al);
-		
+
 		neuerButton.setBackground(MY_RED);
 		neuerButton.setForeground(Color.WHITE);
-		
+
 		return neuerButton;
 	}
+
 	/**
 	 * Startet einen Test
 	 */
@@ -228,6 +236,7 @@ public class TestModePanel extends CenterPanel {
 		antwortPanel.setVisible(true);
 		naechstesVideo();
 	}
+
 	/**
 	 * Ein nächstes Video wird geladen und somit eine neue Aufgabe
 	 */
@@ -237,7 +246,7 @@ public class TestModePanel extends CenterPanel {
 			beendeTest();
 		} else {
 			Video video = videos.get(aktuellesVideo);
-			if(mediaPlayer != null)
+			if (mediaPlayer != null)
 				mediaPanel.remove(mediaPlayer);
 			mediaPlayer = new MediaPlayer(video.getPfad());
 			mediaPanel.add(mediaPlayer);
@@ -251,8 +260,26 @@ public class TestModePanel extends CenterPanel {
 		}
 
 	}
+
+	private JPanel erstelleEinPanel(LayoutManager layout, Dimension prefSize,
+			Dimension maxSize, Dimension minSize) {
+		JPanel neuesPanel = new JPanel();
+		neuesPanel.setBackground(Color.WHITE);
+		if (layout != null)
+			neuesPanel.setLayout(layout);
+		if (prefSize != null)
+			neuesPanel.setPreferredSize(prefSize);
+		if (maxSize != null)
+			neuesPanel.setMaximumSize(maxSize);
+		if (minSize != null)
+			neuesPanel.setMinimumSize(minSize);
+
+		return neuesPanel;
+	}
+
 	/**
-	 * Beendet den aktuellen Test und gibt Möglichkeit einen neuen Test zu starten
+	 * Beendet den aktuellen Test und gibt Möglichkeit einen neuen Test zu
+	 * starten
 	 */
 	private void beendeTest() {
 		System.out.println("Ende");
@@ -264,12 +291,9 @@ public class TestModePanel extends CenterPanel {
 		ergebnisPanel.setVisible(false);
 		endeErgebnis.setAlignmentX(CENTER_ALIGNMENT);
 		add(endeErgebnis);
-		neuerTest = new KariButton(
-				"<html><b><font size '5'>Test Neustarten</b></font></html>");
-		neuerTest.setBackground(MY_RED);
-		neuerTest.setForeground(Color.WHITE);
-		neuerTest.addActionListener(new TestModeActionListener());
-		neuerTest.setActionCommand("new");
+		neuerTest = erstelleEinButton(
+				"<html><b><font size '5'>Test Neustarten</b></font></html>",
+				"", "new", testActionListener);
 		neuerTest.setAlignmentX(CENTER_ALIGNMENT);
 		neuerTest.setMaximumSize(new Dimension(200, 80));
 		add(tabellePanel);
@@ -278,98 +302,58 @@ public class TestModePanel extends CenterPanel {
 		repaint();
 
 	}
+
 	/**
 	 * Erstellt Panel, das die AntwortButtons enthält
-	 * @param video zu diesem Video werden AntwortButtons erstellt
+	 * 
+	 * @param video
+	 *            zu diesem Video werden AntwortButtons erstellt
 	 */
 	private void createAntwortPanel(Video video) {
-		antwortPanel.setPreferredSize(new Dimension(600, 100));
+		antwortPanel.setPreferredSize(new Dimension(600,50));
 		antwortPanel.setBackground(Color.WHITE);
 		antwortPanel.add(new JLabel("Antwort Wählen:"));
-		createAntwortButtons(antwortPanel, video);
-
+		createAntwortButtons(elementgruppeRb.isSelected(), video);
 	}
-	/**
-	 * Erstellt die passenden AntwortButtons zu einem Video
-	 * @param antwortPanel Buttons werden diesem Panel hinzugefügt
-	 * @param video Buttons beziehen sich auf dieses Video
-	 */
-	private void createAntwortButtons(JPanel antwortPanel, Video video) {
 
-		if (schwierigkeitsgradRb.isSelected()) {
-			createSchwierigkeitsgradButtons(antwortPanel, video);
-		} else if (elementgruppeRb.isSelected()) {
-			createElementgruppeButtons(antwortPanel, video);
+	/**
+	 * Erstellt die AntwortButtons zu einem Video
+	 * 
+	 * @param elementgruppe
+	 *            Wird Elementgruppe abgefragt?
+	 * @param video
+	 *            Antworten beziehen sich auf dieses Video
+	 */
+	private void createAntwortButtons(Boolean elementgruppe, Video video) {
+		antwortButtons = new ArrayList<KariButton>();
+		antwortButtons.clear();
+		int anzahlButtons;
+		String antwort;
+		String[] buttonText;
+		KariButton neuerButton;
+		if (elementgruppe) {
+			antwort = video.getElementgruppe();
+			anzahlButtons = 5;
+			buttonText = ELEMENTGRUPPEN;
+		} else {
+			antwort = video.getSchwierigkeitsgrad();
+			anzahlButtons = 6;
+			buttonText = SCHWIERIGKEITEN;
+		}
+
+		for (int i = 0; i < anzahlButtons; i++) {
+			neuerButton = erstelleEinButton(buttonText[i], "", antwort,
+					testActionListener);
+			antwortButtons.add(neuerButton);
+			antwortPanel.add(neuerButton);
 		}
 	}
-	/**
-	 * Erstellt Buttons für den Modus: Elementgruppe abfragen
-	 * @param antwortPanel Buttons werden diesem Panel hinzugefügt
-	 * @param video Buttons beziehen sich auf dieses Video
-	 */
-	private void createElementgruppeButtons(JPanel antwortPanel, Video video) {
-		antwortButtons = new ArrayList<KariButton>();
-		antwortButtons.clear();
-		String antwort = video.getElementgruppe();
-		KariButton i = erstelleEinButton("I", "", antwort, testActionListener);
-		antwortButtons.add(i);
-		antwortPanel.add(i);
 
-		KariButton ii = erstelleEinButton("II", "", antwort, testActionListener);
-		ii.setBackground(MY_RED);
-		antwortButtons.add(ii);
-		antwortPanel.add(ii);
-
-		KariButton iii = erstelleEinButton("III", "", antwort, testActionListener);
-		antwortButtons.add(iii);
-		antwortPanel.add(iii);
-
-		KariButton iv = erstelleEinButton("IV", "", antwort, testActionListener);
-		antwortButtons.add(iv);
-		antwortPanel.add(iv);
-
-		KariButton v = erstelleEinButton("V", "", antwort, testActionListener);
-		v.setBackground(MY_RED);
-		antwortButtons.add(v);
-		antwortPanel.add(v);
-	}
-	/**
-	 * Buttons für den Modus: Schwierigkeitsgrad abfragen
-	 * @param antwortPanel Buttons werden diesem Panel hinzugefügt
-	 * @param video Buttons beziehen sich auf dieses Video
-	 */
-	private void createSchwierigkeitsgradButtons(JPanel antwortPanel,
-			Video video) {
-		antwortButtons = new ArrayList<KariButton>();
-		antwortButtons.clear();
-		String antwort = video.getSchwierigkeitsgrad();
-		KariButton a = erstelleEinButton("A", "", antwort, testActionListener);
-		antwortButtons.add(a);
-		antwortPanel.add(a);
-
-		KariButton b = erstelleEinButton("B", "", antwort, testActionListener);
-		antwortButtons.add(b);
-		antwortPanel.add(b);
-
-		KariButton c = erstelleEinButton("C", "", antwort, testActionListener);
-		antwortButtons.add(c);
-		antwortPanel.add(c);
-
-		KariButton d = erstelleEinButton("D", "", antwort, testActionListener);
-		antwortButtons.add(d);
-		antwortPanel.add(d);
-
-		KariButton e = erstelleEinButton("E", "", antwort, testActionListener);
-		antwortButtons.add(e);
-		antwortPanel.add(e);
-
-		KariButton f = erstelleEinButton("F", "", antwort, testActionListener);
-		antwortButtons.add(f);
-		antwortPanel.add(f);
-	}
 	/**
 	 * Sucht n zufällige Videos aus der Datenbank
-	 * @param anzahl Anzahl der zufälligen Videos
+	 * 
+	 * @param anzahl
+	 *            Anzahl der zufälligen Videos
 	 * @return Liste mit den gefundenen Videos
 	 */
 	private ArrayList<Video> sucheVideos(int anzahl) {
@@ -385,8 +369,10 @@ public class TestModePanel extends CenterPanel {
 		return videoListe;
 
 	}
+
 	/**
 	 * Dient zum Testen
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -397,8 +383,10 @@ public class TestModePanel extends CenterPanel {
 		Controller.setTestModePanel(panel);
 		frame.setVisible(true);
 	}
+
 	/**
 	 * Zeigt dem User das richtige Ergebnis
+	 * 
 	 * @param richtigeAntwort
 	 */
 	public void zeigeRichtigesErgebnis(String richtigeAntwort) {
@@ -413,9 +401,10 @@ public class TestModePanel extends CenterPanel {
 		disableAntwortButtons();
 
 	}
+
 	/**
-	 * Es wird ein neuer Test vorbereitet, d.h. alle unnötigen Panels werden ausgeblendet
-	 * und das ModusPanel wird wieder eingeblendet
+	 * Es wird ein neuer Test vorbereitet, d.h. alle unnötigen Panels werden
+	 * ausgeblendet und das ModusPanel wird wieder eingeblendet
 	 */
 	public void neuerTestVorbereiten() {
 		modusPanel.setVisible(true);
@@ -428,8 +417,10 @@ public class TestModePanel extends CenterPanel {
 		validate();
 		repaint();
 	}
+
 	/**
 	 * Ändert die Farbe des richtigen Buttons zu grün
+	 * 
 	 * @param richtigeAntwort
 	 */
 	private void aendereFarbeRichtigerButton(String richtigeAntwort) {
@@ -439,8 +430,10 @@ public class TestModePanel extends CenterPanel {
 		}
 
 	}
+
 	/**
 	 * Fügt dem Antwortverlauf ein X hinzu
+	 * 
 	 * @param richtigeAntwort
 	 */
 	public void zeigeFalschesErgebnis(String richtigeAntwort) {
@@ -454,6 +447,7 @@ public class TestModePanel extends CenterPanel {
 		disableAntwortButtons();
 
 	}
+
 	/**
 	 * Erstellt die Tabelle die dem User sein Testergebnis anzeigt
 	 */
@@ -466,8 +460,8 @@ public class TestModePanel extends CenterPanel {
 		TableColumn tc = ergebnisTabelle.getColumnModel().getColumn(2);
 		ImageRenderer imgRenderer = new ImageRenderer();
 		tc.setCellRenderer(imgRenderer);
-		tabellePanel = new JPanel();
-		tabellePanel.setBackground(Color.WHITE);
+		tabellePanel = erstelleEinPanel(null, null, null, null);
+		
 		JScrollPane scroll = new JScrollPane(ergebnisTabelle);
 		ergebnisTabelle.getColumnModel().getColumn(3)
 				.setCellRenderer(new ButtonRenderer());
@@ -476,11 +470,16 @@ public class TestModePanel extends CenterPanel {
 		scroll.setPreferredSize(new Dimension(550, 330));
 		tabellePanel.add(scroll);
 	}
+
 	/**
 	 * Fügt eine neue Zeile der Ergebnistabelle hinzu
-	 * @param antwort Antwort des Users
-	 * @param loesung Lösung zur Frage
-	 * @param richtig Richtige Antwort?
+	 * 
+	 * @param antwort
+	 *            Antwort des Users
+	 * @param loesung
+	 *            Lösung zur Frage
+	 * @param richtig
+	 *            Richtige Antwort?
 	 */
 	public void addTabelleZeile(String antwort, String loesung, boolean richtig) {
 		int size = model.getColumnCount();
@@ -501,6 +500,7 @@ public class TestModePanel extends CenterPanel {
 		model.addRow(vector);
 
 	}
+
 	/**
 	 * Disabled Antwortbuttons
 	 */
@@ -509,6 +509,7 @@ public class TestModePanel extends CenterPanel {
 			aktuellerButton.setEnabled(false);
 		}
 	}
+
 	/**
 	 * Versteckt das ModusPanel
 	 */
@@ -539,7 +540,6 @@ class ImageRenderer extends DefaultTableCellRenderer {
  * http://www.java2s.com/Code/Java/Swing-Components/ButtonTableExample.htm
  */
 class ButtonRenderer extends JButton implements TableCellRenderer {
-
 
 	private static final long serialVersionUID = 90599820059818649L;
 
