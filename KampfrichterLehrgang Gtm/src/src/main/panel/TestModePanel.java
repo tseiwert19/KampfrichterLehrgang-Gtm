@@ -6,8 +6,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -21,12 +19,10 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -47,7 +43,7 @@ import src.main.videoplayer.VideoParser;
  * @author Michael
  *
  */
-public class TestModePanel extends JPanel {
+public class TestModePanel extends CenterPanel {
 	private static final long serialVersionUID = -3560834471579393469L;
 	private static final Color MY_RED = Color.decode("#b92d2e");
 	private static final String RICHTIG = "/img/TestModus/richtig.png";
@@ -105,6 +101,7 @@ public class TestModePanel extends JPanel {
 		antwortPanel.setVisible(false);
 		add(antwortPanel);
 		createErgebnisPanel();
+		ergebnisPanel.setVisible(false);
 		createNextButton();
 		nextButton.setVisible(false);
 	}
@@ -132,6 +129,7 @@ public class TestModePanel extends JPanel {
 
 	private void resetErgebnisPanel() {
 		ergebnisPanel.removeAll();
+		ergebnisPanel.setVisible(true);
 		JLabel ergebnis = new JLabel("Ihre Antworten: ");
 		ergebnisPanel.add(ergebnis);
 	}
@@ -140,7 +138,7 @@ public class TestModePanel extends JPanel {
 		mediaPanel = new JPanel();
 		mediaPanel.setLayout(new BorderLayout());
 		mediaPanel.setBackground(Color.WHITE);
-		// mediaPlayer = new MediaPlayer(videoPfad);
+		//mediaPlayer = new MediaPlayer(videoPfad);
 		// mediaPanel.add(mediaPlayer, BorderLayout.CENTER);
 		add(mediaPanel);
 	}
@@ -192,10 +190,6 @@ public class TestModePanel extends JPanel {
 		createErgebnisTabelle();
 		resetErgebnisPanel();
 		videos = sucheVideos(10);
-		mediaPlayer = new MediaPlayer(videos.get(0).getPfad());
-		mediaPanel.add(mediaPlayer);
-		mediaPanel.setVisible(true);
-		mediaPlayer.run();
 		antwortPanel.setVisible(true);
 		naechstesVideo();
 	}
@@ -206,7 +200,12 @@ public class TestModePanel extends JPanel {
 			beendeTest();
 		} else {
 			Video video = videos.get(aktuellesVideo);
+			if(mediaPlayer != null)
+				mediaPanel.remove(mediaPlayer);
 			mediaPlayer = new MediaPlayer(video.getPfad());
+			mediaPanel.add(mediaPlayer);
+			mediaPanel.setVisible(true);
+			mediaPlayer.run();
 			antwortPanel.removeAll();
 			createAntwortPanel(video);
 			aktuellesVideo++;
@@ -223,6 +222,7 @@ public class TestModePanel extends JPanel {
 
 		mediaPanel.setVisible(false);
 		antwortPanel.setVisible(false);
+		ergebnisPanel.setVisible(false);
 		endeErgebnis.setAlignmentX(CENTER_ALIGNMENT);
 		add(endeErgebnis);
 		neuerTest = new KariButton(
@@ -512,7 +512,6 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 		setBackground(Color.decode("#b92d2e"));
 		String val = value.toString();
 		setText("Video anschauen");
-		setName(value.toString());
 		return this;
 	}
 }
@@ -543,6 +542,7 @@ class ButtonEditor extends DefaultCellEditor {
 		button.setBackground(Color.decode("#b92d2e"));
 
 		button.setText("Video anschauen");
+		button.setName(value.toString());
 		isPushed = true;
 		return button;
 	}
