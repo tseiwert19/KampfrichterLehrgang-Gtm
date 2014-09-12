@@ -18,6 +18,7 @@ import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.HomeActionListener;
 import src.main.listener.SearchActionListener;
+import src.main.listener.TestModeButtonActionListener;
 
 public class NavigationPanel extends JPanel {
 
@@ -66,6 +67,7 @@ public class NavigationPanel extends JPanel {
 			
 			BufferedImage testMode = ImageIO.read(getClass().getResource(TESTMODE_LOGO));
 			KariButton testModeButton = new KariButton();
+			testModeButton.addActionListener(new TestModeButtonActionListener());
 			testModeButton.setIcon(new ImageIcon(testMode));
 			testModeButton.setPreferredSize(new Dimension(60, 60));
 			testModeButton.setFocusPainted(false);
