@@ -32,10 +32,10 @@ public class NavigationPanel extends JPanel {
 	//http://www.dtb-online.de/portal/verband/leitbild-design/logowelt.html
 	private static final String DTB_LOGO = "/img/Logo/DTB_Logo_neu.jpg";
 //	private static final String ZURUECK_LOGO = "/img/Logo/zurueck_button.png";
-	private static final String ZURUECK_LOGO = "/img/Logo/rot_zurueck.jpg";
-	private static final String VORWAERTS_LOGO = "/img/Logo/rot_vorwaerts.jpg";
+	private static final String ZURUECK_LOGO = "/img/Logo/zurueck_button.png";
+	private static final String VORWAERTS_LOGO = "/img/Logo/vor_button.png";
 	private static final String HOME_LOGO = "/img/Logo/home_button.png";
-	private static final String TESTMODE_LOGO = "/img/logo/testmode_button.png";
+	private static final String TESTMODE_LOGO = "/img/logo/testModebutton.png";
 	
 	private SucheTextfeld sucheFeld;
 
