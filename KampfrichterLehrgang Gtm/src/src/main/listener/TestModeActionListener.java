@@ -1,5 +1,6 @@
 package src.main.listener;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,6 +30,7 @@ public class TestModeActionListener implements ActionListener {
 			testPanel.neuerTestVorbereiten();
 			break;
 		default:
+			button.setBackground(Color.ORANGE);;
 			if (command.equals(name)) {
 				testPanel.zeigeRichtigesErgebnis(command);
 				testPanel.addTabelleZeile(name, command, true);
