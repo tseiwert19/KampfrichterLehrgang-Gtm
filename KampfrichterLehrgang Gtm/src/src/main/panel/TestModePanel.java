@@ -163,10 +163,10 @@ public class TestModePanel extends CenterPanel {
 		modusPanel = erstelleEinPanel(gridLayout, null,
 				new Dimension(400, 400), null);
 
-		elementgruppeRb = new JRadioButton("Elementgruppen abfragen");
+		elementgruppeRb = new JRadioButton("<html><font size='5'>Elementgruppen abfragen</font></html>");
 		elementgruppeRb.setSelected(true);
 		elementgruppeRb.setBackground(Color.WHITE);
-		schwierigkeitsgradRb = new JRadioButton("Schwierigkeitsgrad abfragen");
+		schwierigkeitsgradRb = new JRadioButton("<html><font size='5'>Schwierigkeitsgrad abfragen</font></html>");
 		schwierigkeitsgradRb.setBackground(Color.WHITE);
 		ButtonGroup radioGroup = new ButtonGroup();
 
@@ -185,7 +185,7 @@ public class TestModePanel extends CenterPanel {
 
 		modusPanel.add(rbPanel);
 
-		KariButton startButton = erstelleEinButton("Start", "", "start",
+		KariButton startButton = erstelleEinButton("<html><font size='5'>Start</font></html>", "", "start",
 				testActionListener);
 		startButton.setAlignmentX(CENTER_ALIGNMENT);
 		startButton.setPreferredSize(new Dimension(150, 50));
@@ -260,7 +260,14 @@ public class TestModePanel extends CenterPanel {
 		}
 
 	}
-
+	/**
+	 * Erstellt ein Standardpanel
+	 * @param layout Layout-Manager
+	 * @param prefSize
+	 * @param maxSize
+	 * @param minSize
+	 * @return Panel mit gewünschten Attributen
+	 */
 	private JPanel erstelleEinPanel(LayoutManager layout, Dimension prefSize,
 			Dimension maxSize, Dimension minSize) {
 		JPanel neuesPanel = new JPanel();
