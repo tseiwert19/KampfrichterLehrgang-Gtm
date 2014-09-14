@@ -36,7 +36,7 @@ public class NavigationPanel extends JPanel {
 	private static final String ZURUECK_LOGO = "/img/Logo/zurueck_button.png";
 	private static final String VORWAERTS_LOGO = "/img/Logo/vor_button.png";
 	private static final String HOME_LOGO = "/img/Logo/home_button.png";
-	private static final String TESTMODE_LOGO = "/img/logo/testModebutton.png";
+	private static final String TESTMODE_LOGO = "/img/Logo/testModebutton.png";
 	
 	private SucheTextfeld sucheFeld;
 
