@@ -118,7 +118,7 @@ public class SearchResultPanel extends CenterPanel {
         label.setVerticalAlignment(JLabel.CENTER);
         label.setHorizontalAlignment(JLabel.CENTER);
         geraetePanel.add(label);
-        KariButton pdfButton = new KariButton("Informationen zur D-Note");
+        KariButton pdfButton = new KariButton("<html><font size='5'><b>Informationen zur D-Note</b></font></html>");
         pdfButton.setBackground(Color.decode("#b92d2e"));
         pdfButton.setForeground(Color.WHITE);
         pdfButton.setActionCommand(geraeteName);
