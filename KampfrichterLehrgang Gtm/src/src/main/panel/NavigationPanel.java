@@ -17,6 +17,7 @@ import src.main.Controller;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.HomeActionListener;
+import src.main.listener.NavigationButtonMouseListener;
 import src.main.listener.SearchActionListener;
 import src.main.listener.TestModeButtonActionListener;
 
@@ -46,6 +47,7 @@ public class NavigationPanel extends JPanel {
 		setLayout(new BorderLayout());
 		
 		SearchActionListener searchListener = new SearchActionListener();
+		NavigationButtonMouseListener mouseListener = new NavigationButtonMouseListener();
 		try {
 			BufferedImage zurueck = ImageIO.read(getClass().getResource(
 					ZURUECK_LOGO));
@@ -55,6 +57,8 @@ public class NavigationPanel extends JPanel {
                         backButton.setBorder(BorderFactory.createEmptyBorder());
 			backButton.setOpaque(false);
 			backButton.setPreferredSize(new Dimension(60,60));
+			backButton.setActionCommand("back");
+			backButton.addMouseListener(mouseListener);
 			
 			BufferedImage home = ImageIO.read(getClass().getResource(HOME_LOGO));
 			KariButton homeButton = new KariButton();
@@ -64,6 +68,8 @@ public class NavigationPanel extends JPanel {
 			homeButton.setFocusPainted(false);
 			homeButton.setBorder(BorderFactory.createEmptyBorder());
 			homeButton.setOpaque(false);
+			homeButton.setActionCommand("home");
+			homeButton.addMouseListener(mouseListener);
 			
 			BufferedImage testMode = ImageIO.read(getClass().getResource(TESTMODE_LOGO));
 			KariButton testModeButton = new KariButton();
@@ -73,6 +79,8 @@ public class NavigationPanel extends JPanel {
 			testModeButton.setFocusPainted(false);
 			testModeButton.setBorder(BorderFactory.createEmptyBorder());
 			testModeButton.setOpaque(false);
+			testModeButton.setActionCommand("testMode");
+			testModeButton.addMouseListener(mouseListener);
 			
 			BufferedImage vorwaerts = ImageIO.read(getClass().getResource(
 					VORWAERTS_LOGO));
@@ -82,6 +90,8 @@ public class NavigationPanel extends JPanel {
                         fwButton.setBorder(BorderFactory.createEmptyBorder());
 			fwButton.setOpaque(false);
 			fwButton.setPreferredSize(new Dimension(60,60));
+			fwButton.setActionCommand("forward");
+			fwButton.addMouseListener(mouseListener);
                      
             JPanel leftButtonPanel = new JPanel();           
             leftButtonPanel.setBackground(Color.WHITE);
