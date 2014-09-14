@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Stack;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -144,6 +145,9 @@ public class Kampfrichterlehrgang extends JFrame {
 		this.getContentPane().remove(removingPanel);
 		this.getContentPane().remove(Controller.getScrollPane());
 		JScrollPane scrollPane = new JScrollPane(newCenterPanel);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		//Scrollgeschwindigkeit erhoehen
+		scrollPane.getVerticalScrollBar().setUnitIncrement(15);
 		Controller.setScrollPane(scrollPane);
 		this.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		Controller.setCurrentCenterPanel(newCenterPanel);
