@@ -36,7 +36,7 @@ public class RoundCorneredComboBox extends JComboBox
     private static final int MAX_WIDTH = 2000;
     private static final int MIN_HEIGHT = 31;
     private static final int MAX_HEIGHT = 31;
-    private static final int PREF_WIDTH = 400;
+    private static final int PREF_WIDTH = 300;
     private static final int PREF_HEIGHT = 31;
 
     @SuppressWarnings("unchecked")
