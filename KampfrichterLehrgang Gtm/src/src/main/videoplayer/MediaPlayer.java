@@ -9,15 +9,12 @@
 //TODO:
 // - Kommunikation zwischen Player und repeat/pause-Buttons (listener im
 // mediaplayer)
-// vlc-libraries ins jar
-// vlcj-jars ins jar
-// wofür ist surface da?
-// onBeforeEnterFullScreenMode
-// onAfterExitFullScreenMode
 
 package src.main.videoplayer;
 
 import src.main.*;
+
+import java.lang.Double;
 
 import java.util.*;
 import java.awt.BorderLayout;
@@ -125,6 +122,12 @@ public class MediaPlayer extends JPanel {
 
 	public void toggleFullScreen()
 	{
+		/*
+		if (System.getProperty("os.name").equals("Windows"))
+		{
+		//caprica/vlcj/player/embedded/windows/Win32FullScreenHandler.java
+		}
+		*/
 		// https://www3.ntu.edu.sg/home/ehchua/programming/java/J8b_Game_2DGraphics.html
 		topFrame=((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
 
@@ -255,7 +258,7 @@ public class MediaPlayer extends JPanel {
 
 	public void pause()
 	{
-		directMediaPlayer.pause();
+		//directMediaPlayer.pause();
 	}
 
 	public boolean getRepeatState()
@@ -323,7 +326,7 @@ public class MediaPlayer extends JPanel {
         @Override
         public void paint(Graphics g) {
             Graphics2D g2 = (Graphics2D)g;
-            g2.drawImage(image, null, 0, 0);
+            g2.drawImage(image, 0, 0, null);
         }
     }
 
@@ -340,9 +343,25 @@ public class MediaPlayer extends JPanel {
     }
 
     private final class TestBufferFormatCallback implements BufferFormatCallback {
+		//Wird abgefragt nach:
+		// directMediaPlayer.stop();
+		// directMediaPlayer.play();
+
 
         @Override
         public BufferFormat getBufferFormat(int sourceWidth, int sourceHeight) {
+			int width = imagePane.getWidth();
+			int height = imagePane.getHeight();
+
+			Double ratio = Double.valueOf(imagePane.getWidth())/Double.valueOf(imagePane.getHeight());
+			Double sourceRatio = Double.valueOf(sourceWidth)/Double.valueOf(sourceHeight);
+
+			if (ratio <= sourceRatio) {
+				height = (int) (width/sourceRatio);
+			} else {
+				width = (int) (height * sourceRatio);
+			}
+			System.out.println("Got VideoFormat: " + sourceWidth + "x" + sourceHeight);
             return new RV32BufferFormat(width, height);
         }
 
