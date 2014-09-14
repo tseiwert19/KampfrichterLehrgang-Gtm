@@ -18,6 +18,7 @@ import src.main.panel.ImpressumPanel;
 import src.main.panel.NavigationPanel;
 import src.main.panel.ResultPanel;
 import src.main.panel.SearchResultPanel;
+import src.main.panel.TestModePanel;
 import src.main.panel.VideoInfoPanel;
 import src.main.panel.WelcomePanel;
 import src.main.videoplayer.Video;
@@ -120,6 +121,14 @@ public class Kampfrichterlehrgang extends JFrame {
 		Controller.setVideoInfoPanel(videoInfoPanel);
 		changeCenterPanelForward(videoInfoPanel);
 		videoInfoPanel.run();
+	}
+	/** 
+	 * Wechselt zum TestMode
+	 */
+	public void changeToTestModePanel(){
+		TestModePanel testMode = new TestModePanel();
+		Controller.setTestModePanel(testMode);
+		changeCenterPanel(testMode);
 	}
 
 	/**
