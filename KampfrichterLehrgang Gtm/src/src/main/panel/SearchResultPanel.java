@@ -57,6 +57,7 @@ public class SearchResultPanel extends CenterPanel {
         
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         setLayout(boxLayout);
+       // setLayout(new BorderLayout());
         
         VideoParser parser = new VideoParser();
         ArrayList<Video> videos = parser.mappeVideosVonName(name);
@@ -64,7 +65,7 @@ public class SearchResultPanel extends CenterPanel {
         
         mainResultPanel = new JPanel();
         mainResultPanel.setBackground(Color.WHITE);
-        mainResultPanel.setLayout(new BoxLayout(mainResultPanel, BoxLayout.PAGE_AXIS));
+        mainResultPanel.setLayout(new BoxLayout(mainResultPanel, BoxLayout.Y_AXIS));
         createAllPanels(videos);
         
         add(mainResultPanel);
@@ -110,13 +111,14 @@ public class SearchResultPanel extends CenterPanel {
     private void createGeraetePanel(String geraeteName){
         JPanel geraetePanel = new JPanel();
         GridLayout gridlayout = new GridLayout(2, 0, 20, 20);
+        geraetePanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         geraetePanel.setLayout(gridlayout);
         geraetePanel.setBackground(Color.WHITE);
         JLabel label = new JLabel("<html><font size='8'><b><i>" + geraeteName + "</b></i></font>");
         label.setVerticalAlignment(JLabel.CENTER);
         label.setHorizontalAlignment(JLabel.CENTER);
         geraetePanel.add(label);
-        KariButton pdfButton = new KariButton("Informationen zur D-Note");
+        KariButton pdfButton = new KariButton("<html><font size='5'><b>Informationen zur D-Note</b></font></html>");
         pdfButton.setBackground(Color.decode("#b92d2e"));
         pdfButton.setForeground(Color.WHITE);
         pdfButton.setActionCommand(geraeteName);
@@ -130,8 +132,8 @@ public class SearchResultPanel extends CenterPanel {
     private void createComboBoxPanel(){
         comboBoxPanel = new JPanel();
         comboBoxPanel.setBackground(Color.WHITE);
-        Dimension maxSize = new Dimension(2000, 50);
-        comboBoxPanel.setMaximumSize(maxSize);
+        Dimension prefSize = new Dimension(700, 50);
+        comboBoxPanel.setPreferredSize(prefSize);
         FlowLayout flowLayout = new FlowLayout();
         comboBoxPanel.setLayout(flowLayout);
         
