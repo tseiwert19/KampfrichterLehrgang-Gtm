@@ -30,6 +30,12 @@ import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
 import java.net.URL;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -53,6 +59,13 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.binding.internal.libvlc_state_t;
 import uk.co.caprica.vlcj.runtime.x.LibXUtil;
 
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
+import uk.co.caprica.vlcj.player.direct.BufferFormat;
+import uk.co.caprica.vlcj.player.direct.BufferFormatCallback;
+import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
+import uk.co.caprica.vlcj.player.direct.RenderCallbackAdapter;
+import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
+
 
 public class MediaPlayer extends JPanel {
 	private PlayerControlsPanel controlsPanel;
@@ -66,8 +79,17 @@ public class MediaPlayer extends JPanel {
 	private JFrame topFrame;
 	private MediaPlayer mediaPlayer;
 
+    private final int width = 768;
+    private final int height = 576;
+    private final BufferedImage image;
+    private final MediaPlayerFactory factory;
+    private final DirectMediaPlayer directMediaPlayer;
+    private ImagePane imagePane;
+
+	private int lastState = 0;
+	private Rectangle lastBounds = null;
+
 	public MediaPlayer(String mediaURL) {
-		setPreferredSize(new Dimension(550,90));
 		mediaPlayer = this;
 		this.mediaPath = mediaURL;
 
@@ -78,130 +100,55 @@ public class MediaPlayer extends JPanel {
 
 		loadVLCLibraries();
 
+        image = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(width, height);
+        image.setAccelerationPriority(1.0f);
 
+		imagePane = new ImagePane(image);
+		imagePane.setSize(width, height);
+		imagePane.setMinimumSize(new Dimension(width, height));
+		imagePane.setPreferredSize(new Dimension(width, height));
+
+        factory = new MediaPlayerFactory();
+        directMediaPlayer = factory.newDirectMediaPlayer(new TestBufferFormatCallback(), new TestRenderCallback());
 		
-		// embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
-		embeddedMediaPlayerComponent = new EmbeddedMediaPlayerComponent() {
-			public void playing(MediaPlayer mediaPlayer) {
-				//playPauseButton.setText(pauseLabel);
-				//playPauseButton.setIcon(pauseIcon);
-				System.out.println("playing()");
-			}
-
-			public void paused(MediaPlayer mediaPlayer) {
-				//playPauseButton.setText(pauseLabel);
-				//playPauseButton.setIcon(pauseIcon);
-				System.out.println("paused()");
-			}
-
-			public void finished(MediaPlayer mediaPlayer) {
-				//playPauseButton.setText(playLabel);
-				//playPauseButton.setIcon(playIcon);
-				System.out.println("finished()");
-				embeddedMediaPlayerComponent.release();
-				System.exit(0);
-			}
-
-			public void error(MediaPlayer mediaPlayer) {
-				System.out.println("error()");
-			}
-		};
-
-
-		/*
-		 * embeddedMediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener
-		 * (new MediaPlayerEventAdapter() { public void playing(MediaPlayer
-		 * mediaPlayer) { playPauseButton.setText(pauseLabel);
-		 * playPauseButton.setIcon(pauseIcon); System.out.println("playing()");
-		 * }
-		 * 
-		 * public void paused(MediaPlayer mediaPlayer) {
-		 * playPauseButton.setText(pauseLabel);
-		 * playPauseButton.setIcon(pauseIcon); System.out.println("paused()"); }
-		 * public void finished(MediaPlayer mediaPlayer) {
-		 * System.out.println("finished()"); }
-		 * 
-		 * public void error(MediaPlayer mediaPlayer) {
-		 * System.out.println("error()"); } });
-		 */
-
-		embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
+		directMediaPlayer.setRepeat(true);
 
 		controlsPanel = new PlayerControlsPanel(this);
 
 		setLayout(new BorderLayout());
-		embeddedMediaPlayerComponent.setPreferredSize(new Dimension(768, 576));
-		embeddedMediaPlayerComponent.setMinimumSize(new Dimension(320, 240));
 
 		add(controlsPanel, BorderLayout.PAGE_END);
-		add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
+		add(imagePane, BorderLayout.CENTER);
 	}
+
 
 
 	public void toggleFullScreen()
 	{
 		// https://www3.ntu.edu.sg/home/ehchua/programming/java/J8b_Game_2DGraphics.html
-		// embeddedMediaPlayerComponent.getMediaPlayer().toggleFullScreen();
 		topFrame=((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
-		if (GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice().getFullScreenWindow() == null) {
-			try
-			{
-				Controller.setFullScreen();
-			}
-			catch (Exception ex) {}
-			/*
-			 * topFrame.setVisible(false);
-			 * topFrame.setResizable(false);
-			 * topFrame.dispose();
-			 * topFrame.setUndecorated(true);
-			 * GraphicsEnvironment
-			 * .getLocalGraphicsEnvironment().getDefaultScreenDevice
-			 * ().setFullScreenWindow(topFrame);
-			 * topFrame.setVisible(true);
-			 * topFrame.repaint();
-			 */
 
-			GraphicsEnvironment
-				.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice()
-				.setFullScreenWindow(topFrame);
-			try
-			{
-				LibXUtil.setFullScreenWindow(topFrame, true);
+		topFrame.dispose();
+		if (!topFrame.isUndecorated()) {
+			//save last bounds and its extended state
+			lastState = topFrame.getExtendedState();
+			lastBounds = topFrame.getBounds();
+			//GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(topFrame);
+			try{
+				topFrame.setExtendedState(topFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 			}
-			catch (Exception ex) {}
-			//topFrame.invalidate();
-			//topFrame.validate();
-
-		} else {
-			try
-			{
-				LibXUtil.setFullScreenWindow(topFrame, false);
+			catch(Exception ev){
+				topFrame.setBounds(getGraphicsConfiguration().getDevice().getDefaultConfiguration().getBounds());
+				ev.printStackTrace();
 			}
-			catch (Exception ex) {}
-			GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice().setFullScreenWindow(null);
-			// topFrame.toFront();
-			// topFrame.setVisible(true);
-			// f.dispose();
-			// f.setBounds(0, 0, 1920, 1080);
-			// f.toFront();
-			// f.setVisible(true);
-
-			try
-			{
-				Controller.unsetFullScreen();
-			}
-			catch (Exception ex) {}
 		}
-		boolean vollMoeglich = GraphicsEnvironment
-			.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-			.isFullScreenSupported();
-		if (vollMoeglich == true) {
-			System.out.println("Vollbild möglich");
+		else {
+			//restore last bounds and its extended state
+			topFrame.setBounds(lastBounds);
+			topFrame.setExtendedState(lastState);
 		}
-
+		topFrame.setUndecorated(!topFrame.isUndecorated());
+		topFrame.setVisible(true);
 	}
 
 	private void loadVLCLibraries()
@@ -308,17 +255,17 @@ public class MediaPlayer extends JPanel {
 
 	public void pause()
 	{
-		embeddedMediaPlayerComponent.getMediaPlayer().pause();
+		directMediaPlayer.pause();
 	}
 
 	public boolean getRepeatState()
 	{
-		return embeddedMediaPlayerComponent.getMediaPlayer().getRepeat();
+		return directMediaPlayer.getRepeat();
 	}
 
 	public void setRepeatState(boolean repeatState)
 	{
-		embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(repeatState);
+		directMediaPlayer.setRepeat(repeatState);
 	}
 
 	public boolean getPlayingState()
@@ -333,7 +280,7 @@ public class MediaPlayer extends JPanel {
 
 	public void run() {
 		System.out.println("Media path: " + mediaPath);
-		embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
+		directMediaPlayer.playMedia(mediaPath);
 		this.isPlaying = true;
 		if (this.isPlaying) {
 			System.out.println("Playing");
@@ -363,4 +310,41 @@ public class MediaPlayer extends JPanel {
 
 		myMediaPlayer.run();
 	}
+
+
+    @SuppressWarnings("serial")
+    private final class ImagePane extends JPanel {
+        private final BufferedImage image;
+
+        public ImagePane(BufferedImage image) {
+            this.image = image;
+        }
+
+        @Override
+        public void paint(Graphics g) {
+            Graphics2D g2 = (Graphics2D)g;
+            g2.drawImage(image, null, 0, 0);
+        }
+    }
+
+    private final class TestRenderCallback extends RenderCallbackAdapter {
+
+        public TestRenderCallback() {
+            super(((DataBufferInt) image.getRaster().getDataBuffer()).getData());
+        }
+
+        @Override
+        public void onDisplay(DirectMediaPlayer mediaPlayer, int[] data) {
+            imagePane.repaint();
+        }
+    }
+
+    private final class TestBufferFormatCallback implements BufferFormatCallback {
+
+        @Override
+        public BufferFormat getBufferFormat(int sourceWidth, int sourceHeight) {
+            return new RV32BufferFormat(width, height);
+        }
+
+    }
 }

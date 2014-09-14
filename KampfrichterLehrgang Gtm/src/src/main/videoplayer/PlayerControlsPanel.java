@@ -198,7 +198,7 @@ public class PlayerControlsPanel extends JPanel
 
 	private ResourceBundle localeBundle;
 
-	private final MediaPlayer mediaPlayer;
+	private MediaPlayer mediaPlayer;
 
 	public PlayerControlsPanel(MediaPlayer m)
 	{
