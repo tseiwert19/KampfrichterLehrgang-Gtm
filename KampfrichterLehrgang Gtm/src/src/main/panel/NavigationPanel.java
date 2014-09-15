@@ -31,7 +31,7 @@ public class NavigationPanel extends JPanel {
 	// konvention
 	//private static final String DTB_LOGO = "/img/Logo/dtb-logo.jpg";
 	//http://www.dtb-online.de/portal/verband/leitbild-design/logowelt.html
-	private static final String DTB_LOGO = "/img/Logo/DTB_Logo_neu.jpg";
+	private static final String DTB_LOGO = "/img/Logo/DTB_Logo_alt.jpg";
 //	private static final String ZURUECK_LOGO = "/img/Logo/zurueck_button.png";
 	private static final String ZURUECK_LOGO = "/img/Logo/zurueck_button.png";
 	private static final String VORWAERTS_LOGO = "/img/Logo/vor_button.png";
@@ -125,7 +125,8 @@ public class NavigationPanel extends JPanel {
 			logoLabel.setMaximumSize(new Dimension(142, 41));
 			add(logoLabel, BorderLayout.CENTER);
 		} catch (Exception e) {
-			System.out.print(e);
+			e.printStackTrace();
+			//System.out.print(e);
 		}
 
 		JPanel m = new JPanel();

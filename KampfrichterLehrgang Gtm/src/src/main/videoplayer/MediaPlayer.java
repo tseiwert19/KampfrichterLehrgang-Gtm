@@ -76,12 +76,14 @@ public class MediaPlayer extends JPanel {
 	private JFrame topFrame;
 	private MediaPlayer mediaPlayer;
 
+	/*
     private final int width = 768;
     private final int height = 576;
     private final BufferedImage image;
     private final MediaPlayerFactory factory;
     private final DirectMediaPlayer directMediaPlayer;
     private ImagePane imagePane;
+	*/
 
 	private int lastState = 0;
 	private Rectangle lastBounds = null;
@@ -94,9 +96,11 @@ public class MediaPlayer extends JPanel {
 
 		// http://stackoverflow.com/questions/9650874/java-swing-obtain-window-jframe-from-inside-a-jpanel
 		topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+		setLayout(new BorderLayout());
 
 		loadVLCLibraries();
 
+		/*
         image = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(width, height);
         image.setAccelerationPriority(1.0f);
 
@@ -109,13 +113,17 @@ public class MediaPlayer extends JPanel {
         directMediaPlayer = factory.newDirectMediaPlayer(new TestBufferFormatCallback(), new TestRenderCallback());
 		
 		directMediaPlayer.setRepeat(true);
+		*/
+
+		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
+		embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
 
 		controlsPanel = new PlayerControlsPanel(this);
 
-		setLayout(new BorderLayout());
 
+		//add(imagePane, BorderLayout.CENTER);
+		add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
 		add(controlsPanel, BorderLayout.PAGE_END);
-		add(imagePane, BorderLayout.CENTER);
 	}
 
 
@@ -129,7 +137,7 @@ public class MediaPlayer extends JPanel {
 		}
 		*/
 		// https://www3.ntu.edu.sg/home/ehchua/programming/java/J8b_Game_2DGraphics.html
-		topFrame=((JFrame)SwingUtilities.getWindowAncestor(mediaPlayer));
+		topFrame=((JFrame)SwingUtilities.getWindowAncestor(this));
 
 		topFrame.dispose();
 		if (!topFrame.isUndecorated()) {
@@ -258,17 +266,20 @@ public class MediaPlayer extends JPanel {
 
 	public void pause()
 	{
+		embeddedMediaPlayerComponent.getMediaPlayer().pause();
 		//directMediaPlayer.pause();
 	}
 
 	public boolean getRepeatState()
 	{
-		return directMediaPlayer.getRepeat();
+		return embeddedMediaPlayerComponent.getMediaPlayer().getRepeat();
+		//return directMediaPlayer.getRepeat();
 	}
 
 	public void setRepeatState(boolean repeatState)
 	{
-		directMediaPlayer.setRepeat(repeatState);
+		embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(repeatState);
+		//directMediaPlayer.setRepeat(repeatState);
 	}
 
 	public boolean getPlayingState()
@@ -283,7 +294,8 @@ public class MediaPlayer extends JPanel {
 
 	public void run() {
 		System.out.println("Media path: " + mediaPath);
-		directMediaPlayer.playMedia(mediaPath);
+		embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
+		//directMediaPlayer.playMedia(mediaPath);
 		this.isPlaying = true;
 		if (this.isPlaying) {
 			System.out.println("Playing");
@@ -315,6 +327,7 @@ public class MediaPlayer extends JPanel {
 	}
 
 
+	/*
     @SuppressWarnings("serial")
     private final class ImagePane extends JPanel {
         private final BufferedImage image;
@@ -366,4 +379,5 @@ public class MediaPlayer extends JPanel {
         }
 
     }
+	*/
 }

@@ -13,6 +13,12 @@ import java.awt.*;
 import java.awt.Font;
 import javax.swing.*;
 
+import java.awt.event.ContainerAdapter;
+import java.awt.event.HierarchyListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.HierarchyEvent;
+//import 
+
 public class VideoInfoPanel extends CenterPanel {
 	private MediaPlayer mediaPlayer;
 	private JTextPane jTextPane;
@@ -34,25 +40,6 @@ public class VideoInfoPanel extends CenterPanel {
 			//TODO: weitere Fehlerbehandlung
 		}
 
-		/*
-		videoPathFromDB=videoPathFromDB.replaceFirst("[.]wmv$", ".mkv");
-		URL	urlOfVideoFile = getClass().getResource("../../../" + videoPathFromDB);
-		if (urlOfVideoFile == null)
-		{
-			System.err.println("VideoInfoPanel: Video " + videoPathFromDB + " not found!");
-			//TODO: weitere Fehlerbehandlung
-		}
-		try
-		{
-			File videoPathFileObject=new File(urlOfVideoFile.toURI());
-			System.out.println("VideoInfoPanel: " + videoPathFromDB + "   " + videoPathFileObject.getPath());
-			mediaPlayer = new MediaPlayer(videoPathFileObject.getPath());
-		}
-		catch (URISyntaxException e)
-		{
-			//TODO: weitere Fehlerbehandlung
-		}
-		*/
 
 		mediaPlayer = new MediaPlayer(videoPathFromDB);
 
@@ -107,12 +94,31 @@ public class VideoInfoPanel extends CenterPanel {
 		jlabel.setOpaque(true);
 
 		add(mediaPlayer, BorderLayout.CENTER);
-		add(jlabel, BorderLayout.EAST);
+		//add(jlabel, BorderLayout.EAST);
 		add(jScrollPane, BorderLayout.EAST);
 
 		jlabel.repaint();
 
 		Controller.setVideoInfoPanel(this);
+
+		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
+		addHierarchyListener(new HierarchyListener() {
+
+			@Override
+			public void hierarchyChanged(HierarchyEvent e) {
+				System.out.println("Components Change: " + e.getChanged());
+				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
+					if (e.getComponent().isDisplayable()) {
+						//VideoInfoPanel.this.add(mediaPlayer, BorderLayout.CENTER);
+						//VideoInfoPanel.this.validate();
+						System.out.println("Is displayable!");
+					} else {
+						System.out.println("Is not displayable!");
+					}
+				}
+			}
+		});
+
 	}
 
 	public void enterFullScreen() {
@@ -131,6 +137,10 @@ public class VideoInfoPanel extends CenterPanel {
 	public void run() {
 		mediaPlayer.run();
 	}
+
+
+
+
 
 	public static void main(String[] args) {
 		JFrame mainFrame = new JFrame();
