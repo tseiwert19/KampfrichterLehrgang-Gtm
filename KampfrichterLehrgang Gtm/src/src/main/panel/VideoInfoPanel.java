@@ -17,7 +17,6 @@ import java.awt.event.ContainerAdapter;
 import java.awt.event.HierarchyListener;
 import java.awt.event.ContainerEvent;
 import java.awt.event.HierarchyEvent;
-//import 
 
 public class VideoInfoPanel extends CenterPanel {
 	private MediaPlayer mediaPlayer;
@@ -102,23 +101,6 @@ public class VideoInfoPanel extends CenterPanel {
 
 		Controller.setVideoInfoPanel(this);
 
-		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
-		addHierarchyListener(new HierarchyListener() {
-
-			@Override
-			public void hierarchyChanged(HierarchyEvent e) {
-				System.out.println("Components Change: " + e.getChanged());
-				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
-					if (e.getComponent().isDisplayable()) {
-						//VideoInfoPanel.this.add(mediaPlayer, BorderLayout.CENTER);
-						//VideoInfoPanel.this.validate();
-						System.out.println("Is displayable!");
-					} else {
-						System.out.println("Is not displayable!");
-					}
-				}
-			}
-		});
 
 	}
 

@@ -45,6 +45,11 @@ import javax.swing.SwingUtilities;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 
+import java.awt.event.ContainerAdapter;
+import java.awt.event.HierarchyListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.HierarchyEvent;
+
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.binding.LibVlcConst;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
@@ -115,15 +120,38 @@ public class MediaPlayer extends JPanel {
 		directMediaPlayer.setRepeat(true);
 		*/
 
-		embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
-		embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
+		//embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
+		//embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
 
 		controlsPanel = new PlayerControlsPanel(this);
 
 
 		//add(imagePane, BorderLayout.CENTER);
-		add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
+		//add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
 		add(controlsPanel, BorderLayout.PAGE_END);
+
+		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
+		addHierarchyListener(new HierarchyListener() {
+
+			@Override
+			public void hierarchyChanged(HierarchyEvent e) {
+				System.out.println("Components Change: " + e.getChanged());
+				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
+					if (e.getComponent().isDisplayable()) {
+						embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
+						embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
+						MediaPlayer.this.add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
+						MediaPlayer.this.revalidate();
+						MediaPlayer.this.run();
+						System.out.println("Is displayable!");
+					} else {
+						System.out.println("Is not displayable!");
+						MediaPlayer.this.remove(embeddedMediaPlayerComponent);
+						embeddedMediaPlayerComponent.release(true);
+					}
+				}
+			}
+		});
 	}
 
 
@@ -272,7 +300,14 @@ public class MediaPlayer extends JPanel {
 
 	public boolean getRepeatState()
 	{
-		return embeddedMediaPlayerComponent.getMediaPlayer().getRepeat();
+		try
+		{
+			return embeddedMediaPlayerComponent.getMediaPlayer().getRepeat();
+		}
+		catch (Exception e)
+		{
+			return true;
+		}
 		//return directMediaPlayer.getRepeat();
 	}
 
