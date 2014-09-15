@@ -74,6 +74,7 @@ public class VideoInfoPanel extends CenterPanel {
 		}
 
 		jTextPane=new JTextPane();
+		jTextPane.setMargin(new Insets(10, 20, 10, 20));
 		jTextPane.setForeground(Color.WHITE);
 		jTextPane.setBackground(MYRED);
 		jTextPane.setContentType("text/html");
