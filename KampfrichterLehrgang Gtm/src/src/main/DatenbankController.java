@@ -23,7 +23,7 @@ public class DatenbankController
 	// Pfad zur Datenbank
 	// http://stackoverflow.com/questions/3209901/absolute-path-of-projects-folder-in-java
 	// http://stackoverflow.com/questions/14739550/difference-between-getclass-getclassloader-getresource-and-getclass-getres
-	private static final String DB_PATH = "/videoDb";
+	private static final String DB_PATH = "/src/main/videoDb";
 
 	/**
 	 * Konstruktor Stellt die Verbindung zur Datenbank her und erstellt die

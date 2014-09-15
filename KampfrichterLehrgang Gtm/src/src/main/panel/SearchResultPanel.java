@@ -277,13 +277,13 @@ public class SearchResultPanel extends CenterPanel {
             throw new IllegalArgumentException("s darf nicht null sein");
         }
 
-        if (string.length() <= 15)
+        if (string.length() <= 30)
         {
             return string;
         }
         else
         {
-            return string.substring(0, 15) + "...";
+            return string.substring(0, 30) + "...";
         }
     }
 }

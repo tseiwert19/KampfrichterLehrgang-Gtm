@@ -235,9 +235,9 @@ public class ResultPanel extends CenterPanel
      */
     private String createHtmlString(Video video)
     {
-        return "<html><font size='5'><b><i>" + kuerzeString(video.getName())
+        return "<html><center><font size='5'><b><i>" + kuerzeString(video.getName())
                 + " </b></i></font><br> Schwierigkeitsgrad: " + video.getSchwierigkeitsgrad()
-                + "<br> Elementgruppe: " + video.getElementgruppe() + "  </html>";
+                + "<br> Elementgruppe: " + video.getElementgruppe() + "  </center></html>";
     }
 
     public RoundCorneredComboBox getSchwierigkeitsgradCb()
@@ -262,13 +262,13 @@ public class ResultPanel extends CenterPanel
             throw new IllegalArgumentException("s darf nicht null sein");
         }
 
-        if (string.length() <= 15)
+        if (string.length() <= 50)
         {
             return string;
         }
         else
         {
-            return string.substring(0, 15) + "...";
+            return string.substring(0, 50) + "...";
         }
     }
 
