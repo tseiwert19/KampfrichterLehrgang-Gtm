@@ -251,7 +251,7 @@ public class TestModePanel extends CenterPanel {
 			mediaPlayer = new MediaPlayer(video.getPfad());
 			mediaPanel.add(mediaPlayer);
 			mediaPanel.setVisible(true);
-			mediaPlayer.run();
+			//mediaPlayer.run();
 			antwortPanel.removeAll();
 			createAntwortPanel(video);
 			aktuellesVideo++;

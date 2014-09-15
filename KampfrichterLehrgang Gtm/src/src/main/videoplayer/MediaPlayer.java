@@ -135,10 +135,12 @@ public class MediaPlayer extends JPanel {
 
 			@Override
 			public void hierarchyChanged(HierarchyEvent e) {
-				System.out.println("Components Change: " + e.getChanged());
+				//System.out.println("Components Change: " + e.getChanged());
 				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
 					if (e.getComponent().isDisplayable()) {
 						embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
+						embeddedMediaPlayerComponent.setMinimumSize(new Dimension(320,240));
+						embeddedMediaPlayerComponent.setPreferredSize(new Dimension(768,576));
 						embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
 						MediaPlayer.this.add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
 						MediaPlayer.this.revalidate();
@@ -354,11 +356,11 @@ public class MediaPlayer extends JPanel {
 		mainFrame.setContentPane(myMediaPlayer);
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
+		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-		myMediaPlayer.run();
+		//myMediaPlayer.run();
 	}
 
 
