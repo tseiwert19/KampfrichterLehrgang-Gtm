@@ -93,7 +93,7 @@ public class SucheTextfeld extends JTextField implements MouseListener, KeyListe
     @Override
     public void mouseEntered(MouseEvent e)
     {
-        setToolTipText("<html>Geben sie hier bitte den Begriff ein nach, nach dem sie suchen wollen <br /><br /> Mit Enter startet die Suche </html>");
+        setToolTipText("<html>Geben Sie hier bitte den Begriff ein, nach dem Sie suchen wollen. <br /><br /> Mit Enter startet die Suche. </html>");
     }
 
     @Override

@@ -59,9 +59,7 @@ public class Kampfrichterlehrgang extends JFrame {
 		setTitle(NAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setSize(900, 700);
-		setMinimumSize(new Dimension(900, 700));
-		setLocation(300, 100);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		Controller.setScrollPane(new JScrollPane());
 		// insert navigationPanel to top
