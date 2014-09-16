@@ -30,7 +30,7 @@ public class TestModeActionListener implements ActionListener {
 			testPanel.neuerTestVorbereiten();
 			break;
 		default:
-			button.setBackground(Color.ORANGE);;
+			button.setBackground(Color.GRAY);;
 			if (command.equals(name)) {
 				testPanel.zeigeRichtigesErgebnis(command);
 				testPanel.addTabelleZeile(name, command, true);
