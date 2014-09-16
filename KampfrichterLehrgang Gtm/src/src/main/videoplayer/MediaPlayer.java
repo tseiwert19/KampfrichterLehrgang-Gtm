@@ -32,6 +32,7 @@ import java.awt.image.DataBufferInt;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Canvas;
 
 import java.net.URL;
 import java.net.URI;
@@ -53,6 +54,7 @@ import java.awt.event.HierarchyEvent;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.binding.LibVlcConst;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import uk.co.caprica.vlcj.player.embedded.DefaultFullScreenStrategy;
 import uk.co.caprica.vlcj.player.embedded.x.XFullScreenStrategy;
@@ -72,8 +74,12 @@ import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 public class MediaPlayer extends JPanel {
 	private PlayerControlsPanel controlsPanel;
 
-
 	private EmbeddedMediaPlayerComponent embeddedMediaPlayerComponent;
+
+	private final Canvas canvas;
+    private final MediaPlayerFactory mediaPlayerFactory;
+    private EmbeddedMediaPlayer embeddedMediaPlayer;
+
 	private String mediaPath = "";
 
 	private boolean isPlaying;
@@ -130,6 +136,12 @@ public class MediaPlayer extends JPanel {
 		//add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
 		add(controlsPanel, BorderLayout.PAGE_END);
 
+		mediaPlayerFactory = new MediaPlayerFactory();
+		canvas = new Canvas();
+		canvas.setBackground(Color.black);
+		canvas.setMinimumSize(new Dimension(320,240));
+		canvas.setPreferredSize(new Dimension(768,576));
+
 		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
 		addHierarchyListener(new HierarchyListener() {
 
@@ -138,18 +150,28 @@ public class MediaPlayer extends JPanel {
 				//System.out.println("Components Change: " + e.getChanged());
 				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
 					if (e.getComponent().isDisplayable()) {
+						/*
 						embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
 						embeddedMediaPlayerComponent.setMinimumSize(new Dimension(320,240));
 						embeddedMediaPlayerComponent.setPreferredSize(new Dimension(768,576));
 						embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
 						MediaPlayer.this.add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
+						*/
+						embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
+						embeddedMediaPlayer.setVideoSurface(
+								mediaPlayerFactory.newVideoSurface(canvas)
+								);
+						embeddedMediaPlayer.setRepeat(true);
+						MediaPlayer.this.add(canvas, BorderLayout.CENTER);
 						MediaPlayer.this.revalidate();
 						MediaPlayer.this.run();
 						System.out.println("Is displayable!");
 					} else {
 						System.out.println("Is not displayable!");
-						MediaPlayer.this.remove(embeddedMediaPlayerComponent);
-						embeddedMediaPlayerComponent.release(true);
+						//MediaPlayer.this.remove(embeddedMediaPlayerComponent);
+						MediaPlayer.this.remove(canvas);
+						//embeddedMediaPlayerComponent.release(true);
+						embeddedMediaPlayer.release();
 					}
 				}
 			}
@@ -296,7 +318,8 @@ public class MediaPlayer extends JPanel {
 
 	public void pause()
 	{
-		embeddedMediaPlayerComponent.getMediaPlayer().pause();
+		//embeddedMediaPlayerComponent.getMediaPlayer().pause();
+		embeddedMediaPlayer.pause();
 		//directMediaPlayer.pause();
 	}
 
@@ -304,7 +327,8 @@ public class MediaPlayer extends JPanel {
 	{
 		try
 		{
-			return embeddedMediaPlayerComponent.getMediaPlayer().getRepeat();
+			//return embeddedMediaPlayerComponent.getMediaPlayer().getRepeat();
+			return embeddedMediaPlayer.getRepeat();
 		}
 		catch (Exception e)
 		{
@@ -315,7 +339,8 @@ public class MediaPlayer extends JPanel {
 
 	public void setRepeatState(boolean repeatState)
 	{
-		embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(repeatState);
+		//embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(repeatState);
+		embeddedMediaPlayer.setRepeat(repeatState);
 		//directMediaPlayer.setRepeat(repeatState);
 	}
 
@@ -331,7 +356,8 @@ public class MediaPlayer extends JPanel {
 
 	public void run() {
 		System.out.println("Media path: " + mediaPath);
-		embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
+		//embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
+		embeddedMediaPlayer.playMedia(mediaPath);
 		//directMediaPlayer.playMedia(mediaPath);
 		this.isPlaying = true;
 		if (this.isPlaying) {
