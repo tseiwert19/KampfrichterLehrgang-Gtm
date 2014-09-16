@@ -32,8 +32,6 @@ public class Kampfrichterlehrgang extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	// TODO Das wird nicht immer in der Mitte sein
-	// dynamische Loesung suchen oder einigen
 	private static final String NAME = "KampfrichterLehrgang Gtm";
 
 	private NavigationPanel navigationPanel;
@@ -77,12 +75,19 @@ public class Kampfrichterlehrgang extends JFrame {
 		setVisible(true);
 	}
 
-	// Angedacht fall noch ein Home Button eingebaut wird
-	@SuppressWarnings("unused")
+        /**
+         * Wechselt das CenterPanel auf das WelcomePanel (Home)
+         */
 	public void changeToWelcome() {
-		WelcomePanel welcomePanel = new WelcomePanel();
+          if (Controller.getWelcomePanel() == null) {
+		welcomePanel = new WelcomePanel();
 		Controller.setWelcomePanel(welcomePanel);
+          } else {
+            welcomePanel = Controller.getWelcomePanel();
+          }
 		changeCenterPanelForward(welcomePanel);
+                backStack.clear();
+                Controller.getNavigationPanel().getBackButton().setVisible(false);
 	}
 
 	/**
@@ -159,20 +164,34 @@ public class Kampfrichterlehrgang extends JFrame {
 	 */
 	public void changeCenterPanelBackward() {
 		forwardStack.push(Controller.getCurrentCenterPanel());
+                if (!Controller.getNavigationPanel().getFwButton().isVisible())
+                  Controller.getNavigationPanel().getFwButton().setVisible(true);
 		changeCenterPanel(backStack.pop());
+                if (backStack.empty())
+                  Controller.getNavigationPanel().getBackButton().setVisible(false);
 	}
 
 	/**
 	 * Wechselt das CenterPanel "vorwaerts" so, dass der Back und ForwardStack
-	 * bereucksichtigt werden. Wenn das uebergeben Onjekt NULL ist wird ein
+	 * bereucksichtigt werden. Wenn das uebergeben Objekt NULL ist wird ein
 	 * objekt aus dem FowardStack uebergeben.
 	 */
 	public void changeCenterPanelForward(CenterPanel newCenterPanel) {
 		backStack.push(Controller.getCurrentCenterPanel());
+                if (!Controller.getNavigationPanel().getBackButton().isVisible())
+                  Controller.getNavigationPanel().getBackButton().setVisible(true);
 		if (newCenterPanel == null) {
 			changeCenterPanel(forwardStack.pop());
+                        if (forwardStack.empty())
+                          Controller.getNavigationPanel().getFwButton().setVisible(false);
 		} else {
 			changeCenterPanel(newCenterPanel);
+                        // Wenn das CenterPanel hier gewechselt wird wurde die
+                        // Reihenfolge zerstoert und der ForwardStack kann
+                        // geloescht werden
+                        forwardStack.clear();
+                        // Verstecke den Vorwaerts Button wenn der Stack leer ist
+                        Controller.getNavigationPanel().getFwButton().setVisible(false);
 		}
 	}
 
