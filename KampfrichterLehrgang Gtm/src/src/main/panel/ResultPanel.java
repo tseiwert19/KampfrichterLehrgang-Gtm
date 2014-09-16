@@ -2,6 +2,7 @@ package src.main.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class ResultPanel extends CenterPanel
         GridLayout gridlayout = new GridLayout(3, 0, 20, 20);
     	header.setLayout(gridlayout);
         header.setBorder(new EmptyBorder(20, 20, 20, 20));
-        
+      
         JLabel geraeteTyp = new JLabel("<html><font size='8'><b><i>" + geraet + "</b></i></font>");
         geraeteTyp.setVerticalAlignment(JLabel.CENTER);
         geraeteTyp.setHorizontalAlignment(JLabel.CENTER);
@@ -97,7 +98,11 @@ public class ResultPanel extends CenterPanel
         pdfButton.setForeground(Color.WHITE);
         pdfButton.setActionCommand(geraet);
         pdfButton.addActionListener(new PDFActionListener());
-        header.add(pdfButton);
+        pdfButton.setPreferredSize(new Dimension(700, 50));
+        JPanel pdfPanel = new JPanel();
+        pdfPanel.setBackground(Color.WHITE);
+        pdfPanel.add(pdfButton);
+        header.add(pdfPanel);
         header.setBackground(Color.WHITE);
 
 

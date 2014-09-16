@@ -121,6 +121,8 @@ public class SearchResultPanel extends CenterPanel {
 	 */
 	private void createGeraetePanel(String geraeteName) {
 		JPanel geraetePanel = new JPanel();
+		Dimension maximumSize = new Dimension(700, 100);
+		geraetePanel.setMaximumSize(maximumSize);
 		GridLayout gridlayout = new GridLayout(2, 0, 20, 20);
 		geraetePanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		geraetePanel.setLayout(gridlayout);
@@ -146,8 +148,8 @@ public class SearchResultPanel extends CenterPanel {
 	private void createComboBoxPanel() {
 		comboBoxPanel = new JPanel();
 		comboBoxPanel.setBackground(Color.WHITE);
-		Dimension prefSize = new Dimension(700, 50);
-		comboBoxPanel.setPreferredSize(prefSize);
+		Dimension maxSize = new Dimension(800, 50);
+		comboBoxPanel.setMaximumSize(maxSize);
 		FlowLayout flowLayout = new FlowLayout();
 		comboBoxPanel.setLayout(flowLayout);
 
