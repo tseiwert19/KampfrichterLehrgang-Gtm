@@ -32,8 +32,6 @@ public class Kampfrichterlehrgang extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	// TODO Das wird nicht immer in der Mitte sein
-	// dynamische Loesung suchen oder einigen
 	private static final String NAME = "KampfrichterLehrgang Gtm";
 
 	private NavigationPanel navigationPanel;
@@ -88,6 +86,8 @@ public class Kampfrichterlehrgang extends JFrame {
             welcomePanel = Controller.getWelcomePanel();
           }
 		changeCenterPanelForward(welcomePanel);
+                backStack.clear();
+                Controller.getNavigationPanel().getBackButton().setVisible(false);
 	}
 
 	/**
@@ -167,6 +167,8 @@ public class Kampfrichterlehrgang extends JFrame {
                 if (!Controller.getNavigationPanel().getFwButton().isVisible())
                   Controller.getNavigationPanel().getFwButton().setVisible(true);
 		changeCenterPanel(backStack.pop());
+                if (backStack.empty())
+                  Controller.getNavigationPanel().getBackButton().setVisible(false);
 	}
 
 	/**
