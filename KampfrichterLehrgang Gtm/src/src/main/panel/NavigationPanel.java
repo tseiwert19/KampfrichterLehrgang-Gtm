@@ -40,6 +40,11 @@ public class NavigationPanel extends JPanel {
 	
 	private SucheTextfeld sucheFeld;
 
+        private KariButton backButton;
+        private KariButton homeButton;
+        private KariButton testModeButton;
+        private KariButton fwButton;
+
 	public NavigationPanel() {
 			    
 		setBackground(Color.WHITE);
@@ -51,7 +56,7 @@ public class NavigationPanel extends JPanel {
 		try {
 			BufferedImage zurueck = ImageIO.read(getClass().getResource(
 					ZURUECK_LOGO));
-			KariButton backButton = Controller.getBackActionListener().getButton();
+			backButton = Controller.getBackActionListener().getButton();
 			backButton.setIcon(new ImageIcon(zurueck));
                         backButton.setFocusPainted(false);
                         backButton.setBorder(BorderFactory.createEmptyBorder());
@@ -59,9 +64,10 @@ public class NavigationPanel extends JPanel {
 			backButton.setPreferredSize(new Dimension(60,60));
 			backButton.setActionCommand("back");
 			backButton.addMouseListener(mouseListener);
+                        backButton.setVisible(false);
 			
 			BufferedImage home = ImageIO.read(getClass().getResource(HOME_LOGO));
-			KariButton homeButton = new KariButton();
+			homeButton = new KariButton();
 			homeButton.setIcon(new ImageIcon(home));
 			homeButton.addActionListener(new HomeActionListener());
 			homeButton.setPreferredSize(new Dimension(60, 60));
@@ -72,7 +78,7 @@ public class NavigationPanel extends JPanel {
 			homeButton.addMouseListener(mouseListener);
 			
 			BufferedImage testMode = ImageIO.read(getClass().getResource(TESTMODE_LOGO));
-			KariButton testModeButton = new KariButton();
+			testModeButton = new KariButton();
 			testModeButton.addActionListener(new TestModeButtonActionListener());
 			testModeButton.setIcon(new ImageIcon(testMode));
 			testModeButton.setPreferredSize(new Dimension(60, 60));
@@ -84,7 +90,7 @@ public class NavigationPanel extends JPanel {
 			
 			BufferedImage vorwaerts = ImageIO.read(getClass().getResource(
 					VORWAERTS_LOGO));
-			KariButton fwButton = Controller.getForwardActionListener().getButton();
+			fwButton = Controller.getForwardActionListener().getButton();
 			fwButton.setIcon(new ImageIcon(vorwaerts));
                         fwButton.setFocusPainted(false);
                         fwButton.setBorder(BorderFactory.createEmptyBorder());
@@ -92,6 +98,7 @@ public class NavigationPanel extends JPanel {
 			fwButton.setPreferredSize(new Dimension(60,60));
 			fwButton.setActionCommand("forward");
 			fwButton.addMouseListener(mouseListener);
+                        fwButton.setVisible(false);
                      
             JPanel leftButtonPanel = new JPanel();           
             leftButtonPanel.setBackground(Color.WHITE);
@@ -147,6 +154,14 @@ public class NavigationPanel extends JPanel {
 	public SucheTextfeld getSucheFeld(){
 	    return sucheFeld;
 	}
+
+        public KariButton getFwButton() {
+          return fwButton;
+        }
+
+        public KariButton getBackButton() {
+          return backButton;
+        }
 
 	public void enterFullScreen()
 	{
