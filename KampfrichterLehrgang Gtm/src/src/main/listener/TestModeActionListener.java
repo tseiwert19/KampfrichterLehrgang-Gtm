@@ -16,7 +16,7 @@ public class TestModeActionListener implements ActionListener {
 		KariButton button = (KariButton) e.getSource();
 		String name = button.getText();
 		TestModePanel testPanel = Controller.getTestModePanel();
-
+		
 		switch (command) {
 		case "start":
 			testPanel.versteckeModusPanel();
