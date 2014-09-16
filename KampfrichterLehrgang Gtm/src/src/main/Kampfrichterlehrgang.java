@@ -75,19 +75,19 @@ public class Kampfrichterlehrgang extends JFrame {
 		setVisible(true);
 	}
 
-        /**
-         * Wechselt das CenterPanel auf das WelcomePanel (Home)
-         */
+	/**
+	 * Wechselt das CenterPanel auf das WelcomePanel (Home)
+	 */
 	public void changeToWelcome() {
-          if (Controller.getWelcomePanel() == null) {
-		welcomePanel = new WelcomePanel();
-		Controller.setWelcomePanel(welcomePanel);
-          } else {
-            welcomePanel = Controller.getWelcomePanel();
-          }
+		if (Controller.getWelcomePanel() == null) {
+			welcomePanel = new WelcomePanel();
+			Controller.setWelcomePanel(welcomePanel);
+		} else {
+			welcomePanel = Controller.getWelcomePanel();
+		}
 		changeCenterPanelForward(welcomePanel);
-                backStack.clear();
-                Controller.getNavigationPanel().getBackButton().setVisible(false);
+		backStack.clear();
+		Controller.getNavigationPanel().getBackButton().setVisible(false);
 	}
 
 	/**
@@ -124,12 +124,13 @@ public class Kampfrichterlehrgang extends JFrame {
 		VideoInfoPanel videoInfoPanel = new VideoInfoPanel(video);
 		Controller.setVideoInfoPanel(videoInfoPanel);
 		changeCenterPanelForward(videoInfoPanel);
-		//videoInfoPanel.run();
+		// videoInfoPanel.run();
 	}
-	/** 
+
+	/**
 	 * Wechselt zum TestMode
 	 */
-	public void changeToTestModePanel(){
+	public void changeToTestModePanel() {
 		TestModePanel testMode = new TestModePanel();
 		Controller.setTestModePanel(testMode);
 		changeCenterPanel(testMode);
@@ -149,7 +150,7 @@ public class Kampfrichterlehrgang extends JFrame {
 		this.getContentPane().remove(Controller.getScrollPane());
 		JScrollPane scrollPane = new JScrollPane(newCenterPanel);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		//Scrollgeschwindigkeit erhoehen
+		// Scrollgeschwindigkeit erhoehen
 		scrollPane.getVerticalScrollBar().setUnitIncrement(15);
 		Controller.setScrollPane(scrollPane);
 		this.getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -164,11 +165,13 @@ public class Kampfrichterlehrgang extends JFrame {
 	 */
 	public void changeCenterPanelBackward() {
 		forwardStack.push(Controller.getCurrentCenterPanel());
-                if (!Controller.getNavigationPanel().getFwButton().isVisible())
-                  Controller.getNavigationPanel().getFwButton().setVisible(true);
-		changeCenterPanel(backStack.pop());
-                if (backStack.empty())
-                  Controller.getNavigationPanel().getBackButton().setVisible(false);
+		if (!Controller.getNavigationPanel().getFwButton().isVisible()) {
+			Controller.getNavigationPanel().getFwButton().setVisible(true);
+			changeCenterPanel(backStack.pop());
+		}
+		if (backStack.empty()) {
+			Controller.getNavigationPanel().getBackButton().setVisible(false);
+		}
 	}
 
 	/**
@@ -178,20 +181,20 @@ public class Kampfrichterlehrgang extends JFrame {
 	 */
 	public void changeCenterPanelForward(CenterPanel newCenterPanel) {
 		backStack.push(Controller.getCurrentCenterPanel());
-                if (!Controller.getNavigationPanel().getBackButton().isVisible())
-                  Controller.getNavigationPanel().getBackButton().setVisible(true);
+		if (!Controller.getNavigationPanel().getBackButton().isVisible())
+			Controller.getNavigationPanel().getBackButton().setVisible(true);
 		if (newCenterPanel == null) {
 			changeCenterPanel(forwardStack.pop());
-                        if (forwardStack.empty())
-                          Controller.getNavigationPanel().getFwButton().setVisible(false);
+			if (forwardStack.empty())
+				Controller.getNavigationPanel().getFwButton().setVisible(false);
 		} else {
 			changeCenterPanel(newCenterPanel);
-                        // Wenn das CenterPanel hier gewechselt wird wurde die
-                        // Reihenfolge zerstoert und der ForwardStack kann
-                        // geloescht werden
-                        forwardStack.clear();
-                        // Verstecke den Vorwaerts Button wenn der Stack leer ist
-                        Controller.getNavigationPanel().getFwButton().setVisible(false);
+			// Wenn das CenterPanel hier gewechselt wird wurde die
+			// Reihenfolge zerstoert und der ForwardStack kann
+			// geloescht werden
+			forwardStack.clear();
+			// Verstecke den Vorwaerts Button wenn der Stack leer ist
+			Controller.getNavigationPanel().getFwButton().setVisible(false);
 		}
 	}
 
@@ -214,8 +217,8 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
 	/**
-	 * TODO Text aktualisieren Baut eine Impressums JPanel nach VOrlage einer
-	 * noch anzufertigen Klasse und gibt dieses zurueck.
+	 * Baut eine Impressums JPanel nach VOrlage einer noch anzufertigen Klasse
+	 * und gibt dieses zurueck.
 	 */
 	private JPanel buildImpressumPanel() {
 		GridLayout gridLayout = new GridLayout(1, 3);

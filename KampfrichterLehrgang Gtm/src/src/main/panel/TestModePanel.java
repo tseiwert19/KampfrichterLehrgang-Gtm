@@ -129,7 +129,7 @@ public class TestModePanel extends CenterPanel {
 	 * Erstellt den "Nächste Aufgabe" Button
 	 */
 	private void createNextButton() {
-		nextButton = erstelleEinButton("Nächste Aufgabe", "", "next",
+		nextButton = erstelleEinButton("Nächstes Element", "", "next",
 				testActionListener);
 		nextButton.setAlignmentX(CENTER_ALIGNMENT);
 		add(nextButton);
@@ -185,10 +185,10 @@ public class TestModePanel extends CenterPanel {
 
 		modusPanel.add(rbPanel);
 
-		KariButton startButton = erstelleEinButton("<html><font size='5'>Start</font></html>", "", "start",
+		KariButton startButton = erstelleEinButton("<html><font size='5'>Testmodus Starten</font></html>", "", "start",
 				testActionListener);
 		startButton.setAlignmentX(CENTER_ALIGNMENT);
-		startButton.setPreferredSize(new Dimension(150, 50));
+		startButton.setPreferredSize(new Dimension(300, 50));
 		JPanel buttonPanel = erstelleEinPanel(null, null, null, null);
 
 		buttonPanel.add(startButton);
@@ -302,7 +302,7 @@ public class TestModePanel extends CenterPanel {
 				"<html><b><font size '5'>Test Neustarten</b></font></html>",
 				"", "new", testActionListener);
 		neuerTest.setAlignmentX(CENTER_ALIGNMENT);
-		neuerTest.setMaximumSize(new Dimension(200, 80));
+		neuerTest.setPreferredSize(new Dimension(200, 80));
 		add(tabellePanel);
 		add(neuerTest);
 		validate();
@@ -351,6 +351,7 @@ public class TestModePanel extends CenterPanel {
 		for (int i = 0; i < anzahlButtons; i++) {
 			neuerButton = erstelleEinButton(buttonText[i], "", antwort,
 					testActionListener);
+			neuerButton.setPreferredSize(new Dimension(70, 40));
 			antwortButtons.add(neuerButton);
 			antwortPanel.add(neuerButton);
 		}
@@ -433,7 +434,7 @@ public class TestModePanel extends CenterPanel {
 	private void aendereFarbeRichtigerButton(String richtigeAntwort) {
 		for (KariButton aktuellerButton : antwortButtons) {
 			if (aktuellerButton.getText().equals(richtigeAntwort))
-				aktuellerButton.setBackground(Color.GREEN);
+				aktuellerButton.setBackground(Color.decode("#32cd32"));
 		}
 
 	}

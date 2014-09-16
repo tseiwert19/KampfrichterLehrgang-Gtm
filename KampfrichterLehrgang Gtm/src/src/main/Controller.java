@@ -11,7 +11,6 @@ import src.main.panel.*;
 import src.main.videoplayer.*;
 import src.main.pdfviewer.*;
 
-//TODO Alles auf NULL ueberpruefen
 /**
  * Dieser Controller beinhaltet alle Laufenden Objekte der 
  * Kampfrichterlehrgangssoftware im Betrieb. Jedes Objekt muss sich bei dem
@@ -41,8 +40,6 @@ public class Controller
     private static VideoInfoPanel videoInfoPanel;
     private static Video video;
     private static VideoParser vidparser;
-
-    private static PDFViewer2 pdfviewer;
 
     private static KariButton kari;
     private static SucheTextfeld textfeld;
@@ -129,15 +126,6 @@ public class Controller
 		return videoInfoPanel;
 	}
 
-    public static void setPDFViewer(PDFViewer2 p)
-    {
-        pdfviewer = p;
-    }
-
-    public static PDFViewer2 getPDFViewer()
-    {
-        return pdfviewer;
-    }
 
     public static void setWelcomeActionListener(WelcomeActionListener wal)
     {
