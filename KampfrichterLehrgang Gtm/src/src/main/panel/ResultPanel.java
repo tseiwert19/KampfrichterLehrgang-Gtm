@@ -82,8 +82,6 @@ public class ResultPanel extends CenterPanel
      */
     private void createHeaderPanel(String geraet)
     {
-    	
-        
         header = new JPanel();
         GridLayout gridlayout = new GridLayout(3, 0, 20, 20);
     	header.setLayout(gridlayout);
