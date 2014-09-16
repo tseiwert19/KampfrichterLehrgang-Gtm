@@ -61,7 +61,8 @@ public class VideoInfoPanel extends CenterPanel {
 					+ video.getName()
 					+ "</i></b></font size><br/><br/>\n"
 					+ "<font size=\"4\"><b>Beschreibung: </b>"
-					+ video.getBeschreibung()+"<br/><b>Gerät: </b>"
+					+ video.getBeschreibung()+"<br/><br/>\n"
+					+ "<b>Gerät: </b>"
 					+ video.getGeraet()
 					+ "<br/><br/>\n"
 					+ "<b>Schwierigkeitsgrad: </b>"
