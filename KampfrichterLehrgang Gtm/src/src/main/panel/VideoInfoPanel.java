@@ -44,7 +44,7 @@ public class VideoInfoPanel extends CenterPanel {
 
 
 		if (video.getBeschreibung() == null || video.getBeschreibung().isEmpty()) {
-			formattedText = "<html><font face='sans-serif' color='white'><font size=\"5\"><b><i>\n"
+			formattedText = "<html><font face='sans-serif' color='white'><font size=\"6\"><b><i>\n"
 					+ video.getName()
 					+ "</i></b></font size><br/><br/>\n"
 					+ "<font size=\"4\"><b>Gerät: </b>"
@@ -57,11 +57,11 @@ public class VideoInfoPanel extends CenterPanel {
 					+ video.getElementgruppe()
 					+ "<br/></font size>\n" + "</font></html>";
 		} else {
-			formattedText = "<html><font face='sans-serif' color='white'><font size=\"5\"><b><i>\n"
+			formattedText = "<html><font face='sans-serif' color='white'><font size=\"6\"><b><i>\n"
 					+ video.getName()
 					+ "</i></b></font size><br/><br/>\n"
-					+ "<font size=\"4\"><b>Beschreibung: </b>"
-					+ video.getBeschreibung()+"<br/><br/>\n"
+					+ "<font size=\"4\"><b>Beschreibung: </b>" + (video.getBeschreibung().trim().length() >= 10 ? "<br/>"+video.getBeschreibung() : video.getBeschreibung())
+					+"<br/><br/>\n"
 					+ "<b>Gerät: </b>"
 					+ video.getGeraet()
 					+ "<br/><br/>\n"
