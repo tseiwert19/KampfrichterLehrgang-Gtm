@@ -152,7 +152,9 @@ public class TestModePanel extends CenterPanel {
 	 * @param videoPfad
 	 */
 	private void createMediaPlayer() {
-		mediaPanel = erstelleEinPanel(new BorderLayout(), null, null, null);
+		mediaPanel = erstelleEinPanel(new BorderLayout(), new Dimension(
+				800, 480), new Dimension(
+				800, 480), null);
 		add(mediaPanel);
 	}
 
