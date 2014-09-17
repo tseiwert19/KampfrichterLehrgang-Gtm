@@ -321,6 +321,7 @@ public class MediaPlayer extends JPanel {
 		//embeddedMediaPlayerComponent.getMediaPlayer().pause();
 		embeddedMediaPlayer.pause();
 		//directMediaPlayer.pause();
+		setPlayingState(!isPlaying);
 	}
 
 	public boolean getRepeatState()
@@ -337,36 +338,32 @@ public class MediaPlayer extends JPanel {
 		//return directMediaPlayer.getRepeat();
 	}
 
-	public void setRepeatState(boolean repeatState)
+	public void toggleRepeat()
 	{
-		//embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(repeatState);
-		embeddedMediaPlayer.setRepeat(repeatState);
-		//directMediaPlayer.setRepeat(repeatState);
+		//embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(!embeddedMediaPlayerComponent.getMediaPlayer().getRepeat());
+		embeddedMediaPlayer.setRepeat(!embeddedMediaPlayer.getRepeat());
+		//directMediaPlayer.setRepeat(!directMediaPlayer.getRepeat());
+		controlsPanel.setRepeat(embeddedMediaPlayer.getRepeat());
 	}
+
 
 	public boolean getPlayingState()
 	{
 		return isPlaying;
 	}
 
-	public void setPlayingState(boolean isPlaying)
+	private void setPlayingState(boolean isPlaying)
 	{
 		this.isPlaying = isPlaying;
+		controlsPanel.setPlaying(isPlaying);
 	}
 
 	public void run() {
-		System.out.println("Media path: " + mediaPath);
+		System.out.println("MediaPlayer: Media path: " + mediaPath);
 		//embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
 		embeddedMediaPlayer.playMedia(mediaPath);
 		//directMediaPlayer.playMedia(mediaPath);
-		this.isPlaying = true;
-		if (this.isPlaying) {
-			System.out.println("Playing");
-			controlsPanel.setPlaying(true);
-		} else {
-			System.out.println("Not playing");
-			controlsPanel.setPlaying(false);
-		}
+		setPlayingState(true);
 	}
 
 	public static void main(String[] args) {

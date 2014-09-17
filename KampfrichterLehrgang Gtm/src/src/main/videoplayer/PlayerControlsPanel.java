@@ -230,32 +230,12 @@ public class PlayerControlsPanel extends JPanel
 		repeatButtonLabel = localeBundle.getString("repeatButtonLabel");
 
 		playPauseButton = new JButton();
-		if (mediaPlayer.getPlayingState()) {
-			playPauseButton.setText(pauseLabel);
-			playPauseButton.setToolTipText(pauseLabel);
-			playPauseButton.setIcon(pauseIcon);
-		} else {
-			playPauseButton.setText(playLabel);
-			playPauseButton.setToolTipText(playLabel);
-			playPauseButton.setIcon(playIcon);
-		}
+		setPlaying(mediaPlayer.getPlayingState());
 		playPauseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mediaPlayer.pause();
-				boolean isPlaying=mediaPlayer.getPlayingState();
-				mediaPlayer.setPlayingState(!isPlaying);
-				if (isPlaying) {
-					System.out.println("Playing");
-					playPauseButton.setText(pauseLabel);
-					playPauseButton.setToolTipText(pauseLabel);
-					playPauseButton.setIcon(pauseIcon);
-				} else {
-					System.out.println("Not playing");
-					playPauseButton.setText(playLabel);
-					playPauseButton.setToolTipText(playLabel);
-					playPauseButton.setIcon(playIcon);
-				}
+				PlayerControlsPanel.this.setPlaying(mediaPlayer.getPlayingState());
 			}
 		});
 		add(playPauseButton);
@@ -267,10 +247,7 @@ public class PlayerControlsPanel extends JPanel
 		repeatButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean repeatState = mediaPlayer.getRepeatState();
-				mediaPlayer.setRepeatState(!repeatState);
-				repeatState = mediaPlayer.getRepeatState();
-				repeatButton.setSelected(repeatState);
+				mediaPlayer.toggleRepeat();
 			}
 		});
 		add(repeatButton);
@@ -306,5 +283,10 @@ public class PlayerControlsPanel extends JPanel
 			playPauseButton.setToolTipText(playLabel);
 			playPauseButton.setIcon(playIcon);
 		}
+	}
+
+	public void setRepeat(boolean repeatState)
+	{
+		repeatButton.setSelected(repeatState);
 	}
 }
