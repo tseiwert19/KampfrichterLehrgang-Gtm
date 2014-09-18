@@ -299,14 +299,16 @@ public class TestModePanel extends CenterPanel {
 	 */
 	private void beendeTest() {
 		System.out.println("Ende");
-		endeErgebnis = new JLabel("<html><font size='5'Sie haben "
+		endeErgebnis = new JLabel("<html><font size='5'>Sie haben "
 				+ richtigeAntworten
 				+ " von 10 Übungen richtig erkannt!</font></html>");
 
 		mediaPanel.setVisible(false);
 		antwortPanel.setVisible(false);
 		ergebnisPanel.setVisible(false);
-		endeErgebnis.setAlignmentX(CENTER_ALIGNMENT);
+		endeErgebnis.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+		endeErgebnis.setVerticalAlignment(JLabel.CENTER);
+		endeErgebnis.setHorizontalAlignment(JLabel.CENTER);
 		add(endeErgebnis);
 		neuerTest = erstelleEinButton(
 				"<html><font size='5'>Test Neustarten</font></html>", "new",
