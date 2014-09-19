@@ -1,5 +1,7 @@
 package src.main.panel;
 
+import src.main.components.CorrectPath;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -58,12 +60,18 @@ public class ImpressumPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		String pdfFile=new CorrectPath("/pdf/CDP_2013_GER_ENG_RUS_v2.pdf").getPath();
+
+		if (pdfFile == null)
+		{
+			System.err.println("PDF file /pdf/CDP_2013_GER_ENG_RUS_v2.pdf not found!");
+		}
+
 		
 		try {
-			Desktop.getDesktop().open(
-					new File("src/pdf/CDP_2013_GER_ENG_RUS_v2.pdf"));
+			Desktop.getDesktop().open(new File(pdfFile));
 		} catch (IOException e1) {
-			PDFReader reader = new PDFReader("src/pdf/CDP_2013_GER_ENG_RUS_v2.pdf");
+			PDFReader reader = new PDFReader(pdfFile);
 		}
 	}
 }

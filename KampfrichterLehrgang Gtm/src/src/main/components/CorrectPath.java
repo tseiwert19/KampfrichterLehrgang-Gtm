@@ -14,7 +14,7 @@ public class CorrectPath
 		this.path=p;
 	}
 
-	public String getPath(String path)
+	public String getPath()
 	{
 		if (path == null || path.isEmpty())
 		{

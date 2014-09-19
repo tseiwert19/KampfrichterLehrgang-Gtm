@@ -1,5 +1,7 @@
 package src.main.listener;
 
+import src.main.components.CorrectPath;
+
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,26 +19,26 @@ public class PDFActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		String pfad = "src/pdf/";
+		String pfad = "/pdf/";
 
 		switch (command) {
 		case "Boden":
-			pfad = pfad + "01_Boden.pdf";
+			pfad = new CorrectPath(pfad + "01_Boden.pdf").getPath();
 			break;
 		case "Pauschenpferd":
-			pfad = pfad + "02_Pauschenpferd.pdf";
+			pfad = new CorrectPath(pfad + "02_Pauschenpferd.pdf").getPath();
 			break;
 		case "Ringe":
-			pfad = pfad + "03_Ringe.pdf";
+			pfad = new CorrectPath(pfad + "03_Ringe.pdf").getPath();
 			break;
 		case "Sprung":
-			pfad = pfad + "04_Sprung.pdf";
+			pfad = new CorrectPath(pfad + "04_Sprung.pdf").getPath();
 			break;
 		case "Barren":
-			pfad = pfad + "05_Barren.pdf";
+			pfad = new CorrectPath(pfad + "05_Barren.pdf").getPath();
 			break;
 		case "Reck":
-			pfad = pfad + "06_Reck.pdf";
+			pfad = new CorrectPath(pfad + "06_Reck.pdf").getPath();
 			break;
 		}
 		try {
