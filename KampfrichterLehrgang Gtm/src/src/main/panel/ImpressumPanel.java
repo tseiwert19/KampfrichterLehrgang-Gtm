@@ -1,6 +1,5 @@
 package src.main.panel;
 
-import src.main.components.CorrectPath;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +17,7 @@ import javax.swing.JPanel;
 
 import src.main.components.KariButton;
 import src.main.pdfviewer.PDFReader;
+import src.main.components.CorrectPath;
 
 public class ImpressumPanel extends JPanel implements ActionListener {
 
