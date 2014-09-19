@@ -51,7 +51,7 @@ public class DatenbankController
 		}
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:" + urlOfDatabaseFile);
+			connection = DriverManager.getConnection("jdbc:sqlite::resource:" + urlOfDatabaseFile);
 		} catch (ClassNotFoundException e) {
 			System.err.println("Fehler beim Laden des JDBC-Treibers");
 			e.printStackTrace();
