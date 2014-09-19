@@ -191,7 +191,7 @@ public class TestModePanel extends CenterPanel {
 		modusPanel.add(rbPanel);
 
 		KariButton startButton = erstelleEinButton(
-				"<html><font size='5'>Testmodus Starten</font></html>", "",
+				"<html><font size='5'>Testmodus starten</font></html>", "",
 				"start", testActionListener);
 		startButton.setAlignmentX(CENTER_ALIGNMENT);
 		startButton.setPreferredSize(new Dimension(300, 50));
@@ -311,7 +311,7 @@ public class TestModePanel extends CenterPanel {
 		endeErgebnis.setHorizontalAlignment(JLabel.CENTER);
 		add(endeErgebnis);
 		neuerTest = erstelleEinButton(
-				"<html><font size='5'>Test Neustarten</font></html>", "new",
+				"<html><font size='5'>Test neustarten</font></html>", "new",
 				"new", testActionListener);
 		neuerTest.setAlignmentX(CENTER_ALIGNMENT);
 		neuerTest.setPreferredSize(new Dimension(300, 50));
@@ -333,7 +333,7 @@ public class TestModePanel extends CenterPanel {
 	private void createAntwortPanel(Video video) {
 		antwortPanel.setPreferredSize(new Dimension(600, 50));
 		antwortPanel.setBackground(Color.WHITE);
-		antwortPanel.add(new JLabel("Antwort Wählen:"));
+		antwortPanel.add(new JLabel("Antwort wählen:"));
 		createAntwortButtons(elementgruppeRb.isSelected(), video);
 	}
 
