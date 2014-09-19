@@ -147,7 +147,7 @@ public class Video {
 		{
 			uriOfVideoFile=urlOfVideoFile.toURI();
 		}
-		catch (URISyntaxException e)
+		catch (Exception e)
 		{
 			System.err.println("Video: URL of video " + pfad + " couldn't be converted to URI!");
 			return null;
@@ -163,8 +163,8 @@ public class Video {
 			return null;
 		}
 
-		String pfadFertig = null;
-		pfadFertig = videoPathFileObject.getPath().replace("bin", "src");
+		String pfadFertig = videoPathFileObject.getPath();
+		pfadFertig = pfadFertig.replace("bin", "src");
 		return pfadFertig;
 	}
 }

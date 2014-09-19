@@ -18,6 +18,7 @@ import java.sql.Statement;
 public class DatenbankController
 
 {
+	// http://stackoverflow.com/questions/6499218/how-to-use-sqlite-database-inside-jar-file
 
 	private Connection connection;
 	// Pfad zur Datenbank
