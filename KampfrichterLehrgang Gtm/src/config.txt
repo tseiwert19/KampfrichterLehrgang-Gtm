@@ -1,5 +1,0 @@
-;!@Install@!UTF-8!
-Title="Kampfrichterlehrgang"
-RunProgram="%%T\Kampfrichterlehrgang.bat"
-;!@InstallEnd@!
-

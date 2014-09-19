@@ -11,6 +11,4 @@ javac -encoding UTF-8 -Djava.ext.dirs=src/main/libs src/main/Kampfrichterlehrgan
 del ..\..\"KampfrichterLehrgang Gtm.zip"
 for /R "%ProgramFiles%" %%I in (7z.exe*) do set SEVENZIP_HOME=%%~dpI
 set PATH=%PATH%;%SEVENZIP_HOME%
-REM 7z a -tzip ..\..\"KampfrichterLehrgang Gtm.zip" ..\..\"KampfrichterLehrgang Gtm"
-7z a ..\..\"KampfrichterLehrgang Gtm.7z" ..\..\"KampfrichterLehrgang Gtm"
-copy /b 7zS.sfx + config.txt + ..\..\"KampfrichterLehrgang Gtm.7z" ..\..\"KampfrichterLehrgang Gtm.exe"
+7z a -tzip ..\..\"KampfrichterLehrgang Gtm.zip" ..\..\"KampfrichterLehrgang Gtm"
