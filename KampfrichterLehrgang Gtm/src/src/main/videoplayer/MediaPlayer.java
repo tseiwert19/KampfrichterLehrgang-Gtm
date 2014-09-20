@@ -87,14 +87,6 @@ public class MediaPlayer extends JPanel {
 	private JFrame topFrame;
 	private MediaPlayer mediaPlayer;
 
-	/*
-    private final int width = 768;
-    private final int height = 576;
-    private final BufferedImage image;
-    private final MediaPlayerFactory factory;
-    private final DirectMediaPlayer directMediaPlayer;
-    private ImagePane imagePane;
-	*/
 
 	private int lastState = 0;
 	private Rectangle lastBounds = null;
@@ -111,35 +103,15 @@ public class MediaPlayer extends JPanel {
 
 		loadVLCLibraries();
 
-		/*
-        image = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(width, height);
-        image.setAccelerationPriority(1.0f);
-
-		imagePane = new ImagePane(image);
-		imagePane.setSize(width, height);
-		imagePane.setMinimumSize(new Dimension(width, height));
-		imagePane.setPreferredSize(new Dimension(width, height));
-
-        factory = new MediaPlayerFactory();
-        directMediaPlayer = factory.newDirectMediaPlayer(new TestBufferFormatCallback(), new TestRenderCallback());
-		
-		directMediaPlayer.setRepeat(true);
-		*/
-
-		//embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
-		//embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
 
 		controlsPanel = new PlayerControlsPanel(this);
 
-
-		//add(imagePane, BorderLayout.CENTER);
-		//add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
 		add(controlsPanel, BorderLayout.PAGE_END);
 
 		mediaPlayerFactory = new MediaPlayerFactory();
 		canvas = new Canvas();
 		canvas.setBackground(Color.black);
-		canvas.setMinimumSize(new Dimension(320,240));
+		canvas.setMinimumSize(new Dimension(176,144));
 		canvas.setPreferredSize(new Dimension(768,576));
 
 		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
@@ -150,14 +122,13 @@ public class MediaPlayer extends JPanel {
 				//System.out.println("Components Change: " + e.getChanged());
 				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
 					if (e.getComponent().isDisplayable()) {
-						/*
-						embeddedMediaPlayerComponent=new EmbeddedMediaPlayerComponent();
-						embeddedMediaPlayerComponent.setMinimumSize(new Dimension(320,240));
-						embeddedMediaPlayerComponent.setPreferredSize(new Dimension(768,576));
-						embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(true);
-						MediaPlayer.this.add(embeddedMediaPlayerComponent, BorderLayout.CENTER);
-						*/
 						embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
+						embeddedMediaPlayer.addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+							public void finished(MediaPlayer mediaPlayer) {
+								System.out.println("MediaPlayer: event: finished");
+								printPlayState();
+							}
+						});
 						embeddedMediaPlayer.setVideoSurface(
 								mediaPlayerFactory.newVideoSurface(canvas)
 								);
@@ -168,9 +139,7 @@ public class MediaPlayer extends JPanel {
 						System.out.println("Is displayable!");
 					} else {
 						System.out.println("Is not displayable!");
-						//MediaPlayer.this.remove(embeddedMediaPlayerComponent);
 						MediaPlayer.this.remove(canvas);
-						//embeddedMediaPlayerComponent.release(true);
 						embeddedMediaPlayer.release();
 					}
 				}
@@ -216,7 +185,6 @@ public class MediaPlayer extends JPanel {
 
 	private void loadVLCLibraries()
 	{
-		// TODO: exception
 		// libvlc.dll und libvlccore.dll
 		// -Djna.library.path=C:\programme\videolan\vlc
 		// http://download.videolan.org/pub/videolan/vlc/last/win32/
@@ -263,7 +231,7 @@ public class MediaPlayer extends JPanel {
 		{
 			String key = (String)props.nextElement();
 			String value = (String)p.get(key);
-			System.out.println(key + ": " + value);
+			System.err.println(key + ": " + value);
 		}
 
 
@@ -318,9 +286,17 @@ public class MediaPlayer extends JPanel {
 
 	public void pause()
 	{
-		//embeddedMediaPlayerComponent.getMediaPlayer().pause();
-		embeddedMediaPlayer.pause();
-		//directMediaPlayer.pause();
+		printPlayState();
+		if (embeddedMediaPlayer.getMediaPlayerState() == libvlc_state_t.libvlc_Ended)
+		{
+			System.out.println("MediaPlayer: try play!");
+			//embeddedMediaPlayer.start();
+			run();
+		}
+		else
+		{
+			embeddedMediaPlayer.pause();
+		}
 		setPlayingState(!isPlaying);
 	}
 
@@ -328,28 +304,32 @@ public class MediaPlayer extends JPanel {
 	{
 		try
 		{
-			//return embeddedMediaPlayerComponent.getMediaPlayer().getRepeat();
 			return embeddedMediaPlayer.getRepeat();
 		}
 		catch (Exception e)
 		{
 			return true;
 		}
-		//return directMediaPlayer.getRepeat();
 	}
 
 	public void toggleRepeat()
 	{
-		//embeddedMediaPlayerComponent.getMediaPlayer().setRepeat(!embeddedMediaPlayerComponent.getMediaPlayer().getRepeat());
 		embeddedMediaPlayer.setRepeat(!embeddedMediaPlayer.getRepeat());
-		//directMediaPlayer.setRepeat(!directMediaPlayer.getRepeat());
 		controlsPanel.setRepeat(embeddedMediaPlayer.getRepeat());
 	}
 
 
 	public boolean getPlayingState()
 	{
-		return isPlaying;
+		//return isPlaying;
+		try
+		{
+			return embeddedMediaPlayer.isPlaying();
+		}
+		catch (Exception e)
+		{
+			return true;
+		}
 	}
 
 	private void setPlayingState(boolean isPlaying)
@@ -360,10 +340,11 @@ public class MediaPlayer extends JPanel {
 
 	public void run() {
 		System.out.println("MediaPlayer: Media path: " + mediaPath);
-		//embeddedMediaPlayerComponent.getMediaPlayer().playMedia(mediaPath);
-		embeddedMediaPlayer.playMedia(mediaPath);
-		//directMediaPlayer.playMedia(mediaPath);
-		setPlayingState(true);
+		if (!embeddedMediaPlayer.startMedia(mediaPath))
+		{
+			System.err.println("MediaPlayer: error occured while trying to play media " + mediaPath);
+		}
+		else setPlayingState(true);
 	}
 
 	public static void main(String[] args) {
@@ -383,61 +364,46 @@ public class MediaPlayer extends JPanel {
 		mainFrame.setVisible(true);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-		//myMediaPlayer.run();
+	}
+
+	private void printPlayState()
+	{
+		if (embeddedMediaPlayer.isPlaying())
+		{
+			System.out.println("MediaPlayer: is playing!");
+		}
+		else
+		{
+			System.out.println("MediaPlayer: is not playing!");
+		}
+
+		switch (embeddedMediaPlayer.getMediaPlayerState()) {
+			case libvlc_Playing:
+				System.out.println("MediaPlayer: state: libvlc_Playing");
+				break;
+			case libvlc_Paused:
+				System.out.println("MediaPlayer: state: libvlc_Paused");
+				break;
+			case libvlc_Stopped:
+				System.out.println("MediaPlayer: state: libvlc_Stopped");
+				break;
+			case libvlc_Ended:
+				System.out.println("MediaPlayer: state: libvlc_Ended");
+				break;
+			case libvlc_Error:
+				System.out.println("MediaPlayer: state: libvlc_Error");
+				break;
+			case libvlc_Buffering:
+				System.out.println("MediaPlayer: state: libvlc_Buffering");
+				break;
+			case libvlc_Opening:
+				System.out.println("MediaPlayer: state: libvlc_Opening");
+				break;
+			case libvlc_NothingSpecial:
+				System.out.println("MediaPlayer: state: libvlc_NothingSpecial");
+				break;
+		}
 	}
 
 
-	/*
-    @SuppressWarnings("serial")
-    private final class ImagePane extends JPanel {
-        private final BufferedImage image;
-
-        public ImagePane(BufferedImage image) {
-            this.image = image;
-        }
-
-        @Override
-        public void paint(Graphics g) {
-            Graphics2D g2 = (Graphics2D)g;
-            g2.drawImage(image, 0, 0, null);
-        }
-    }
-
-    private final class TestRenderCallback extends RenderCallbackAdapter {
-
-        public TestRenderCallback() {
-            super(((DataBufferInt) image.getRaster().getDataBuffer()).getData());
-        }
-
-        @Override
-        public void onDisplay(DirectMediaPlayer mediaPlayer, int[] data) {
-            imagePane.repaint();
-        }
-    }
-
-    private final class TestBufferFormatCallback implements BufferFormatCallback {
-		//Wird abgefragt nach:
-		// directMediaPlayer.stop();
-		// directMediaPlayer.play();
-
-
-        @Override
-        public BufferFormat getBufferFormat(int sourceWidth, int sourceHeight) {
-			int width = imagePane.getWidth();
-			int height = imagePane.getHeight();
-
-			Double ratio = Double.valueOf(imagePane.getWidth())/Double.valueOf(imagePane.getHeight());
-			Double sourceRatio = Double.valueOf(sourceWidth)/Double.valueOf(sourceHeight);
-
-			if (ratio <= sourceRatio) {
-				height = (int) (width/sourceRatio);
-			} else {
-				width = (int) (height * sourceRatio);
-			}
-			System.out.println("Got VideoFormat: " + sourceWidth + "x" + sourceHeight);
-            return new RV32BufferFormat(width, height);
-        }
-
-    }
-	*/
 }
