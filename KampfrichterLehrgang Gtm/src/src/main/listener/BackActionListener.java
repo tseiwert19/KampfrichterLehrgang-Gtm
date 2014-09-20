@@ -28,6 +28,7 @@ public class BackActionListener implements ActionListener {
    */
   public void actionPerformed (ActionEvent e) {
     if (!Controller.getKampfrichterlehrgang().getBackStack().empty()) {
+      System.out.println("Changing CenterPanel: Back");
       Controller.getKampfrichterlehrgang().changeCenterPanelBackward();
     } else {
       //Debug
