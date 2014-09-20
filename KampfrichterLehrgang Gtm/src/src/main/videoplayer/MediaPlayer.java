@@ -64,11 +64,6 @@ import uk.co.caprica.vlcj.binding.internal.libvlc_state_t;
 import uk.co.caprica.vlcj.runtime.x.LibXUtil;
 
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
-import uk.co.caprica.vlcj.player.direct.BufferFormat;
-import uk.co.caprica.vlcj.player.direct.BufferFormatCallback;
-import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
-import uk.co.caprica.vlcj.player.direct.RenderCallbackAdapter;
-import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
 
 public class MediaPlayer extends JPanel {
@@ -87,6 +82,7 @@ public class MediaPlayer extends JPanel {
 	private JFrame topFrame;
 	private MediaPlayer mediaPlayer;
 
+	private MediaPlayerEventAdapter mediaPlayerEventAdapter;
 
 	private int lastState = 0;
 	private Rectangle lastBounds = null;
@@ -114,6 +110,17 @@ public class MediaPlayer extends JPanel {
 		canvas.setMinimumSize(new Dimension(176,144));
 		canvas.setPreferredSize(new Dimension(768,576));
 
+		mediaPlayerEventAdapter=new MediaPlayerEventAdapter() {
+			public void finished(MediaPlayer mediaPlayer) {
+				System.out.println("MediaPlayer: event: finished");
+				printPlayState();
+			}
+			public void playing(MediaPlayer mediaPlayer) {
+				System.out.println("playing");
+			}
+		};
+
+
 		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
 		addHierarchyListener(new HierarchyListener() {
 
@@ -123,12 +130,7 @@ public class MediaPlayer extends JPanel {
 				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
 					if (e.getComponent().isDisplayable()) {
 						embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
-						embeddedMediaPlayer.addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
-							public void finished(MediaPlayer mediaPlayer) {
-								System.out.println("MediaPlayer: event: finished");
-								printPlayState();
-							}
-						});
+						embeddedMediaPlayer.addMediaPlayerEventListener(mediaPlayerEventAdapter);
 						embeddedMediaPlayer.setVideoSurface(
 								mediaPlayerFactory.newVideoSurface(canvas)
 								);

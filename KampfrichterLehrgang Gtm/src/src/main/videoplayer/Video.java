@@ -163,7 +163,8 @@ public class Video {
 			return null;
 		}
 
-		String pfadFertig = videoPathFileObject.getPath();
+		//String pfadFertig = videoPathFileObject.getPath();
+		String pfadFertig = "file://" + urlOfVideoFile.getPath();
 		pfadFertig = pfadFertig.replace("bin", "src");
 		return pfadFertig;
 	}
