@@ -79,6 +79,7 @@ public class MediaPlayer extends JPanel {
 
 
 	public MediaPlayer(String mediaURL) {
+		System.out.println("MediaPlayer: Media path: " + mediaURL);
 		try
 		{
 			localeBundle = ResourceBundle
@@ -398,7 +399,6 @@ public class MediaPlayer extends JPanel {
 	}
 
 	public void run() {
-		System.out.println("MediaPlayer: Media path: " + mediaPath);
 		if (!embeddedMediaPlayer.playMedia(mediaPath))
 		{
 			System.err.println("MediaPlayer: error occured while trying to play media " + mediaPath);
