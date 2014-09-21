@@ -1,25 +1,20 @@
-/*
- * file:///tmp/vlcj-3.0.1/javadoc/uk/co/caprica/vlcj/discovery/NativeDiscovery.html
- * oder
- * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/quickstart/Example2.java
- * http://www.capricasoftware.co.uk/projects/vlcj/faq.html
- * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/discovery/NativeDiscoveryTest.java
- */
-
-//TODO:
-// - Kommunikation zwischen Player und repeat/pause-Buttons (listener im
-// mediaplayer)
-
 package src.main.videoplayer;
 
-import src.main.*;
+import src.main.videoplayer.PlayerControlsPanel;
 
-import java.lang.Double;
+import java.util.ResourceBundle;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.io.File;
 
-import java.util.*;
+import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
@@ -27,21 +22,15 @@ import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Canvas;
 
-import java.net.URL;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.BorderFactory;
 
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
@@ -52,13 +41,8 @@ import java.awt.event.ContainerEvent;
 import java.awt.event.HierarchyEvent;
 
 import uk.co.caprica.vlcj.binding.LibVlc;
-import uk.co.caprica.vlcj.binding.LibVlcConst;
-import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
-import uk.co.caprica.vlcj.player.embedded.DefaultFullScreenStrategy;
-import uk.co.caprica.vlcj.player.embedded.x.XFullScreenStrategy;
-import uk.co.caprica.vlcj.player.embedded.FullScreenStrategy;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.binding.internal.libvlc_state_t;
 import uk.co.caprica.vlcj.runtime.x.LibXUtil;
@@ -67,86 +51,152 @@ import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 
 
 public class MediaPlayer extends JPanel {
+	private ResourceBundle localeBundle;
 	private PlayerControlsPanel controlsPanel;
 
-	private EmbeddedMediaPlayerComponent embeddedMediaPlayerComponent;
 
-	private final Canvas canvas;
-    private final MediaPlayerFactory mediaPlayerFactory;
+	private Canvas canvas;
+    private MediaPlayerFactory mediaPlayerFactory;
     private EmbeddedMediaPlayer embeddedMediaPlayer;
 
 	private String mediaPath = "";
 
 	private boolean isPlaying;
+	private String wrongFileNameErrorMessage;
 
 	private JFrame topFrame;
-	private MediaPlayer mediaPlayer;
 
 	private MediaPlayerEventAdapter mediaPlayerEventAdapter;
+
+	private File mediaFile;
+	private JLabel jLabel;
+
+	private boolean invalidFilename=false;
 
 	private int lastState = 0;
 	private Rectangle lastBounds = null;
 
+
+
 	public MediaPlayer(String mediaURL) {
-		mediaPlayer = this;
-		this.mediaPath = mediaURL;
+		try
+		{
+			localeBundle = ResourceBundle
+				.getBundle("src.main.videoplayer.localization.MediaPlayer");
+		}
+		catch (Exception e)
+		{
+			System.err.println("Failed to load localization!");
+		}
+		wrongFileNameErrorMessage = localeBundle.getString("wrongFileNameErrorMessage");
 
-		this.isPlaying = false;
-
-		// http://stackoverflow.com/questions/9650874/java-swing-obtain-window-jframe-from-inside-a-jpanel
-		topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-		setLayout(new BorderLayout());
-
-		loadVLCLibraries();
 
 
-		controlsPanel = new PlayerControlsPanel(this);
-
-		add(controlsPanel, BorderLayout.PAGE_END);
-
-		mediaPlayerFactory = new MediaPlayerFactory();
-		canvas = new Canvas();
-		canvas.setBackground(Color.black);
-		canvas.setMinimumSize(new Dimension(176,144));
-		canvas.setPreferredSize(new Dimension(768,576));
-
-		mediaPlayerEventAdapter=new MediaPlayerEventAdapter() {
-			public void finished(MediaPlayer mediaPlayer) {
-				System.out.println("MediaPlayer: event: finished");
-				printPlayState();
+		try{
+			mediaFile=new File(new URI(mediaURL));
+		}
+		catch(Exception e)
+		{
+			try{
+				mediaFile=new File(mediaURL);
 			}
-			public void playing(MediaPlayer mediaPlayer) {
-				System.out.println("playing");
+			catch(Exception ex)
+			{
+				invalidFilename=true;
 			}
-		};
+		}
+
+		if ( invalidFilename || ! ( mediaFile.isFile() && mediaFile.canRead() ) )
+		{
+			presentErrorMessage(wrongFileNameErrorMessage);
+		}
+		else
+		{
+			this.mediaPath = mediaURL;
+
+			this.isPlaying = false;
+
+			// http://stackoverflow.com/questions/9650874/java-swing-obtain-window-jframe-from-inside-a-jpanel
+			topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+			setLayout(new BorderLayout());
+
+			loadVLCLibraries();
 
 
-		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
-		addHierarchyListener(new HierarchyListener() {
+			controlsPanel = new PlayerControlsPanel(this);
 
-			@Override
-			public void hierarchyChanged(HierarchyEvent e) {
-				//System.out.println("Components Change: " + e.getChanged());
-				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
-					if (e.getComponent().isDisplayable()) {
-						embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
-						embeddedMediaPlayer.addMediaPlayerEventListener(mediaPlayerEventAdapter);
-						embeddedMediaPlayer.setVideoSurface(
-								mediaPlayerFactory.newVideoSurface(canvas)
-								);
-						embeddedMediaPlayer.setRepeat(true);
-						MediaPlayer.this.add(canvas, BorderLayout.CENTER);
-						MediaPlayer.this.revalidate();
-						MediaPlayer.this.run();
-						System.out.println("Is displayable!");
-					} else {
-						System.out.println("Is not displayable!");
-						MediaPlayer.this.remove(canvas);
-						embeddedMediaPlayer.release();
+			add(controlsPanel, BorderLayout.PAGE_END);
+
+			mediaPlayerFactory = new MediaPlayerFactory();
+			canvas = new Canvas();
+			canvas.setBackground(Color.black);
+			canvas.setMinimumSize(new Dimension(176,144));
+			canvas.setPreferredSize(new Dimension(768,576));
+
+			mediaPlayerEventAdapter=new MediaPlayerEventAdapter() {
+				@Override
+				public void finished(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+					System.out.println("MediaPlayer: event: finished");
+					printPlayState();
+					controlsPanel.setPlaying(false);
+				}
+
+				@Override
+				public void stopped(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+					System.out.println("MediaPlayer: event: stopped");
+					printPlayState();
+					controlsPanel.setPlaying(false);
+				}
+
+				@Override
+				public void paused(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+					System.out.println("MediaPlayer: event: paused");
+					printPlayState();
+					controlsPanel.setPlaying(false);
+				}
+
+				@Override
+				public void playing(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+					System.out.println("MediaPlayer: event: playing");
+					controlsPanel.setPlaying(true);
+				}
+
+				@Override
+				public void error(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+					System.out.println("MediaPlayer: event: error");
+					controlsPanel.setPlaying(false);
+				}
+			};
+
+
+			// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
+			addHierarchyListener(new HierarchyListener() {
+
+				@Override
+				public void hierarchyChanged(HierarchyEvent e) {
+					//System.out.println("Components Change: " + e.getChanged());
+					if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
+						if (e.getComponent().isDisplayable()) {
+							embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
+							embeddedMediaPlayer.addMediaPlayerEventListener(mediaPlayerEventAdapter);
+							embeddedMediaPlayer.setVideoSurface(
+									mediaPlayerFactory.newVideoSurface(canvas)
+									);
+							embeddedMediaPlayer.setRepeat(true);
+							controlsPanel.setRepeat(embeddedMediaPlayer.getRepeat());
+							MediaPlayer.this.add(canvas, BorderLayout.CENTER);
+							MediaPlayer.this.revalidate();
+							MediaPlayer.this.run();
+							System.out.println("MediaPlayer: Is displayable!");
+						} else {
+							System.out.println("MediaPlayer: Is not displayable!");
+							MediaPlayer.this.remove(canvas);
+							embeddedMediaPlayer.release();
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 
@@ -187,6 +237,15 @@ public class MediaPlayer extends JPanel {
 
 	private void loadVLCLibraries()
 	{
+		/*
+		 * file:///tmp/vlcj-3.0.1/javadoc/uk/co/caprica/vlcj/discovery/NativeDiscovery.html
+		 * oder
+		 * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/quickstart/Example2.java
+		 * http://www.capricasoftware.co.uk/projects/vlcj/faq.html
+		 * https://github.com/caprica/vlcj/blob/master/src/test/java/uk/co/caprica/vlcj/test/discovery/NativeDiscoveryTest.java
+		 */
+
+
 		// libvlc.dll und libvlccore.dll
 		// -Djna.library.path=C:\programme\videolan\vlc
 		// http://download.videolan.org/pub/videolan/vlc/last/win32/
@@ -291,8 +350,6 @@ public class MediaPlayer extends JPanel {
 		printPlayState();
 		if (embeddedMediaPlayer.getMediaPlayerState() == libvlc_state_t.libvlc_Ended)
 		{
-			System.out.println("MediaPlayer: try play!");
-			//embeddedMediaPlayer.start();
 			run();
 		}
 		else
@@ -342,9 +399,12 @@ public class MediaPlayer extends JPanel {
 
 	public void run() {
 		System.out.println("MediaPlayer: Media path: " + mediaPath);
-		if (!embeddedMediaPlayer.startMedia(mediaPath))
+		if (!embeddedMediaPlayer.playMedia(mediaPath))
 		{
 			System.err.println("MediaPlayer: error occured while trying to play media " + mediaPath);
+			MediaPlayer.this.remove(canvas);
+			embeddedMediaPlayer.release();
+			presentErrorMessage(wrongFileNameErrorMessage);
 		}
 		else setPlayingState(true);
 	}
@@ -355,17 +415,39 @@ public class MediaPlayer extends JPanel {
 			System.exit(1);
 		}
 
-		JFrame mainFrame = new JFrame(args[0]);
-		mainFrame.setSize(640, 480);
+		final String p=args[0];
 
-		MediaPlayer myMediaPlayer = new MediaPlayer(args[0]);
-		mainFrame.setContentPane(myMediaPlayer);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.pack();
-		mainFrame.setVisible(true);
-		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				JFrame mainFrame = new JFrame(p);
+				mainFrame.setSize(640, 480);
 
+				MediaPlayer myMediaPlayer = new MediaPlayer(p);
+				mainFrame.setContentPane(myMediaPlayer);
+
+				mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				mainFrame.pack();
+				mainFrame.setVisible(true);
+				//mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			}
+		});
+
+	}
+
+	private void presentErrorMessage(String message)
+	{
+		jLabel=new JLabel(message, JLabel.CENTER);
+		jLabel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+		jLabel.setMinimumSize(new Dimension(176,144));
+		jLabel.setPreferredSize(new Dimension(768,576));
+		jLabel.setForeground(Color.WHITE);
+		jLabel.setBackground(Color.BLACK);
+		jLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		jLabel.setOpaque(true);
+
+		add(jLabel);
 	}
 
 	private void printPlayState()

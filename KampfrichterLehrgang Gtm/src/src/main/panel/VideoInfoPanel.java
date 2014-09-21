@@ -22,7 +22,6 @@ public class VideoInfoPanel extends CenterPanel {
 	private MediaPlayer mediaPlayer;
 	private JTextPane jTextPane;
 	private JScrollPane jScrollPane;
-	private JLabel jlabel;
 	private String formattedText;
 	private Video video;
 
@@ -36,7 +35,7 @@ public class VideoInfoPanel extends CenterPanel {
 		if (videoPathFromDB == null || videoPathFromDB.isEmpty())
 		{
 			System.err.println("VideoInfoPanel: No path for video in database!");
-			//TODO: weitere Fehlerbehandlung
+			System.err.println("VideoInfoPanel: " + video.toString());
 		}
 
 
@@ -86,19 +85,10 @@ public class VideoInfoPanel extends CenterPanel {
 
 
 
-		jlabel = new JLabel(formattedText);
-		jlabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-
-		jlabel.setPreferredSize(new Dimension(200, 90));
-		jlabel.setForeground(Color.WHITE);
-		jlabel.setBackground(MYRED);
-		jlabel.setOpaque(true);
 
 		add(mediaPlayer, BorderLayout.CENTER);
-		//add(jlabel, BorderLayout.EAST);
 		add(jScrollPane, BorderLayout.EAST);
 
-		jlabel.repaint();
 
 		Controller.setVideoInfoPanel(this);
 
@@ -107,14 +97,12 @@ public class VideoInfoPanel extends CenterPanel {
 
 	public void enterFullScreen() {
 		System.out.println("VideoInfoPanel: enterFullScreen");
-		//jlabel.setVisible(false);
 		jScrollPane.setVisible(false);
 		// repaint();
 	}
 
 	public void leaveFullScreen() {
 		System.out.println("VideoInfoPanel: leaveFullScreen");
-		//jlabel.setVisible(true);
 		jScrollPane.setVisible(true);
 	}
 

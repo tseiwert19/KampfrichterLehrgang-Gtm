@@ -25,6 +25,7 @@ public class Video {
 	private static final String videoLocationPrefix="/";
 	
 	public Video (int id, String name, String pfad, String geraet, String beschreibung, String schwierigkeitsgrad, String elementgruppe){
+		//System.err.println("Video [id=" + id + ", name=" + name + ", pfad=" + pfad + ", beschreibung=" + beschreibung + ", schwierigkeitsgrad=" + schwierigkeitsgrad + ", elementgruppe=" + elementgruppe + "]");
 		this.id = id;
 		this.name = name;
 		this.pfad = detectAbsolutePath(pfad);

@@ -1,6 +1,6 @@
 package src.main.videoplayer;
 
-import src.main.*;
+//import src.main.*;
 
 import java.util.ResourceBundle;
 
@@ -266,9 +266,6 @@ public class PlayerControlsPanel extends JPanel
 		add(fullScreenButton);
 		*/
 
-		// TODO: player muss dem repeat button einen veränderten
-		// repeat-state mitteilen, ebenso wie dem pause-button
-		// repeatButton.setSelected(false);
 
 	}
 

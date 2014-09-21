@@ -167,8 +167,8 @@ public class Kampfrichterlehrgang extends JFrame {
 		forwardStack.push(Controller.getCurrentCenterPanel());
 		if (!Controller.getNavigationPanel().getFwButton().isVisible()) {
 			Controller.getNavigationPanel().getFwButton().setVisible(true);
-			changeCenterPanel(backStack.pop());
 		}
+		changeCenterPanel(backStack.pop());
 		if (backStack.empty()) {
 			Controller.getNavigationPanel().getBackButton().setVisible(false);
 		}
