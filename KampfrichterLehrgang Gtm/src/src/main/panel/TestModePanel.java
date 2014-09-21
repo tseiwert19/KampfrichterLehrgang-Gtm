@@ -31,6 +31,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import src.main.Controller;
+import src.main.DatenbankController;
 import src.main.components.KariButton;
 import src.main.listener.TestModeActionListener;
 import src.main.listener.VideoButtonActionListener;
@@ -75,6 +76,8 @@ public class TestModePanel extends CenterPanel {
 	private JTable ergebnisTabelle;
 	private DefaultTableModel model;
 	private JPanel neuerTestPanel;
+	
+	private DatenbankController controller;
 
 	/**
 	 * Konstruktor Setzt Layout und ruft Methode auf, die alle Komponenten
@@ -379,12 +382,13 @@ public class TestModePanel extends CenterPanel {
 	 * @return Liste mit den gefundenen Videos
 	 */
 	private ArrayList<Video> sucheVideos(int anzahl) {
+		controller = new DatenbankController();
 		ArrayList<Video> videoListe = new ArrayList<Video>();
 		VideoParser parser = new VideoParser();
 		Integer id;
 
 		for (int i = 0; i < anzahl; i++) {
-			id = (int) (Math.random() * 343);
+			id = (int) (Math.random() * controller.ermittleAnzahlVideosInDatenbank());
 			videoListe.add(parser.mappeEinVideo(id));
 		}
 

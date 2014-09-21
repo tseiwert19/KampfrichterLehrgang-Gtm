@@ -35,24 +35,38 @@ public class DatenbankController
 		createTable();
 	}
 
+	public long ermittleAnzahlVideosInDatenbank() {
+
+		long anzahlVideos = 0;
+
+		ResultSet rs = findDatasets("SELECT count(*) FROM videos;");
+		try {
+			rs.next();
+			anzahlVideos = rs.getLong(1);
+			  rs.close();
+			  		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return anzahlVideos;
+	}
+
 	/**
 	 * Stellt eine Verbindung zur Datenbank her
 	 */
 	private void connectToDb() {
-		String urlOfDatabaseFile="";
+		String urlOfDatabaseFile = "";
 		System.out.println("DatenbankController.java : " + DB_PATH);
-		try
-		{
+		try {
 			urlOfDatabaseFile = getClass().getResource(DB_PATH).toString();
-		}
-		catch (NullPointerException e)
-		{
-			System.err.println("Datenbank-Datei " + DB_PATH + " nicht gefunden!");
+		} catch (NullPointerException e) {
+			System.err.println("Datenbank-Datei " + DB_PATH
+					+ " nicht gefunden!");
 			e.printStackTrace();
 		}
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite::resource:" + urlOfDatabaseFile);
+			connection = DriverManager.getConnection("jdbc:sqlite::resource:"
+					+ urlOfDatabaseFile);
 		} catch (ClassNotFoundException e) {
 			System.err.println("Fehler beim Laden des JDBC-Treibers");
 			e.printStackTrace();
@@ -71,8 +85,6 @@ public class DatenbankController
 		connectToDb();
 		try {
 			Statement statement = connection.createStatement();
-			//statement.executeUpdate("DROP TABLE IF EXISTS videos;"); //TODO
-			// später entfernen!
 			statement
 					.executeUpdate("CREATE TABLE IF NOT EXISTS videos (id INT PRIMARY KEY, "
 							+ "name VARCHAR(50) NOT NULL,"
@@ -104,8 +116,8 @@ public class DatenbankController
 	 * @param elementgruppe
 	 *            = elementgruppe des Videos
 	 */
-	public void addVideo(int id, String name, String pfad,String geraet, String beschreibung,
-			String schwierigkeitsgrad, String elementgruppe) {
+	public void addVideo(int id, String name, String pfad, String geraet,
+			String beschreibung, String schwierigkeitsgrad, String elementgruppe) {
 
 		connectToDb();
 		PreparedStatement prepStatement;
@@ -141,69 +153,87 @@ public class DatenbankController
 	 * @throws SQLException
 	 */
 	public ResultSet getAllEntries() {
-	    return findDatasets("SELECT * FROM videos;");
+		return findDatasets("SELECT * FROM videos;");
 	}
+
 	/**
-	 * Liefert alle Eintraege aus der Datenbank, die dem uebergebenen geraet entsprechen
-	 * @param geraet 
+	 * Liefert alle Eintraege aus der Datenbank, die dem uebergebenen geraet
+	 * entsprechen
+	 * 
+	 * @param geraet
 	 * @return Passende Eintraege
 	 */
-	public ResultSet getAllByGeraet(String geraet){
-	    return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet + "'");
+	public ResultSet getAllByGeraet(String geraet) {
+		return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet
+				+ "'");
 	}
+
 	/**
-	 * Sucht alle Videos die den uebergebenen Teilstring enthalten.
-	 * Die Ergebnisse werden nach Geraet sortiert.
-	 * @param name Nach diesem Teilstring wird gesucht
+	 * Sucht alle Videos die den uebergebenen Teilstring enthalten. Die
+	 * Ergebnisse werden nach Geraet sortiert.
+	 * 
+	 * @param name
+	 *            Nach diesem Teilstring wird gesucht
 	 * @return Liste der gefunden Videos
 	 */
-	public ResultSet getAllByName(String name){
-        return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name + "%' ORDER BY geraet");
+	public ResultSet getAllByName(String name) {
+		return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name
+				+ "%' ORDER BY geraet");
 	}
+
 	/**
-	 * Liefert alle Eintraege aus der Datenbank die dem uergebenen Parametern entsprechen
+	 * Liefert alle Eintraege aus der Datenbank die dem uergebenen Parametern
+	 * entsprechen
+	 * 
 	 * @param geraet
 	 * @param schwierigkeitsgrad
 	 * @param elementgruppe
 	 * @return Passende Eintraege
 	 */
-    public ResultSet getAllByGeraetSchwierigkeitsgradElementgruppe(String geraet,
-            String schwierigkeitsgrad, String elementgruppe){
-        
-        return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet + "' AND schwierigkeitsgrad = '"
-                            + schwierigkeitsgrad + "' AND elementgruppe = '" + elementgruppe + "'");
-    }
-    
-    public ResultSet getAllByGeraetSchwierigkeitsgrad(String geraet, String schwierigkeitsgrad){
-        return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet + "' AND schwierigkeitsgrad = '"
-                            + schwierigkeitsgrad + "'");
-    }
-    public ResultSet getAllByGeraetElementgruppe(String geraet, String elementgruppe){
-        return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet + "'AND elementgruppe = '"
-                            + elementgruppe + "'");
-    }
-    /**
-     * Liefert alle Eintraege aus der Datenbank, die dem SQL-Statement entsprechen
-     * @param sql
-     * @return
-     */
-    private ResultSet  findDatasets(String sql){
-        ResultSet alleVideos = null;
-        connectToDb();
-        try
-        {
-            alleVideos = connection.createStatement().executeQuery(sql);
-        }
-        catch (SQLException e)
-        {
-            System.err.println("Fehler bei Datenbankabfrage!");
-            e.printStackTrace();
-        }
-        return alleVideos;
-    }
+	public ResultSet getAllByGeraetSchwierigkeitsgradElementgruppe(
+			String geraet, String schwierigkeitsgrad, String elementgruppe) {
+
+		return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet
+				+ "' AND schwierigkeitsgrad = '" + schwierigkeitsgrad
+				+ "' AND elementgruppe = '" + elementgruppe + "'");
+	}
+
+	public ResultSet getAllByGeraetSchwierigkeitsgrad(String geraet,
+			String schwierigkeitsgrad) {
+		return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet
+				+ "' AND schwierigkeitsgrad = '" + schwierigkeitsgrad + "'");
+	}
+
+	public ResultSet getAllByGeraetElementgruppe(String geraet,
+			String elementgruppe) {
+		return findDatasets("SELECT * FROM videos WHERE geraet = '" + geraet
+				+ "'AND elementgruppe = '" + elementgruppe + "'");
+	}
+
+	/**
+	 * Liefert alle Eintraege aus der Datenbank, die dem SQL-Statement
+	 * entsprechen
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	private ResultSet findDatasets(String sql) {
+		ResultSet alleVideos = null;
+		connectToDb();
+		try {
+			alleVideos = connection.createStatement().executeQuery(sql);
+		} catch (SQLException e) {
+			System.err.println("Fehler bei Datenbankabfrage!");
+			e.printStackTrace();
+		}
+		return alleVideos;
+	}
+
 	/**
 	 * Loescht ein Video aus der Datenbank
-	 * @param id Video mit dieser Id wird geloescht
+	 * 
+	 * @param id
+	 *            Video mit dieser Id wird geloescht
 	 */
 	public void deleteVideo(int id) {
 		PreparedStatement statement = null;
@@ -228,48 +258,59 @@ public class DatenbankController
 	 * @throws SQLException
 	 */
 	public ResultSet getEntry(int primaryKey) {
-		return findDatasets("SELECT * FROM videos WHERE id = '"+  primaryKey+"'");
+		return findDatasets("SELECT * FROM videos WHERE id = '" + primaryKey
+				+ "'");
 	}
 
 	/**
 	 * Liefert alle Eintraege zu einer Elementgruppe
+	 * 
 	 * @param elementgruppe
 	 * @return ResultSet
 	 */
-    public ResultSet getAllByElementgruppe(String elementgruppe)
-    {
-        return findDatasets("SELECT * FROM videos WHERE elementgruppe =" + elementgruppe);
-    }
-    /**
-     * Liefert alle Eintraege die mit Name, Geraet und Elementgruppe uebereinstimmen
-     * @param name
-     * @param geraet
-     * @param elementgruppe
-     * @return ResultSet
-     */
-    public ResultSet getAllByNameGeraetElementgruppe(String name, String geraet, String elementgruppe)
-    {
-        return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name + "%' AND geraet = '" + geraet + "' AND elementgruppe ='"+ elementgruppe + "'");
-    }
-    /**
-     * Liefert alle Eintraege die mit Name, Geraet uebereinstimmen
-     * @param name
-     * @param geraet
-     * @return ResultSet
-     */
-    public ResultSet getAllByNameGeraet(String name, String geraet)
-    {
-        return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name + "%' AND geraet = '" + geraet + "'");
-    }
-    /**
-     * Liefert alle Eintraege die mit Name, Elementgrupope uebereinstimmen
-     * @param name
-     * @param elementgruppe
-     * @return ResultSet
-     */
-    public ResultSet getAllByNameElementgruppe(String name, String elementgruppe)
-    {
-        return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name + "%' AND elementgruppe ='"+ elementgruppe + "'");
-    }
+	public ResultSet getAllByElementgruppe(String elementgruppe) {
+		return findDatasets("SELECT * FROM videos WHERE elementgruppe ="
+				+ elementgruppe);
+	}
+
+	/**
+	 * Liefert alle Eintraege die mit Name, Geraet und Elementgruppe
+	 * uebereinstimmen
+	 * 
+	 * @param name
+	 * @param geraet
+	 * @param elementgruppe
+	 * @return ResultSet
+	 */
+	public ResultSet getAllByNameGeraetElementgruppe(String name,
+			String geraet, String elementgruppe) {
+		return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name
+				+ "%' AND geraet = '" + geraet + "' AND elementgruppe ='"
+				+ elementgruppe + "'");
+	}
+
+	/**
+	 * Liefert alle Eintraege die mit Name, Geraet uebereinstimmen
+	 * 
+	 * @param name
+	 * @param geraet
+	 * @return ResultSet
+	 */
+	public ResultSet getAllByNameGeraet(String name, String geraet) {
+		return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name
+				+ "%' AND geraet = '" + geraet + "'");
+	}
+
+	/**
+	 * Liefert alle Eintraege die mit Name, Elementgrupope uebereinstimmen
+	 * 
+	 * @param name
+	 * @param elementgruppe
+	 * @return ResultSet
+	 */
+	public ResultSet getAllByNameElementgruppe(String name, String elementgruppe) {
+		return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name
+				+ "%' AND elementgruppe ='" + elementgruppe + "'");
+	}
 
 }
