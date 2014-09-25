@@ -399,6 +399,11 @@ public class MediaPlayer extends JPanel {
 		}
 	}
 
+	public EmbeddedMediaPlayer getMediaPlayer()
+	{
+		return embeddedMediaPlayer;
+	}
+
 	private void setPlayingState(boolean isPlaying)
 	{
 		this.isPlaying = isPlaying;

@@ -188,6 +188,7 @@ public class PlayerControlsPanel extends JPanel
 	private JButton playPauseButton;
 	private JToggleButton repeatButton;
 	private JButton fullScreenButton;
+	private JButton fasterButton, slowerButton, nextFrameButton;
 
 	private PlayIcon playIcon;
 	private PauseIcon pauseIcon;
@@ -252,6 +253,7 @@ public class PlayerControlsPanel extends JPanel
 		});
 		add(repeatButton);
 
+
 		/*
 		fullScreenButton = new JButton();
 		fullScreenButton.setIcon(fullScreenIcon);
@@ -266,7 +268,41 @@ public class PlayerControlsPanel extends JPanel
 		add(fullScreenButton);
 		*/
 
+		slowerButton=new JButton("Slower");
+		slowerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if ( mediaPlayer.getMediaPlayer().setRate(
+						mediaPlayer.getMediaPlayer().getRate()-0.1f
+						)
 
+						== -1) System.err.println("PlayerControlsPanel: Unable to decrease speed!");
+			}
+		});
+		add(slowerButton);
+
+		fasterButton=new JButton("Faster");
+		fasterButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if ( mediaPlayer.getMediaPlayer().setRate(
+						mediaPlayer.getMediaPlayer().getRate()+0.1f
+						)
+
+						== -1) System.err.println("PlayerControlsPanel: Unable to increase speed!");
+			}
+		});
+		add(fasterButton);
+
+
+		nextFrameButton=new JButton("Next frame");
+		nextFrameButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mediaPlayer.getMediaPlayer().nextFrame();
+			}
+		});
+		add(nextFrameButton);
 	}
 
 	public void setPlaying(boolean isPlaying)
