@@ -10,6 +10,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.JViewport;
 
 import src.main.listener.BackActionListener;
 import src.main.listener.ForwardActionListener;
@@ -152,6 +155,22 @@ public class Kampfrichterlehrgang extends JFrame {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		// Scrollgeschwindigkeit erhoehen
 		scrollPane.getVerticalScrollBar().setUnitIncrement(15);
+
+		// http://www.oracle.com/technetwork/articles/java/mixing-components-433992.html
+		scrollPane.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
+		/*
+		final CenterPanel cp=newCenterPanel;
+		scrollPane.getViewport().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e){
+				System.out.println("Scrolled");
+				cp.revalidate();
+				cp.repaint();
+			}
+		});
+		*/
+
+
 		Controller.setScrollPane(scrollPane);
 		this.getContentPane().add(scrollPane, BorderLayout.CENTER);
 		Controller.setCurrentCenterPanel(newCenterPanel);

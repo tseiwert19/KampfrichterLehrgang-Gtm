@@ -110,94 +110,101 @@ public class MediaPlayer extends JPanel {
 		if ( invalidFilename || ! ( mediaFile.isFile() && mediaFile.canRead() ) )
 		{
 			presentErrorMessage(wrongFileNameErrorMessage);
+			return;
 		}
-		else
-		{
-			this.mediaPath = mediaURL;
-
-			this.isPlaying = false;
-
-			// http://stackoverflow.com/questions/9650874/java-swing-obtain-window-jframe-from-inside-a-jpanel
-			topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-			setLayout(new BorderLayout());
-
-			loadVLCLibraries();
 
 
-			controlsPanel = new PlayerControlsPanel(this);
 
-			add(controlsPanel, BorderLayout.PAGE_END);
+		this.mediaPath = mediaURL;
 
-			mediaPlayerFactory = new MediaPlayerFactory();
-			canvas = new Canvas();
-			canvas.setBackground(Color.black);
-			canvas.setMinimumSize(new Dimension(176,144));
-			canvas.setPreferredSize(new Dimension(768,576));
+		this.isPlaying = false;
 
-			mediaPlayerEventAdapter=new MediaPlayerEventAdapter() {
-				@Override
-				public void finished(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
-					System.out.println("MediaPlayer: event: finished");
-					printPlayState();
-					controlsPanel.setPlaying(false);
-				}
+		// http://stackoverflow.com/questions/9650874/java-swing-obtain-window-jframe-from-inside-a-jpanel
+		topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+		setLayout(new BorderLayout());
 
-				@Override
-				public void stopped(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
-					System.out.println("MediaPlayer: event: stopped");
-					printPlayState();
-					controlsPanel.setPlaying(false);
-				}
-
-				@Override
-				public void paused(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
-					System.out.println("MediaPlayer: event: paused");
-					printPlayState();
-					controlsPanel.setPlaying(false);
-				}
-
-				@Override
-				public void playing(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
-					System.out.println("MediaPlayer: event: playing");
-					controlsPanel.setPlaying(true);
-				}
-
-				@Override
-				public void error(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
-					System.out.println("MediaPlayer: event: error");
-					controlsPanel.setPlaying(false);
-				}
-			};
+		loadVLCLibraries();
 
 
-			// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
-			addHierarchyListener(new HierarchyListener() {
+		controlsPanel = new PlayerControlsPanel(this);
+		add(controlsPanel, BorderLayout.PAGE_END);
 
-				@Override
-				public void hierarchyChanged(HierarchyEvent e) {
-					//System.out.println("Components Change: " + e.getChanged());
-					if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
-						if (e.getComponent().isDisplayable()) {
-							embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
-							embeddedMediaPlayer.addMediaPlayerEventListener(mediaPlayerEventAdapter);
-							embeddedMediaPlayer.setVideoSurface(
-									mediaPlayerFactory.newVideoSurface(canvas)
-									);
-							embeddedMediaPlayer.setRepeat(true);
-							controlsPanel.setRepeat(embeddedMediaPlayer.getRepeat());
-							MediaPlayer.this.add(canvas, BorderLayout.CENTER);
-							MediaPlayer.this.revalidate();
-							MediaPlayer.this.run();
-							System.out.println("MediaPlayer: Is displayable!");
-						} else {
-							System.out.println("MediaPlayer: Is not displayable!");
-							MediaPlayer.this.remove(canvas);
-							embeddedMediaPlayer.release();
-						}
+
+		mediaPlayerFactory = new MediaPlayerFactory();
+		canvas = new Canvas();
+		canvas.setBackground(Color.black);
+		canvas.setMinimumSize(new Dimension(176,144));
+		canvas.setPreferredSize(new Dimension(768,576));
+
+		mediaPlayerEventAdapter=new MediaPlayerEventAdapter() {
+			@Override
+			public void finished(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+				System.out.println("MediaPlayer: event: finished");
+				printPlayState();
+				controlsPanel.setPlaying(false);
+			}
+
+			@Override
+			public void stopped(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+				System.out.println("MediaPlayer: event: stopped");
+				printPlayState();
+				controlsPanel.setPlaying(false);
+			}
+
+			@Override
+			public void paused(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+				System.out.println("MediaPlayer: event: paused");
+				printPlayState();
+				controlsPanel.setPlaying(false);
+			}
+
+			@Override
+			public void playing(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+				System.out.println("MediaPlayer: event: playing");
+				controlsPanel.setPlaying(true);
+			}
+
+			@Override
+			public void error(uk.co.caprica.vlcj.player.MediaPlayer mediaPlayer) {
+				System.out.println("MediaPlayer: event: error");
+				controlsPanel.setPlaying(false);
+			}
+		};
+
+
+		// http://stackoverflow.com/questions/10051176/listening-handling-jpanel-events
+		addHierarchyListener(new HierarchyListener() {
+
+			@Override
+			public void hierarchyChanged(HierarchyEvent e) {
+					/*
+				if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0) {
+					if (e.getComponent().isDisplayable()) {
+					*/
+				if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+					System.out.println("MediaPlayer: SHOWING_CHANGED!");
+					if (e.getComponent().isShowing()) {
+						embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
+						embeddedMediaPlayer.addMediaPlayerEventListener(mediaPlayerEventAdapter);
+						embeddedMediaPlayer.setVideoSurface(
+								mediaPlayerFactory.newVideoSurface(canvas)
+								);
+						embeddedMediaPlayer.setRepeat(true);
+						controlsPanel.setRepeat(embeddedMediaPlayer.getRepeat());
+
+						MediaPlayer.this.add(canvas, BorderLayout.CENTER);
+						MediaPlayer.this.revalidate();
+						MediaPlayer.this.repaint();
+						MediaPlayer.this.run();
+						System.out.println("MediaPlayer: Is showing!");
+					} else {
+						System.out.println("MediaPlayer: Is not showing!");
+						embeddedMediaPlayer.release();
+						MediaPlayer.this.remove(canvas);
 					}
 				}
-			});
-		}
+			}
+		});
 	}
 
 
@@ -398,7 +405,7 @@ public class MediaPlayer extends JPanel {
 		controlsPanel.setPlaying(isPlaying);
 	}
 
-	public void run() {
+	private void run() {
 		if (!embeddedMediaPlayer.playMedia(mediaPath))
 		{
 			System.err.println("MediaPlayer: error occured while trying to play media " + mediaPath);

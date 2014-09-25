@@ -260,7 +260,6 @@ public class TestModePanel extends CenterPanel {
 			mediaPlayer = new MediaPlayer(video.getPfad());
 			mediaPanel.add(mediaPlayer);
 			mediaPanel.setVisible(true);
-			// mediaPlayer.run();
 			antwortPanel.removeAll();
 			createAntwortPanel(video);
 			aktuellesVideo++;
@@ -309,6 +308,9 @@ public class TestModePanel extends CenterPanel {
 		mediaPanel.setVisible(false);
 		antwortPanel.setVisible(false);
 		ergebnisPanel.setVisible(false);
+		//remove(mediaPanel);
+		//remove(antwortPanel);
+		//remove(ergebnisPanel);
 		endeErgebnis.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		endeErgebnis.setVerticalAlignment(JLabel.CENTER);
 		endeErgebnis.setHorizontalAlignment(JLabel.CENTER);

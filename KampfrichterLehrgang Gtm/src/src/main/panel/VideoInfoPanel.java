@@ -1,22 +1,19 @@
 package src.main.panel;
 
-import src.main.*;
-import src.main.videoplayer.*;
+import src.main.videoplayer.MediaPlayer;
+import src.main.videoplayer.Video;
+import src.main.Controller;
 
-import java.lang.*;
-import java.util.*;
-import java.net.URL;
-import java.net.URISyntaxException;
-import java.io.File;
-
-import java.awt.*;
 import java.awt.Font;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Insets;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
 
-import java.awt.event.ContainerAdapter;
-import java.awt.event.HierarchyListener;
-import java.awt.event.ContainerEvent;
-import java.awt.event.HierarchyEvent;
 
 public class VideoInfoPanel extends CenterPanel {
 	private MediaPlayer mediaPlayer;
@@ -106,9 +103,6 @@ public class VideoInfoPanel extends CenterPanel {
 		jScrollPane.setVisible(true);
 	}
 
-	public void run() {
-		mediaPlayer.run();
-	}
 
 
 
@@ -127,6 +121,5 @@ public class VideoInfoPanel extends CenterPanel {
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
-		videoInfoPanel.run();
 	}
 }
