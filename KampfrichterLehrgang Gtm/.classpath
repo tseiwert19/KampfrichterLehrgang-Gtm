@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="C:/Users/Thomas/Downloads/sqlite-jdbc-3.7.15-M1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/git/KampfrichterLehrgang-Gtm/KampfrichterLehrgang Gtm/src/src/main/libs/platform-3.5.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thomas/git/KampfrichterLehrgang-Gtm/KampfrichterLehrgang Gtm/src/src/main/libs/vlcj-3.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Thomas/Downloads/jna-4.1.0 (1).jar"/>
 	<classpathentry kind="lib" path="src/src/main/libs"/>
+	<classpathentry kind="lib" path="C:/Users/Thomas/Downloads/jna-4.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

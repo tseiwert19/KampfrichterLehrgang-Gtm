@@ -29,6 +29,7 @@ public class Controller
     private static NavigationPanel navpan;
     private static SearchResultPanel searchResultPanel;
     private static TestModePanel testPanel;
+    private static VideoAddPanel videoAddPanel;
 
     private static CenterPanel currentCenterPanel;
 
@@ -152,6 +153,17 @@ public class Controller
         searchResultPanel = s;
     }
 
+    
+    public static VideoAddPanel getVideoAddPanel()
+    {
+        return videoAddPanel;
+    }
+
+    public static void setVideoAddPanel(VideoAddPanel p)
+    {
+        videoAddPanel = p;
+    }
+    
     public static SearchResultPanel getSearchResultPanel()
     {
         return searchResultPanel;

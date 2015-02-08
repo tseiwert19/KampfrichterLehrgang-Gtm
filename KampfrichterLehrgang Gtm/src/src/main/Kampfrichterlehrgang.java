@@ -23,6 +23,7 @@ import src.main.panel.NavigationPanel;
 import src.main.panel.ResultPanel;
 import src.main.panel.SearchResultPanel;
 import src.main.panel.TestModePanel;
+import src.main.panel.VideoAddPanel;
 import src.main.panel.VideoInfoPanel;
 import src.main.panel.WelcomePanel;
 import src.main.videoplayer.Video;
@@ -42,6 +43,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	private WelcomePanel welcomePanel;
 	private ResultPanel resultPanel;
 	private SearchResultPanel searchResultPanel;
+	private VideoAddPanel videoAddPanel;
 
 	private WelcomeActionListener welcomeActionListener;
 	private BackActionListener backActionListener;
@@ -118,6 +120,19 @@ public class Kampfrichterlehrgang extends JFrame {
 	}
 
 	/**
+	 * Wechselt zu einem VideoAddPanel (Fuer Video hinzufuegen)
+	 * 
+	 * @param search
+	 *            Suchwort
+	 */
+	public void changeToVideoAddPanel() {
+		System.out.println("Start creating VideoAddPanel: ");
+		videoAddPanel = new VideoAddPanel();
+		Controller.setVideoAddPanel(videoAddPanel);
+		changeCenterPanelForward(videoAddPanel);
+	}
+
+	/**
 	 * Wechselt zu einem VideoInfoPanel
 	 */
 	public void changeToVideoInfoPanel(int id) {
@@ -160,16 +175,11 @@ public class Kampfrichterlehrgang extends JFrame {
 		scrollPane.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
 
 		/*
-		final CenterPanel cp=newCenterPanel;
-		scrollPane.getViewport().addChangeListener(new ChangeListener(){
-			public void stateChanged(ChangeEvent e){
-				System.out.println("Scrolled");
-				cp.revalidate();
-				cp.repaint();
-			}
-		});
-		*/
-
+		 * final CenterPanel cp=newCenterPanel;
+		 * scrollPane.getViewport().addChangeListener(new ChangeListener(){
+		 * public void stateChanged(ChangeEvent e){
+		 * System.out.println("Scrolled"); cp.revalidate(); cp.repaint(); } });
+		 */
 
 		Controller.setScrollPane(scrollPane);
 		this.getContentPane().add(scrollPane, BorderLayout.CENTER);

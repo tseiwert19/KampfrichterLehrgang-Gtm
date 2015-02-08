@@ -17,6 +17,7 @@ import src.main.Controller;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.HomeActionListener;
+import src.main.listener.VideoAddActionListener;
 import src.main.listener.NavigationButtonMouseListener;
 import src.main.listener.SearchActionListener;
 import src.main.listener.TestModeButtonActionListener;
@@ -44,6 +45,8 @@ public class NavigationPanel extends JPanel {
         private KariButton homeButton;
         private KariButton testModeButton;
         private KariButton fwButton;
+        private KariButton videoAddButton;
+
 
 	public NavigationPanel() {
 			    
@@ -64,7 +67,7 @@ public class NavigationPanel extends JPanel {
 			backButton.setPreferredSize(new Dimension(60,60));
 			backButton.setActionCommand("back");
 			backButton.addMouseListener(mouseListener);
-                        backButton.setVisible(false);
+            backButton.setVisible(false);
 			
 			BufferedImage home = ImageIO.read(getClass().getResource(HOME_LOGO));
 			homeButton = new KariButton();
@@ -76,6 +79,20 @@ public class NavigationPanel extends JPanel {
 			homeButton.setOpaque(false);
 			homeButton.setActionCommand("home");
 			homeButton.addMouseListener(mouseListener);
+//			
+			videoAddButton = new KariButton();
+			videoAddButton.setText("videos einfügen");
+			Color myRot = Color.decode("#b92d2e");
+			videoAddButton.setBackground(myRot);
+			videoAddButton.setForeground(Color.black);
+			videoAddButton.addActionListener(new VideoAddActionListener());
+			videoAddButton.setPreferredSize(new Dimension(60, 60));
+			videoAddButton.setFocusPainted(false);
+			videoAddButton.setBorder(BorderFactory.createEmptyBorder());
+			videoAddButton.setOpaque(false);
+			videoAddButton.setActionCommand("videoAdd");
+			videoAddButton.addMouseListener(mouseListener);
+			videoAddButton.setVisible(true);
 			
 			BufferedImage testMode = ImageIO.read(getClass().getResource(TESTMODE_LOGO));
 			testModeButton = new KariButton();
@@ -111,7 +128,8 @@ public class NavigationPanel extends JPanel {
             rightButtonPanel.setLayout(new FlowLayout());
             rightButtonPanel.add(testModeButton);
             rightButtonPanel.add(fwButton);
-            
+            rightButtonPanel.add(videoAddButton);
+
 			add(leftButtonPanel, BorderLayout.WEST);
 			add(rightButtonPanel, BorderLayout.EAST);
 
