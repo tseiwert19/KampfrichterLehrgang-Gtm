@@ -60,7 +60,7 @@ public class VideoAddPanel extends CenterPanel {
 
 		final JLabel videoAusgewaehlt = new JLabel("Ausgewähltes Video: "
 				+ ausgewaehltesVideo);
-		KariButton button = new KariButton("Neues Video hinzufügen");
+		KariButton button = new KariButton("Neues Video auswählen");
 		button.setBackground(myRot);
 		button.setForeground(Color.WHITE);
 	
