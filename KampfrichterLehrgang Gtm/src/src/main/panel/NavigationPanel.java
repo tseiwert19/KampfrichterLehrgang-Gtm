@@ -38,6 +38,7 @@ public class NavigationPanel extends JPanel {
 	private static final String VORWAERTS_LOGO = "/img/Logo/vor_button.png";
 	private static final String HOME_LOGO = "/img/Logo/home_button.png";
 	private static final String TESTMODE_LOGO = "/img/Logo/testModebutton.png";
+	private static final String NEW_VIDEO_LOGO = "/img/Logo/newVideo.png";
 	
 	private SucheTextfeld sucheFeld;
 
@@ -80,11 +81,9 @@ public class NavigationPanel extends JPanel {
 			homeButton.setActionCommand("home");
 			homeButton.addMouseListener(mouseListener);
 //			
+			BufferedImage addImage = ImageIO.read(getClass().getResource(NEW_VIDEO_LOGO));
 			videoAddButton = new KariButton();
-			videoAddButton.setText("videos einfügen");
-			Color myRot = Color.decode("#b92d2e");
-			videoAddButton.setBackground(myRot);
-			videoAddButton.setForeground(Color.black);
+			videoAddButton.setIcon(new ImageIcon(addImage));
 			videoAddButton.addActionListener(new VideoAddActionListener());
 			videoAddButton.setPreferredSize(new Dimension(60, 60));
 			videoAddButton.setFocusPainted(false);
