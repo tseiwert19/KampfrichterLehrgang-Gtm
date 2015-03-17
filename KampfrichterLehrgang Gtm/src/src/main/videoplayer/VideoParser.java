@@ -40,6 +40,15 @@ public class VideoParser
         return parseVideos(ergebnis);
     }
     /**
+     * Mappt alle Datensaetze aus der Datenbank, die mit i uebereinstimmen, auf Video-Objekte
+     * @param i = Ampelfarbe (0=grün, 1=gelb, 2=rot)
+     * @return Liste mit Videos
+     */
+    public ArrayList<Video> mappeVideosVonAmpel(int i){
+    	ResultSet ergebnis = dbController.getAllByAmpel(i);
+    	return parseVideos(ergebnis);
+    }
+    /**
      * Mappt alle Datensaetze aus der Datenbank, die mit geraet, schwierigkeitsgrad und elementgruppe uebereinstimmen, auf Video-Objekte
      * @param geraet
      * @param schwierigkeitsgrad
