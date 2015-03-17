@@ -30,6 +30,7 @@ public class Controller
     private static SearchResultPanel searchResultPanel;
     private static TestModePanel testPanel;
     private static VideoAddPanel videoAddPanel;
+    private static TranslationOverview translationOverview;
 
     private static CenterPanel currentCenterPanel;
 
@@ -44,6 +45,7 @@ public class Controller
 
     private static KariButton kari;
     private static SucheTextfeld textfeld;
+    
 
     private static JScrollPane scrollPane;
 
@@ -217,4 +219,22 @@ public class Controller
 		testPanel = panel;
 		
 	}
+
+	public static TranslationOverview getTranslationOverview() {
+		return translationOverview;
+	}
+
+	public static void setTranslationOverview(
+			TranslationOverview translationOverview) {
+		Controller.translationOverview = translationOverview;
+	}
+
+	public static VideoParser getVidparser() {
+		return vidparser;
+	}
+
+	public static void setVidparser(VideoParser vidparser) {
+		Controller.vidparser = vidparser;
+	}
+	
 }
