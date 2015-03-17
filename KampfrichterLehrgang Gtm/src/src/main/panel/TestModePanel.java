@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -492,9 +493,9 @@ public class TestModePanel extends CenterPanel {
 
 		JScrollPane scroll = new JScrollPane(ergebnisTabelle);
 		ergebnisTabelle.getColumnModel().getColumn(3)
-				.setCellRenderer(new ButtonRenderer());
+				.setCellRenderer(new ButtonRenderer("Video anschauen"));
 		ergebnisTabelle.getColumnModel().getColumn(3)
-				.setCellEditor(new ButtonEditor(new JCheckBox()));
+				.setCellEditor(new ButtonEditor(new JCheckBox(), "Video anschauen", new VideoButtonActionListener()));
 		scroll.setPreferredSize(new Dimension(800, 330));
 		tabellePanel.add(scroll);
 	}
@@ -513,7 +514,7 @@ public class TestModePanel extends CenterPanel {
 		int size = model.getColumnCount();
 
 		// einen neuen Vector mit Daten herstellen
-		Vector vector = new Vector(size);
+		Vector<Object> vector = new Vector<Object>(size);
 		vector.add(antwort);
 		vector.add(loesung);
 		if (richtig) {
@@ -570,13 +571,19 @@ class ImageRenderer extends DefaultTableCellRenderer {
 class ButtonRenderer extends JButton implements TableCellRenderer {
 
 	private static final long serialVersionUID = 90599820059818649L;
+	private String buttonTxt;
+	
+	public ButtonRenderer(String buttonTxt){
+		super();
+		this.buttonTxt = buttonTxt;
+	}
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
 		setForeground(Color.WHITE);
 		setBackground(Color.decode("#b92d2e"));
-		setText("Video anschauen");
+		setText(buttonTxt);
 		return this;
 	}
 }
@@ -592,11 +599,13 @@ class ButtonEditor extends DefaultCellEditor {
 	protected KariButton button;
 	private String label;
 	private boolean isPushed;
+	private String buttonTxt;
 
-	public ButtonEditor(JCheckBox checkBox) {
+	public ButtonEditor(JCheckBox checkBox, String buttonTxt, ActionListener listener) {
 		super(checkBox);
 		button = new KariButton();
-		button.addActionListener(new VideoButtonActionListener());
+		button.addActionListener(listener);
+		this.buttonTxt = buttonTxt;
 
 	}
 
@@ -607,8 +616,12 @@ class ButtonEditor extends DefaultCellEditor {
 		button.setForeground(Color.WHITE);
 		button.setBackground(Color.decode("#b92d2e"));
 
-		button.setText("Video anschauen");
-		button.setName(value.toString());
+		button.setText(buttonTxt);
+		if(value != null){
+			button.setName(value.toString());
+		}else{
+			button.setName(String.valueOf(row));
+		}
 		isPushed = true;
 		return button;
 	}
