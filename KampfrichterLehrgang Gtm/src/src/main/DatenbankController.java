@@ -1,13 +1,14 @@
 package src.main;
 
 import java.lang.NullPointerException;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import src.main.videoplayer.Video;
 
 /**
  * Diese Klasse enthaelt alle Funktionen fuer die Datenbank
@@ -155,7 +156,14 @@ public class DatenbankController
 	public ResultSet getAllEntries() {
 		return findDatasets("SELECT * FROM videos;");
 	}
-
+	/**
+	 * Liefert alle Eintraege einer Ampelfarbe
+	 * @param i 0=grün, 1 = gelb, 2 = rot
+	 * @return Videos
+	 */
+	public ResultSet getAllByAmpel(int i){
+		return findDatasets("SELECT * FROM videos WHERE ampel = " + i);
+	}
 	/**
 	 * Liefert alle Eintraege aus der Datenbank, die dem uebergebenen geraet
 	 * entsprechen
@@ -311,6 +319,29 @@ public class DatenbankController
 	public ResultSet getAllByNameElementgruppe(String name, String elementgruppe) {
 		return findDatasets("SELECT * FROM videos WHERE name LIKE '%" + name
 				+ "%' AND elementgruppe ='" + elementgruppe + "'");
+	}
+	/**
+	 * Aktualisiert einen Datensatz (AKTUALISIERT NUR NAME + AMPEL!!!!)
+	 * @param video
+	 */
+	public void updateEntry(Video video){
+		String sql ="UPDATE videos SET name = '" + video.getName() + "', ampel = " + video.getAmpel() + " WHERE id = '" + video.getId() + "'";
+		connectToDb();
+		try {
+			Statement statement = connection.createStatement();
+
+			connection.setAutoCommit(false);
+			statement.executeUpdate(sql);
+			connection.commit();
+
+
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Fehler beim Einfügen in die Datenbank!");
+			e.printStackTrace();
+		}
+		
 	}
 
 }
