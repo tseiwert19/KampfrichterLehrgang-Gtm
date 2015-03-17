@@ -21,6 +21,7 @@ public class Video {
 	private String beschreibung;
 	private String schwierigkeitsgrad;
 	private String elementgruppe;
+	private int ampel;
 
 	private static final String videoLocationPrefix="/";
 	
@@ -37,6 +38,18 @@ public class Video {
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAmpel() {
+		return ampel;
+	}
+
+	public void setAmpel(int ampel) {
+		this.ampel = ampel;
 	}
 
 	public String getName() {
