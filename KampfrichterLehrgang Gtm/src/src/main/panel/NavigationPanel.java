@@ -17,6 +17,7 @@ import src.main.Controller;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.HomeActionListener;
+import src.main.listener.TranslationActionListener;
 import src.main.listener.VideoAddActionListener;
 import src.main.listener.NavigationButtonMouseListener;
 import src.main.listener.SearchActionListener;
@@ -39,6 +40,7 @@ public class NavigationPanel extends JPanel {
 	private static final String HOME_LOGO = "/img/Logo/home_button.png";
 	private static final String TESTMODE_LOGO = "/img/Logo/testModebutton.png";
 	private static final String NEW_VIDEO_LOGO = "/img/Logo/newVideo.png";
+	private static final String TRANSLATION_LOGO ="/img/Logo/translation.png";
 	
 	private SucheTextfeld sucheFeld;
 
@@ -47,6 +49,7 @@ public class NavigationPanel extends JPanel {
         private KariButton testModeButton;
         private KariButton fwButton;
         private KariButton videoAddButton;
+        private KariButton translationButton;
 
 
 	public NavigationPanel() {
@@ -93,6 +96,18 @@ public class NavigationPanel extends JPanel {
 			videoAddButton.addMouseListener(mouseListener);
 			videoAddButton.setVisible(true);
 			
+			BufferedImage translationImage = ImageIO.read(getClass().getResource(TRANSLATION_LOGO));
+			translationButton = new KariButton();
+			translationButton.setIcon(new ImageIcon(translationImage));
+			translationButton.addActionListener(new TranslationActionListener());
+			translationButton.setPreferredSize(new Dimension(60, 60));
+			translationButton.setFocusPainted(false);
+			translationButton.setBorder(BorderFactory.createEmptyBorder());
+			translationButton.setOpaque(false);
+			translationButton.setActionCommand("translation");
+			translationButton.addMouseListener(mouseListener);
+			translationButton.setVisible(true);
+			
 			BufferedImage testMode = ImageIO.read(getClass().getResource(TESTMODE_LOGO));
 			testModeButton = new KariButton();
 			testModeButton.addActionListener(new TestModeButtonActionListener());
@@ -125,9 +140,12 @@ public class NavigationPanel extends JPanel {
             JPanel rightButtonPanel = new JPanel();
             rightButtonPanel.setBackground(Color.WHITE);
             rightButtonPanel.setLayout(new FlowLayout());
+            rightButtonPanel.add(videoAddButton);
+            rightButtonPanel.add(translationButton);
             rightButtonPanel.add(testModeButton);
             rightButtonPanel.add(fwButton);
-            rightButtonPanel.add(videoAddButton);
+
+
 
 			add(leftButtonPanel, BorderLayout.WEST);
 			add(rightButtonPanel, BorderLayout.EAST);
