@@ -20,7 +20,7 @@ import src.main.listener.TranslationButtonActionListener;
 import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
-public class TranslationOverview extends JPanel {
+public class TranslationOverview extends CenterPanel {
 	/**
 	 * 
 	 */
@@ -47,11 +47,12 @@ public class TranslationOverview extends JPanel {
 		tabellePanel = erstelleEinPanel(null, null, null, null);
 
 		JScrollPane scroll = new JScrollPane(ergebnisTabelle);
+		ergebnisTabelle.getColumnModel().getColumn(0).setMaxWidth(30);
 		ergebnisTabelle.getColumnModel().getColumn(3)
 				.setCellRenderer(new ButtonRenderer("Neue Übersetzung übernehmen"));
 		ergebnisTabelle.getColumnModel().getColumn(3)
 				.setCellEditor(new ButtonEditor(new JCheckBox(), "Neue Übersetzung übernehmen", new TranslationButtonActionListener()));
-		scroll.setPreferredSize(new Dimension(800, 500));
+		scroll.setPreferredSize(new Dimension(1000, 700));
 		tabellePanel.add(scroll);
 		fuelleTabelle();
 		add(tabellePanel);
