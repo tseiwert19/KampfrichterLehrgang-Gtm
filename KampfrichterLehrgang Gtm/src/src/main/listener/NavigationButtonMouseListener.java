@@ -36,6 +36,12 @@ public class NavigationButtonMouseListener implements MouseListener {
 		case "testMode":
 			button.setToolTipText("Testmodus starten");
 			break;
+		case "videoAdd":
+			button.setToolTipText("Neues Video einfügen");
+			break;
+		case "translation":
+			button.setToolTipText("Übersetzungen bearbeiten");
+			break;
 		}
 
 	}
