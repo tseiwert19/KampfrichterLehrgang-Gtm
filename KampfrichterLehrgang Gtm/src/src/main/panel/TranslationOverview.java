@@ -25,6 +25,9 @@ public class TranslationOverview extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 2879746137707156229L;
+	private static final short GREEN = 0;
+	private static final short YELLOW= 1;
+	private static final short RED = 1;
 	private JTable ergebnisTabelle;
 	private JPanel tabellePanel;
 	private DefaultTableModel model;
@@ -74,7 +77,7 @@ public class TranslationOverview extends JPanel {
 	}
 	private void fuelleTabelle(){
 		VideoParser parser = new VideoParser();
-		ArrayList<Video> videos = parser.mappeVideosVonAmpel(0);
+		ArrayList<Video> videos = parser.mappeVideosVonAmpel(YELLOW);
 		for(Video current : videos){
 			addTabelleZeile(current.getName(), current);
 		}
