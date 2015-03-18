@@ -23,6 +23,7 @@ import src.main.panel.NavigationPanel;
 import src.main.panel.ResultPanel;
 import src.main.panel.SearchResultPanel;
 import src.main.panel.TestModePanel;
+import src.main.panel.TranslationOverview;
 import src.main.panel.VideoAddPanel;
 import src.main.panel.VideoInfoPanel;
 import src.main.panel.WelcomePanel;
@@ -44,6 +45,7 @@ public class Kampfrichterlehrgang extends JFrame {
 	private ResultPanel resultPanel;
 	private SearchResultPanel searchResultPanel;
 	private VideoAddPanel videoAddPanel;
+	private TranslationOverview translationPanel;
 
 	private WelcomeActionListener welcomeActionListener;
 	private BackActionListener backActionListener;
@@ -143,6 +145,14 @@ public class Kampfrichterlehrgang extends JFrame {
 		Controller.setVideoInfoPanel(videoInfoPanel);
 		changeCenterPanelForward(videoInfoPanel);
 		// videoInfoPanel.run();
+	}
+	/**
+	 * Wechselt zum Übersetzungs-Panel (TranslationOverview)
+	 */
+	public void changeToTranslationPanel() {
+		translationPanel = new TranslationOverview();
+		Controller.setTranslationOverview(translationPanel);
+		changeCenterPanelForward(translationPanel);	
 	}
 
 	/**
@@ -292,5 +302,7 @@ public class Kampfrichterlehrgang extends JFrame {
 		@SuppressWarnings("unused")
 		Kampfrichterlehrgang k = new Kampfrichterlehrgang();
 	}
+
+	
 
 }
