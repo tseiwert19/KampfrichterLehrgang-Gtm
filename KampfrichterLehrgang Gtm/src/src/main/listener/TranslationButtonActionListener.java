@@ -23,8 +23,8 @@ public class TranslationButtonActionListener implements ActionListener{
 		JTable table = panel.getTabelle();
 		String translation = (String) table.getModel().getValueAt(row, TRANSLATION_COLUMN);
 		int id = (int) table.getModel().getValueAt(row, VIDEO_ID_COLUMN);
-		DatenbankController dbController = Controller.getDatenbankcontroller();
-		VideoParser parser = Controller.getVidparser();
+		DatenbankController dbController = new DatenbankController();
+		VideoParser parser = new VideoParser();
 		Video video = parser.mappeEinVideo(id);
 		video.setAmpel(0);
 		video.setName(translation);
