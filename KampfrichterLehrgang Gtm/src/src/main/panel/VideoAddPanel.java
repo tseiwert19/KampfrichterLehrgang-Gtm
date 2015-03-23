@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JFileChooser;
 import javax.swing.border.EmptyBorder;
 
+import src.main.Connection;
 import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
@@ -33,11 +34,17 @@ public class VideoAddPanel extends CenterPanel {
 			"Schwierigkeitsgrad auswählen", "A", "B", "C", "D", "E", "F" };
 	private static final String[] ELEMENTGRUPPEN = {
 			"Elementgruppen auswählen", "I", "II", "III", "IV", "V" };
+	private static final String[] GERAETE = {
+		"Gerät auswählen", "Boden", "Pauschenpferd", "Ringe", "Sprung", "Barren", "Reck" };
+	
 
 	private static String ausgewaehltesVideo = "";
+	
+	private static File selectedFile;
 
 	RoundCorneredComboBox schwierigkeitsgradCb = null;
 	RoundCorneredComboBox elementgruppeCb = null;
+	RoundCorneredComboBox geraeteCb = null;
 
 	public VideoAddPanel() {
 		Dimension maximumSize = new Dimension(700, 100);
@@ -69,7 +76,7 @@ public class VideoAddPanel extends CenterPanel {
 				JFileChooser fileChooser = new JFileChooser();
 				int returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = fileChooser.getSelectedFile();
+					selectedFile = fileChooser.getSelectedFile();
 					ausgewaehltesVideo = selectedFile.getName();
 					videoAusgewaehlt.setText("Ausgewähltes Video: "
 							+ ausgewaehltesVideo);
@@ -78,6 +85,7 @@ public class VideoAddPanel extends CenterPanel {
 		});
 		createComboBoxes();
 		final JTextField videonameEingabe = new JTextField("Videoname eingeben...", 50);
+		final JTextField beschreibungEingabe = new JTextField("Beschreibung angeben...", 50);
 		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(Color.WHITE);
 
@@ -87,9 +95,11 @@ public class VideoAddPanel extends CenterPanel {
 		compPanel.add(button);
 		compPanel.add(videoAusgewaehlt);
 		compPanel.add(videonameEingabe);
+		compPanel.add(beschreibungEingabe);
 		compPanel.setBackground(Color.WHITE);
 		compPanel.add(elementgruppeCb);
 		compPanel.add(schwierigkeitsgradCb);
+		compPanel.add(geraeteCb);
 
 		centerPanel.add(compPanel);
 
@@ -122,6 +132,7 @@ public class VideoAddPanel extends CenterPanel {
 			}
 		});
 		compPanel.add(speichernButton);
+		Connection.sendVideoToServer(videonameEingabe.getText(), 1, geraeteCb.getSelectedItem().toString() , beschreibungEingabe.getText(), schwierigkeitsgradCb.getSelectedItem().toString(), elementgruppeCb.getSelectedItem().toString(), selectedFile, "deutsch");
 	}
 	
 	 /**
@@ -130,15 +141,18 @@ public class VideoAddPanel extends CenterPanel {
     private void createComboBoxes()
     {
      schwierigkeitsgradCb = new RoundCorneredComboBox(SCHWIERIGKEITSGRADE);
-    elementgruppeCb = new RoundCorneredComboBox(ELEMENTGRUPPEN);
+     elementgruppeCb = new RoundCorneredComboBox(ELEMENTGRUPPEN);
+     geraeteCb = new RoundCorneredComboBox(GERAETE);
 
         schwierigkeitsgradCb.setName("Schwierigkeitsgrad");
         elementgruppeCb.setName("Elementgruppe");
+        geraeteCb.setName("Geräte");
 
         ComboBoxActionListener actionListener = new ComboBoxActionListener();
         ItemChangeListener itemListener = new ItemChangeListener();
 
         schwierigkeitsgradCb.addItemListener(itemListener);
         elementgruppeCb.addItemListener(itemListener);
+        geraeteCb.addItemListener(itemListener);
     }
 }
