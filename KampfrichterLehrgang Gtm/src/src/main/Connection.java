@@ -31,7 +31,7 @@ public class Connection {
     public static List<Video> findVideo(String suchname){
     	try {
     		IServer iserver = (IServer)Naming.lookup("Server");
-    		iserver.findVideo(suchname);
+    		iserver.findVideo(suchname, true);
     	}catch(Exception ex) {
     		ex.printStackTrace();
     	}
