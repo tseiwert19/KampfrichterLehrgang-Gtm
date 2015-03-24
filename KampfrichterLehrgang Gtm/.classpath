@@ -10,6 +10,7 @@
 	<classpathentry kind="lib" path="src/src/main/libs/platform-3.5.2.jar"/>
 	<classpathentry kind="lib" path="src/src/main/libs/sqlite-jdbc-3.7.15-M1.jar"/>
 	<classpathentry kind="lib" path="src/src/main/libs/vlcj-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/VerteilteSystemeServer1/src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/VerteilteSystemeServer1"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
