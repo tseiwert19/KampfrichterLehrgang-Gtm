@@ -2,6 +2,9 @@ package src.main;
 
 import java.io.File;
 import java.rmi.Naming;
+import java.util.List;
+
+import src.main.videoplayer.Video;
 
 public class Connection {
     public static void testConnection() {
@@ -23,6 +26,16 @@ public class Connection {
     	}catch(Exception ex) {
     		ex.printStackTrace();
     	}
+    }
+    
+    public static List<Video> findVideo(String suchname){
+    	try {
+    		IServer iserver = (IServer)Naming.lookup("Server");
+    		iserver.findVideo(suchname);
+    	}catch(Exception ex) {
+    		ex.printStackTrace();
+    	}
+    	
     }
     
 }

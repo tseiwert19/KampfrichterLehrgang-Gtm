@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -21,7 +22,9 @@ import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
 import src.main.listener.ComboBoxSearchActionListener;
+import src.main.listener.HomeActionListener;
 import src.main.listener.ItemChangeListener;
+import src.main.listener.OnlineSearchActionListener;
 import src.main.listener.PDFActionListener;
 import src.main.listener.VideoButtonActionListener;
 import src.main.listener.VideoButtonMouseListener;
@@ -47,6 +50,8 @@ public class SearchResultPanel extends CenterPanel {
 	private JPanel resultPanel;
 	private JPanel mainResultPanel;
 	private String name;
+	private KariButton onlineSuchen;
+	private List<Video> video;
 
 	/**
 	 * Konstruktor
@@ -73,6 +78,27 @@ public class SearchResultPanel extends CenterPanel {
 		mainResultPanel.setLayout(new BoxLayout(mainResultPanel,
 				BoxLayout.Y_AXIS));
 		createAllPanels(videos);
+
+		add(mainResultPanel);
+	}
+	
+	public SearchResultPanel(ArrayList<Video> video) {
+		this.video = video;
+
+		setBackground(Color.WHITE);
+		setBorder(BorderFactory.createEmptyBorder());
+
+		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
+		setLayout(boxLayout);
+		// setLayout(new BorderLayout());
+
+		createComboBoxPanel();
+
+		mainResultPanel = new JPanel();
+		mainResultPanel.setBackground(Color.WHITE);
+		mainResultPanel.setLayout(new BoxLayout(mainResultPanel,
+				BoxLayout.Y_AXIS));
+		createAllPanels(video);
 
 		add(mainResultPanel);
 	}
@@ -109,9 +135,33 @@ public class SearchResultPanel extends CenterPanel {
 			createPanelWithResults(videosEinesGeraets);
 		} else {
 			createNoResults();
+			createSearchOnlineButton(name);
 		}
 		validate();
 		repaint();
+	}
+
+	private void createSearchOnlineButton(String name) {
+		onlineSuchen = new KariButton(
+				"<html><font size='8'><b>Online suchen?</b></i></font>");
+		onlineSuchen.setActionCommand(name);
+		onlineSuchen.addActionListener(new OnlineSearchActionListener());
+		onlineSuchen.setPreferredSize(new Dimension(60, 60));
+		onlineSuchen.setFocusPainted(false);
+		onlineSuchen.setBorder(BorderFactory.createEmptyBorder());
+		onlineSuchen.setOpaque(false);
+		onlineSuchen.setHorizontalAlignment(JLabel.CENTER);
+		onlineSuchen.setVerticalAlignment(JLabel.CENTER);
+		JPanel platzhalter = new JPanel();
+		JPanel platzhalter2 = new JPanel();
+
+		// Platzhalter werden benoetigt damit Label in der Mitte erscheint!
+		platzhalter.setBackground(Color.WHITE);
+		platzhalter2.setBackground(Color.WHITE);
+		mainResultPanel.add(platzhalter);
+		mainResultPanel.add(onlineSuchen);
+		mainResultPanel.add(platzhalter2);
+		
 	}
 
 	/**

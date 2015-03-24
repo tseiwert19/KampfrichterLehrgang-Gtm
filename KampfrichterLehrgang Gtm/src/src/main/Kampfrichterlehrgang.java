@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.swing.BorderFactory;
@@ -117,6 +119,13 @@ public class Kampfrichterlehrgang extends JFrame {
 	public void changeToSearchResult(String search) {
 		System.out.println("Start creating SearchResultPanel: " + search);
 		searchResultPanel = new SearchResultPanel(search);
+		Controller.setSearchResultPanel(searchResultPanel);
+		changeCenterPanelForward(searchResultPanel);
+	}
+	
+	public void changeToSearchResult(ArrayList<Video> videos) {
+		System.out.println("Start creating SearchResultPanel: " + videos);
+		searchResultPanel = new SearchResultPanel(videos);
 		Controller.setSearchResultPanel(searchResultPanel);
 		changeCenterPanelForward(searchResultPanel);
 	}
