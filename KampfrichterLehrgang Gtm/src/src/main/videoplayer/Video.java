@@ -1,9 +1,9 @@
 package src.main.videoplayer;
 
-import java.net.URL;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.io.File;
+import java.io.Serializable;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * Klasse Video
@@ -12,8 +12,12 @@ import java.io.File;
  * @author michael
  *
  */
-public class Video {
+public class Video implements Serializable{
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9198271636225073247L;
 	private int id;
 	private String name;
 	private String pfad;
@@ -21,6 +25,7 @@ public class Video {
 	private String beschreibung;
 	private String schwierigkeitsgrad;
 	private String elementgruppe;
+	private byte[] videoDatei;
 	private int ampel;
 
 	private static final String videoLocationPrefix="/";
@@ -29,13 +34,24 @@ public class Video {
 		//System.err.println("Video [id=" + id + ", name=" + name + ", pfad=" + pfad + ", beschreibung=" + beschreibung + ", schwierigkeitsgrad=" + schwierigkeitsgrad + ", elementgruppe=" + elementgruppe + "]");
 		this.id = id;
 		this.name = name;
-		this.pfad = detectAbsolutePath(pfad);
+		//this.pfad = detectAbsolutePath(pfad);
+		this.pfad = pfad;
 		this.geraet = geraet;
 		this.beschreibung = beschreibung;
 		this.schwierigkeitsgrad = schwierigkeitsgrad;
 		this.elementgruppe = elementgruppe;
+		this.ampel = 0;
+		this.videoDatei = null;
 	}
-
+	public Video (int id, String name, String pfad, String geraet, String beschreibung, String schwierigkeitsgrad, String elementgruppe, int ampel){
+		this(id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe);
+		this.ampel = ampel;
+	}
+	public Video (int id, String name, String pfad, String geraet, String beschreibung, String schwierigkeitsgrad, String elementgruppe, int ampel, byte[] videoDatei){
+		this(id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel);
+		this.videoDatei = videoDatei;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -43,7 +59,13 @@ public class Video {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	public byte[] getVideoDatei() {
+		return videoDatei;
+	}
+	public void setVideoDatei(byte[] videoDatei) {
+		this.videoDatei = videoDatei;
+	}
 	public int getAmpel() {
 		return ampel;
 	}
