@@ -2,6 +2,7 @@ package src.main;
 
 import javax.swing.JScrollPane;
 
+import server.Video;
 import src.main.components.KariButton;
 import src.main.components.SucheTextfeld;
 import src.main.listener.WelcomeActionListener;

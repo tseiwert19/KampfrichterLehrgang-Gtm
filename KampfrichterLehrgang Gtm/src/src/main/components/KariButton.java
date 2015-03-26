@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
-import src.main.videoplayer.Video;
+import server.Video;
 
 public class KariButton extends JButton implements MouseListener{
 

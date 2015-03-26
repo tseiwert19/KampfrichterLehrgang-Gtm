@@ -31,13 +31,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import server.Video;
 import src.main.Controller;
 import src.main.DatenbankController;
 import src.main.components.KariButton;
 import src.main.listener.TestModeActionListener;
 import src.main.listener.VideoButtonActionListener;
 import src.main.videoplayer.MediaPlayer;
-import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
 /**

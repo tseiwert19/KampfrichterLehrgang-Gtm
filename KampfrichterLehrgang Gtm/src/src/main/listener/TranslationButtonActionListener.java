@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTable;
 
+import server.Video;
 import src.main.Controller;
 import src.main.DatenbankController;
 import src.main.components.KariButton;
 import src.main.panel.TranslationOverview;
-import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
 public class TranslationButtonActionListener implements ActionListener{

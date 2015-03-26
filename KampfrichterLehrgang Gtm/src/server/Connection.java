@@ -1,17 +1,16 @@
-package src.main;
+package server;
+
 
 import java.io.File;
 import java.rmi.Naming;
 import java.util.List;
 
-import src.main.videoplayer.Video;
+import server.IServer;
 
 public class Connection {
     public static void testConnection() {
           try {
             IServer iserver = (IServer)Naming.lookup("Server");
-            String result = iserver.insert("test");
-            System.out.println(result);
           } catch(Exception ex) {
             ex.printStackTrace();
           }
@@ -19,7 +18,7 @@ public class Connection {
     
     public static void sendVideoToServer(String name, int ampel, String geraet,
 			String beschreibung, String schwierigkeitsgrad,
-			String elementgruppe, File video, String sprache) {
+			String elementgruppe, byte[] video, String sprache) {
     	try {
     		IServer iserver = (IServer)Naming.lookup("Server");
     		iserver.insertNewVideo(name, ampel, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, video, sprache);
@@ -29,13 +28,23 @@ public class Connection {
     }
     
     public static List<Video> findVideo(String suchname){
+    	List<Video> videos = null;
     	try {
     		IServer iserver = (IServer)Naming.lookup("Server");
-    		iserver.findVideo(suchname, true);
+    		videos = iserver.findVideo(suchname, true);
     	}catch(Exception ex) {
     		ex.printStackTrace();
     	}
     	
+    	return videos;
+    	
+    	
+    	
     }
     
+//    public static newTranslation(String neueBezeichnung, String sprache, boolean insertOnOtherServers)
+//    try {
+//		IServer iserver = (IServer)Naming.lookup("Server");
+//    iserver.insertNewTranslation(int id, String neueBezeichnung, String sprache, boolean insertOnOtherServers)
+//    
 }

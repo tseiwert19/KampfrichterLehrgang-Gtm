@@ -1,5 +1,6 @@
 package src.main.videoplayer;
 
+import server.Video;
 import src.main.*;
 
 import java.sql.ResultSet;

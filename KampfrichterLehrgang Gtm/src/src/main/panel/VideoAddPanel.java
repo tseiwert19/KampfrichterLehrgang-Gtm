@@ -5,7 +5,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -15,7 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JFileChooser;
 import javax.swing.border.EmptyBorder;
 
-import src.main.Connection;
+import server.Connection;
 import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
@@ -132,7 +136,8 @@ public class VideoAddPanel extends CenterPanel {
 			}
 		});
 		compPanel.add(speichernButton);
-		Connection.sendVideoToServer(videonameEingabe.getText(), 1, geraeteCb.getSelectedItem().toString() , beschreibungEingabe.getText(), schwierigkeitsgradCb.getSelectedItem().toString(), elementgruppeCb.getSelectedItem().toString(), selectedFile, "deutsch");
+		byte[] byteVideo = convertToByteVideo(selectedFile); 
+		Connection.sendVideoToServer(videonameEingabe.getText(), 1, geraeteCb.getSelectedItem().toString() , beschreibungEingabe.getText(), schwierigkeitsgradCb.getSelectedItem().toString(), elementgruppeCb.getSelectedItem().toString(), byteVideo, "deutsch");
 	}
 	
 	 /**
@@ -155,4 +160,40 @@ public class VideoAddPanel extends CenterPanel {
         elementgruppeCb.addItemListener(itemListener);
         geraeteCb.addItemListener(itemListener);
     }
+    
+    public byte[] convertToByteVideo(File video) {
+		   FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(video);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		   int fileLength = (int) video.length();
+		   byte[] byteVideo = null;
+		         
+		         ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		         byte[] buf = new byte[fileLength];
+
+		         try {
+		             for (int readNum; (readNum = fis.read(buf)) != -1;)
+		             {
+		                 bos.write(buf, 0, readNum);
+		                 //no doubt here is 0
+		                 /*Writes len bytes from the specified byte array starting at offset
+		                 off to this byte array output stream.*/
+		                 System.out.println("read " + readNum + " bytes,");
+		             }
+		         } catch (IOException ex) {
+		             System.err.println(ex.getMessage());
+		         }
+		         try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		         byteVideo = bos.toByteArray();
+		         
+		         return byteVideo;
+		   
+	}
 }

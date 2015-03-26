@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import server.Video;
+import src.main.DatenbankController;
 import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
@@ -28,7 +30,6 @@ import src.main.listener.OnlineSearchActionListener;
 import src.main.listener.PDFActionListener;
 import src.main.listener.VideoButtonActionListener;
 import src.main.listener.VideoButtonMouseListener;
-import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
 /**
@@ -99,8 +100,33 @@ public class SearchResultPanel extends CenterPanel {
 		mainResultPanel.setLayout(new BoxLayout(mainResultPanel,
 				BoxLayout.Y_AXIS));
 		createAllPanels(video);
+		writeVideoToDatabase(video);
 
 		add(mainResultPanel);
+	}
+
+	private void writeVideoToDatabase(ArrayList<Video> videos) {
+		DatenbankController db = new DatenbankController();
+		String name = null;
+		String pfad = null;
+		String geraet = null;
+		String beschreibung = null;
+		String schwierigkeitsgrad = null;
+		String elementgruppe = null;
+		Integer id = 0;
+		for(int i=0; i < video.size(); i++){
+			Video video = videos.get(i);
+			name = video.getName();
+			pfad = video.getPfad();
+		    geraet = video.getGeraet();
+		    beschreibung = video.getBeschreibung();
+		    schwierigkeitsgrad = video.getSchwierigkeitsgrad();
+		    elementgruppe = video.getElementgruppe();
+		    id = db.getNextFreeId();
+		    			
+		    db.addVideo(id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe);
+		}
+		
 	}
 
 	/**

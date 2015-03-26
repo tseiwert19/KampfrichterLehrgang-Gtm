@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import src.main.videoplayer.Video;
+import server.Video;
 
 /**
  * Diese Klasse enthaelt alle Funktionen fuer die Datenbank
@@ -342,6 +342,18 @@ public class DatenbankController
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public int getNextFreeId(){
+		int nextInt = 0;
+		String sql ="SELECT MAX(id) FROM videos";
+		try {
+			nextInt = findDatasets(sql).getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nextInt + 1 ;
 	}
 
 }

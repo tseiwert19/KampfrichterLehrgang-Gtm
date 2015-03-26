@@ -1,7 +1,7 @@
 package src.main.panel;
 
+import server.Video;
 import src.main.videoplayer.MediaPlayer;
-import src.main.videoplayer.Video;
 import src.main.Controller;
 
 import java.awt.Font;
@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;

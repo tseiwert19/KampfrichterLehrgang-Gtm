@@ -1,9 +1,11 @@
-package src.main.videoplayer;
+package server;
 
+
+import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.io.File;
 import java.io.Serializable;
-import java.net.URI;
-import java.net.URL;
 
 /**
  * Klasse Video

@@ -3,8 +3,8 @@ package src.main.listener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import server.Video;
 import src.main.components.KariButton;
-import src.main.videoplayer.Video;
 
 /**
  * MouseoverListener fuer VideoButtons.

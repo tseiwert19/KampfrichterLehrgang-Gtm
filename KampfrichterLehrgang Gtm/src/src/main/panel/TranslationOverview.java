@@ -14,10 +14,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import server.Video;
 import src.main.Controller;
 import src.main.DatenbankController;
 import src.main.listener.TranslationButtonActionListener;
-import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
 public class TranslationOverview extends CenterPanel {

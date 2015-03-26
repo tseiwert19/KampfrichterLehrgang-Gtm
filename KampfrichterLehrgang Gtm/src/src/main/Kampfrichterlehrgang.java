@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JViewport;
 
+import server.Video;
 import src.main.listener.BackActionListener;
 import src.main.listener.ForwardActionListener;
 import src.main.listener.WelcomeActionListener;
@@ -29,7 +30,6 @@ import src.main.panel.TranslationOverview;
 import src.main.panel.VideoAddPanel;
 import src.main.panel.VideoInfoPanel;
 import src.main.panel.WelcomePanel;
-import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 

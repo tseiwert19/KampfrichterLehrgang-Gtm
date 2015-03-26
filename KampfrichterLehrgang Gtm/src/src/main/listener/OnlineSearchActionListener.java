@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.Connection;
+import server.Connection;
+import server.Video;
 import src.main.Controller;
-import src.main.videoplayer.Video;
 
 public class OnlineSearchActionListener implements ActionListener{
 

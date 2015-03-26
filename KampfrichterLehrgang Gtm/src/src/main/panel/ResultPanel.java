@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import server.Video;
 import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
@@ -22,7 +23,6 @@ import src.main.listener.ItemChangeListener;
 import src.main.listener.PDFActionListener;
 import src.main.listener.VideoButtonActionListener;
 import src.main.listener.VideoButtonMouseListener;
-import src.main.videoplayer.Video;
 import src.main.videoplayer.VideoParser;
 
 /**
