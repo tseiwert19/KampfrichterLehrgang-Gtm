@@ -10,7 +10,7 @@ import server.IServer;
 public class Connection {
     public static void testConnection() {
           try {
-            IServer iserver = (IServer)Naming.lookup("Server");
+            IServer iserver = (IServer)Naming.lookup(Konstanten.SERVER_DEUTSCHLAND);
           } catch(Exception ex) {
             ex.printStackTrace();
           }
@@ -20,7 +20,7 @@ public class Connection {
 			String beschreibung, String schwierigkeitsgrad,
 			String elementgruppe, byte[] video, String sprache) {
     	try {
-    		IServer iserver = (IServer)Naming.lookup("Server");
+    		IServer iserver = (IServer)Naming.lookup(Konstanten.SERVER_DEUTSCHLAND);
     		iserver.insertNewVideo(name, ampel, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, video, sprache);
     	}catch(Exception ex) {
     		ex.printStackTrace();
@@ -30,7 +30,7 @@ public class Connection {
     public static List<Video> findVideo(String suchname){
     	List<Video> videos = null;
     	try {
-    		IServer iserver = (IServer)Naming.lookup("Server");
+    		IServer iserver = (IServer)Naming.lookup(Konstanten.SERVER_DEUTSCHLAND);
     		videos = iserver.findVideo(suchname, true);
     	}catch(Exception ex) {
     		ex.printStackTrace();
