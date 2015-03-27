@@ -118,14 +118,15 @@ public class DatenbankController
 	 *            = elementgruppe des Videos
 	 */
 	public void addVideo(int id, String name, String pfad, String geraet,
-			String beschreibung, String schwierigkeitsgrad, String elementgruppe) {
+			String beschreibung, String schwierigkeitsgrad, String elementgruppe, int ampel) {
 
 		connectToDb();
 		PreparedStatement prepStatement;
 		try {
-			prepStatement = connection
-					.prepareStatement("INSERT INTO videos VALUES ( ?, ?, ?, ?, ?, ?, ?)");
-
+			connection.setAutoCommit(false);
+			
+			String sql = "INSERT INTO videos (id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			prepStatement = connection.prepareStatement(sql);
 			prepStatement.setInt(1, id);
 			prepStatement.setString(2, name);
 			prepStatement.setString(3, pfad);
@@ -133,18 +134,65 @@ public class DatenbankController
 			prepStatement.setString(5, beschreibung);
 			prepStatement.setString(6, schwierigkeitsgrad);
 			prepStatement.setString(7, elementgruppe);
-			prepStatement.addBatch();
-
-			connection.setAutoCommit(false);
-			prepStatement.executeBatch();
-			connection.setAutoCommit(true);
+			prepStatement.setInt(8, ampel);
+			prepStatement.executeUpdate();
 
 			prepStatement.close();
+			connection.commit();
 			connection.close();
 		} catch (SQLException e) {
 			System.err.println("Fehler beim Einfügen in die Datenbank!");
 			e.printStackTrace();
 		}
+	}
+	
+	public int addVideo(String name, String pfad, String geraet,
+			String beschreibung, String schwierigkeitsgrad, String elementgruppe, int ampel) {
+		int clientId = -1;
+		connectToDb();
+		PreparedStatement prepStatement;
+		try {
+			connection.setAutoCommit(false);
+			
+			String sql = "INSERT INTO videos (id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			prepStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			prepStatement.setString(2, name);
+			prepStatement.setString(3, pfad);
+			prepStatement.setString(4, geraet);
+			prepStatement.setString(5, beschreibung);
+			prepStatement.setString(6, schwierigkeitsgrad);
+			prepStatement.setString(7, elementgruppe);
+			prepStatement.setInt(8, ampel);
+			prepStatement.executeUpdate();
+			
+			ResultSet generatedKeys = prepStatement.getGeneratedKeys();
+			generatedKeys.next();
+
+			clientId = (int) generatedKeys.getLong(1);
+			prepStatement.close();
+			connection.commit();
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Fehler beim Einfügen in die Datenbank!");
+			e.printStackTrace();
+		}
+		
+		return clientId;
+	}
+	
+	public int  findServerId(int clientId){
+		connectToDb();
+		int serverId = -1;
+		ResultSet ergebnis = findDatasets("SELECT serverID FROM idZuweisung WHERE clientID = " + clientId);
+		try {
+			serverId = ergebnis.getInt(1);
+			ergebnis.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("findServerId(): " + serverId);
+		return serverId;
 	}
 
 	/**
@@ -348,12 +396,37 @@ public class DatenbankController
 		int nextInt = 0;
 		String sql ="SELECT MAX(id) FROM videos";
 		try {
-			nextInt = findDatasets(sql).getInt(1);
+			ResultSet ergebnis = findDatasets(sql);
+			nextInt = ergebnis.getInt(1);
+			ergebnis.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return nextInt + 1 ;
+	}
+
+	public void connectIds(int serverId, int clientId) {
+		connectToDb();
+		PreparedStatement prepStatement;
+		try {
+			connection.setAutoCommit(false);
+			
+			String sql = "INSERT INTO idZuweisung (clientID, serverID) VALUES (?, ?)";
+			prepStatement = connection.prepareStatement(sql);
+			prepStatement.setInt(1, clientId);
+			prepStatement.setInt(2, serverId);
+
+			prepStatement.executeUpdate();
+
+			prepStatement.close();
+			connection.commit();
+			connection.close();
+		} catch (SQLException e) {
+			System.err.println("Fehler beim Einfügen in die Datenbank!");
+			e.printStackTrace();
+		}
+		
 	}
 
 }

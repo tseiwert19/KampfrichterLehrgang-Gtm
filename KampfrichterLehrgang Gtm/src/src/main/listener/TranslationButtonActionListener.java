@@ -2,6 +2,7 @@ package src.main.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.JTable;
 
@@ -29,6 +30,8 @@ public class TranslationButtonActionListener implements ActionListener{
 		video.setAmpel(0);
 		video.setName(translation);
 		dbController.updateEntry(video);
+		int serverId = dbController.findServerId(id);
+		server.Connection.newTranslation(serverId, translation);
 		//Test
 		Video video2 = parser.mappeEinVideo(id);
 		System.out.println(video2);

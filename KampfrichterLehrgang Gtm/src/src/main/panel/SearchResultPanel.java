@@ -113,8 +113,10 @@ public class SearchResultPanel extends CenterPanel {
 		String beschreibung = null;
 		String schwierigkeitsgrad = null;
 		String elementgruppe = null;
-		Integer id = 0;
-		for(int i=0; i < video.size(); i++){
+		int clientId = 999;
+		int serverId = 0;
+		int ampel = 0;
+		for(int i=0; i < videos.size(); i++){
 			Video video = videos.get(i);
 			name = video.getName();
 			pfad = video.getPfad();
@@ -122,9 +124,12 @@ public class SearchResultPanel extends CenterPanel {
 		    beschreibung = video.getBeschreibung();
 		    schwierigkeitsgrad = video.getSchwierigkeitsgrad();
 		    elementgruppe = video.getElementgruppe();
-		    id = db.getNextFreeId();
-		    			
-		    db.addVideo(id, name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe);
+		    clientId = db.getNextFreeId();
+		    ampel = video.getAmpel();
+		    serverId = video.getId(); 			
+		    clientId = db.addVideo(name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel);
+		    db.connectIds(serverId, clientId);
+		    System.out.println("ClientID: " + clientId + " ServerId: " + serverId);
 		}
 		
 	}

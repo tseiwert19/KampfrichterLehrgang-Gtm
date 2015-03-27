@@ -27,7 +27,7 @@ public class TranslationOverview extends CenterPanel {
 	private static final long serialVersionUID = 2879746137707156229L;
 	private static final short GREEN = 0;
 	private static final short YELLOW= 1;
-	private static final short RED = 1;
+	private static final short RED = 2;
 	private JTable ergebnisTabelle;
 	private JPanel tabellePanel;
 	private DefaultTableModel model;
@@ -79,6 +79,7 @@ public class TranslationOverview extends CenterPanel {
 	private void fuelleTabelle(){
 		VideoParser parser = new VideoParser();
 		ArrayList<Video> videos = parser.mappeVideosVonAmpel(YELLOW);
+		videos.addAll(parser.mappeVideosVonAmpel(RED));
 		for(Video current : videos){
 			addTabelleZeile(current.getName(), current);
 		}

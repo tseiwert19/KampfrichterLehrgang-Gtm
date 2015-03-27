@@ -129,6 +129,7 @@ public class VideoAddPanel extends CenterPanel {
 					fehler.setText("Mindestens eine Eingabe nicht richtig!");
 					return;
 				}
+				Connection.sendVideoToServer(videonameEingabe.getText(), 1, geraeteCb.getSelectedItem().toString() , beschreibungEingabe.getText(), schwierigkeitsgradCb.getSelectedItem().toString(), elementgruppeCb.getSelectedItem().toString(), null, "deutsch");
 				fehler.setText(ausgewaehltesVideo + "  "
 						+ videonameEingabe.getText() + "  "
 						+ elementgruppeCb.getSelectedItem() + "  "
@@ -136,8 +137,8 @@ public class VideoAddPanel extends CenterPanel {
 			}
 		});
 		compPanel.add(speichernButton);
-		byte[] byteVideo = convertToByteVideo(selectedFile); 
-		Connection.sendVideoToServer(videonameEingabe.getText(), 1, geraeteCb.getSelectedItem().toString() , beschreibungEingabe.getText(), schwierigkeitsgradCb.getSelectedItem().toString(), elementgruppeCb.getSelectedItem().toString(), byteVideo, "deutsch");
+		//byte[] byteVideo = convertToByteVideo(selectedFile); 
+		
 	}
 	
 	 /**
