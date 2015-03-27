@@ -25,7 +25,7 @@ public class DatenbankController
 	// Pfad zur Datenbank
 	// http://stackoverflow.com/questions/3209901/absolute-path-of-projects-folder-in-java
 	// http://stackoverflow.com/questions/14739550/difference-between-getclass-getclassloader-getresource-and-getclass-getres
-	private static final String DB_PATH = "/src/main/videoDb";
+	private static final String DB_PATH = "videoDb";
 
 	/**
 	 * Konstruktor Stellt die Verbindung zur Datenbank her und erstellt die
@@ -34,6 +34,7 @@ public class DatenbankController
 	public DatenbankController() {
 		connectToDb();
 		createTable();
+		createIdTable();
 	}
 
 	public long ermittleAnzahlVideosInDatenbank() {
@@ -50,29 +51,23 @@ public class DatenbankController
 		}
 		return anzahlVideos;
 	}
-
+	public static void main(String[] args){
+		DatenbankController db = new DatenbankController();
+	}
 	/**
 	 * Stellt eine Verbindung zur Datenbank her
 	 */
 	private void connectToDb() {
-		String urlOfDatabaseFile = "";
-		System.out.println("DatenbankController.java : " + DB_PATH);
 		try {
-			urlOfDatabaseFile = getClass().getResource(DB_PATH).toString();
-		} catch (NullPointerException e) {
-			System.err.println("Datenbank-Datei " + DB_PATH
-					+ " nicht gefunden!");
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite::resource:"
-					+ urlOfDatabaseFile);
-		} catch (ClassNotFoundException e) {
-			System.err.println("Fehler beim Laden des JDBC-Treibers");
-			e.printStackTrace();
+			connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
 		} catch (SQLException e) {
-			System.err.println("Fehler bei Verbindung zur Datenbank!");
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -87,13 +82,26 @@ public class DatenbankController
 		try {
 			Statement statement = connection.createStatement();
 			statement
-					.executeUpdate("CREATE TABLE IF NOT EXISTS videos (id INT PRIMARY KEY, "
+					.executeUpdate("CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY AUTOINCREMENT, "
 							+ "name VARCHAR(50) NOT NULL,"
 							+ "pfad VARCHAR(50) NOT NULL, "
 							+ "geraet VARCHAR(20) NOT NULL, "
 							+ "beschreibung VARCHAR(200), "
 							+ "schwierigkeitsgrad VARCHAR(10),"
-							+ "elementgruppe VARCHAR(5));");
+							+ "elementgruppe VARCHAR(5), ampel INTEGER);");
+			statement.close();
+		} catch (SQLException e) {
+			System.err.println("Fehler beim Erstellen der Datenbank!");
+			e.printStackTrace();
+		}
+	}
+	
+	private void createIdTable(){
+		connectToDb();
+		try {
+			Statement statement = connection.createStatement();
+			statement
+					.executeUpdate("CREATE TABLE IF NOT EXISTS idZuweisung(clientID INTEGER PRIMARY KEY, serverID INTEGER);");
 			statement.close();
 		} catch (SQLException e) {
 			System.err.println("Fehler beim Erstellen der Datenbank!");
