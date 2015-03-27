@@ -124,7 +124,6 @@ public class SearchResultPanel extends CenterPanel {
 		    beschreibung = video.getBeschreibung();
 		    schwierigkeitsgrad = video.getSchwierigkeitsgrad();
 		    elementgruppe = video.getElementgruppe();
-		    clientId = db.getNextFreeId();
 		    ampel = video.getAmpel();
 		    serverId = video.getId(); 			
 		    clientId = db.addVideo(name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel);

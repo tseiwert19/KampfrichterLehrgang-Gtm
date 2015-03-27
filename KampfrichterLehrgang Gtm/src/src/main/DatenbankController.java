@@ -392,19 +392,6 @@ public class DatenbankController
 		
 	}
 	
-	public int getNextFreeId(){
-		int nextInt = 0;
-		String sql ="SELECT MAX(id) FROM videos";
-		try {
-			ResultSet ergebnis = findDatasets(sql);
-			nextInt = ergebnis.getInt(1);
-			ergebnis.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return nextInt + 1 ;
-	}
 
 	public void connectIds(int serverId, int clientId) {
 		connectToDb();

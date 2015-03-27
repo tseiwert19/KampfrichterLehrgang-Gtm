@@ -42,10 +42,10 @@ public class Connection {
     	
     }
     
-    public static void newTranslation(int id, String neueBezeichnung){
+    public static void newTranslation(int id, String neueBezeichnung, int ampel){
 	    try {
 			IServer iserver = (IServer)Naming.lookup(Konstanten.SERVER_DEUTSCHLAND);
-			iserver.insertNewTranslation(id, neueBezeichnung, "deutsch", true);
+			iserver.insertNewTranslation(id, neueBezeichnung, ampel, Konstanten.LANGUAGE_GERMAN, true);
 	    }catch(Exception ex) {
 			ex.printStackTrace();
 		}

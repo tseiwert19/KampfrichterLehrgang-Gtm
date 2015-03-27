@@ -20,6 +20,7 @@ public class TranslationButtonActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		KariButton button = (KariButton) e.getSource();
 		int row = Integer.valueOf(button.getName());
+		String buttonText = button.getText();
 		TranslationOverview panel = Controller.getTranslationOverview();
 		JTable table = panel.getTabelle();
 		String translation = (String) table.getModel().getValueAt(row, TRANSLATION_COLUMN);
@@ -27,11 +28,17 @@ public class TranslationButtonActionListener implements ActionListener{
 		DatenbankController dbController = new DatenbankController();
 		VideoParser parser = new VideoParser();
 		Video video = parser.mappeEinVideo(id);
-		video.setAmpel(0);
+		if(buttonText.equals("Neue Übersetzung übernehmen")){
+			video.setAmpel(1);
+		}else{
+			video.setAmpel(0);
+			translation = (String) table.getModel().getValueAt(row, TRANSLATION_COLUMN - 1);
+		}
+		
 		video.setName(translation);
 		dbController.updateEntry(video);
 		int serverId = dbController.findServerId(id);
-		server.Connection.newTranslation(serverId, translation);
+		server.Connection.newTranslation(serverId, translation, video.getAmpel());
 		//Test
 		Video video2 = parser.mappeEinVideo(id);
 		System.out.println(video2);

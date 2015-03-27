@@ -40,7 +40,7 @@ public class TranslationOverview extends CenterPanel {
 		erstelleTabelle();
 	}
 	private void erstelleTabelle(){
-		String[] spaltenNamen = {"ID", "Aktuelle Übersetzung","Neue Übesetzung", "Aktion"};
+		String[] spaltenNamen = {"ID", "Aktuelle Übersetzung","Neue Übesetzung", "Aktion", "Validierung"};
 		model = new DefaultTableModel(spaltenNamen, 0);
 		ergebnisTabelle = new JTable(model);
 		ergebnisTabelle.setRowHeight(30);
@@ -52,6 +52,10 @@ public class TranslationOverview extends CenterPanel {
 				.setCellRenderer(new ButtonRenderer("Neue Übersetzung übernehmen"));
 		ergebnisTabelle.getColumnModel().getColumn(3)
 				.setCellEditor(new ButtonEditor(new JCheckBox(), "Neue Übersetzung übernehmen", new TranslationButtonActionListener()));
+		ergebnisTabelle.getColumnModel().getColumn(4)
+		.setCellRenderer(new ButtonRenderer("Übersetzung ok"));
+ergebnisTabelle.getColumnModel().getColumn(4)
+		.setCellEditor(new ButtonEditor(new JCheckBox(), "Übersetzung ok", new TranslationButtonActionListener()));
 		scroll.setPreferredSize(new Dimension(1000, 700));
 		tabellePanel.add(scroll);
 		fuelleTabelle();
