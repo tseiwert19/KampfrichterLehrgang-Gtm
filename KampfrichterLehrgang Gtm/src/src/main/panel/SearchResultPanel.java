@@ -100,40 +100,12 @@ public class SearchResultPanel extends CenterPanel {
 		mainResultPanel.setLayout(new BoxLayout(mainResultPanel,
 				BoxLayout.Y_AXIS));
 		createAllPanels(video);
-		writeVideoToDatabase(video);
+		//writeVideoToDatabase(video);
 
 		add(mainResultPanel);
 	}
 
-	private void writeVideoToDatabase(ArrayList<Video> videos) {
-		DatenbankController db = new DatenbankController();
-		String name = null;
-		String pfad = null;
-		String geraet = null;
-		String beschreibung = null;
-		String schwierigkeitsgrad = null;
-		String elementgruppe = null;
-		int clientId = 999;
-		int serverId = 0;
-		int ampel = 0;
-		for(int i=0; i < videos.size(); i++){
-			Video video = videos.get(i);
-			
-			name = video.getName();
-			pfad = video.getPfad();
-		    geraet = video.getGeraet();
-		    beschreibung = video.getBeschreibung();
-		    schwierigkeitsgrad = video.getSchwierigkeitsgrad();
-		    elementgruppe = video.getElementgruppe();
-		    ampel = video.getAmpel();
-		    video.createVideoFile();
-		    serverId = video.getId(); 			
-		    clientId = db.addVideo(name, video.getPfad(), geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel);
-		    db.connectIds(serverId, clientId);
-		    System.out.println("ClientID: " + clientId + " ServerId: " + serverId);
-		}
-		
-	}
+	
 
 	/**
 	 * Parst die Datensaetze aus der Datenbank und erstellt alle benoetigten
