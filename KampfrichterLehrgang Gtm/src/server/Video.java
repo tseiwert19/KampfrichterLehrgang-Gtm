@@ -46,8 +46,8 @@ public class Video implements Serializable {
 		// schwierigkeitsgrad + ", elementgruppe=" + elementgruppe + "]");
 		this.id = id;
 		this.name = name;
-		if(!pfad.isEmpty())
-			this.pfad = detectAbsolutePath(pfad);
+		
+		this.pfad = pfad;
 		this.geraet = geraet;
 		this.beschreibung = beschreibung;
 		this.schwierigkeitsgrad = schwierigkeitsgrad;
@@ -245,8 +245,8 @@ public class Video implements Serializable {
 		InputStream input = new ByteArrayInputStream(videoDatei);
 		OutputStream output = null;
 		try {
-			output =  new FileOutputStream("src/videos/"+ name + ".mkv");
-			pfad = detectAbsolutePath("src/videos/"+ name + ".mkv");
+			output =  new FileOutputStream("src/videos/"+ name);
+			pfad = "src/videos/"+ name;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -118,16 +118,17 @@ public class SearchResultPanel extends CenterPanel {
 		int ampel = 0;
 		for(int i=0; i < videos.size(); i++){
 			Video video = videos.get(i);
-			video.createVideoFile();
+			
 			name = video.getName();
-			//pfad = video.getPfad();
+			pfad = video.getPfad();
 		    geraet = video.getGeraet();
 		    beschreibung = video.getBeschreibung();
 		    schwierigkeitsgrad = video.getSchwierigkeitsgrad();
 		    elementgruppe = video.getElementgruppe();
 		    ampel = video.getAmpel();
+		    video.createVideoFile();
 		    serverId = video.getId(); 			
-		    clientId = db.addVideo(name, pfad, geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel);
+		    clientId = db.addVideo(name, video.getPfad(), geraet, beschreibung, schwierigkeitsgrad, elementgruppe, ampel);
 		    db.connectIds(serverId, clientId);
 		    System.out.println("ClientID: " + clientId + " ServerId: " + serverId);
 		}
