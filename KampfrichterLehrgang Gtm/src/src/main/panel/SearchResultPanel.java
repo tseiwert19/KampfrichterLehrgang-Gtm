@@ -118,8 +118,9 @@ public class SearchResultPanel extends CenterPanel {
 		int ampel = 0;
 		for(int i=0; i < videos.size(); i++){
 			Video video = videos.get(i);
+			video.createVideoFile();
 			name = video.getName();
-			pfad = video.getPfad();
+			//pfad = video.getPfad();
 		    geraet = video.getGeraet();
 		    beschreibung = video.getBeschreibung();
 		    schwierigkeitsgrad = video.getSchwierigkeitsgrad();

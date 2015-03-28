@@ -20,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.border.EmptyBorder;
 
 import server.Connection;
+import server.Video;
 import src.main.components.KariButton;
 import src.main.components.RoundCorneredComboBox;
 import src.main.listener.ComboBoxActionListener;
@@ -129,7 +130,8 @@ public class VideoAddPanel extends CenterPanel {
 					fehler.setText("Mindestens eine Eingabe nicht richtig!");
 					return;
 				}
-				Connection.sendVideoToServer(videonameEingabe.getText(), 1, geraeteCb.getSelectedItem().toString() , beschreibungEingabe.getText(), schwierigkeitsgradCb.getSelectedItem().toString(), elementgruppeCb.getSelectedItem().toString(), null, "deutsch");
+				
+				Connection.sendVideoToServer(videonameEingabe.getText(), 1, geraeteCb.getSelectedItem().toString() , beschreibungEingabe.getText(), schwierigkeitsgradCb.getSelectedItem().toString(), elementgruppeCb.getSelectedItem().toString(), Video.convertVideoToBytes(selectedFile.getPath()), "deutsch");
 				fehler.setText(ausgewaehltesVideo + "  "
 						+ videonameEingabe.getText() + "  "
 						+ elementgruppeCb.getSelectedItem() + "  "
